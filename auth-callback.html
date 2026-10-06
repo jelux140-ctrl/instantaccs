@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>/*creed-start-at-top*/(function(){try{var n=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||null;var t=n&&n.type?n.type:'navigate';if(t==='navigate'&&!location.hash&&'scrollRestoration' in history){history.scrollRestoration='manual';window.scrollTo(0,0);}}catch(e){}})();</script>
+
+    <link rel="icon" type="image/png" href="/assets/creedlogo-black.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Signing in…</title>
+    <style>
+        body { margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            background: #050505; color: #a3a3a3; font-family: system-ui, sans-serif; }
+        p { margin: 0; font-size: 0.95rem; }
+    </style>
+</head>
+<body>
+    <p id="msg">Completing sign-in…</p>
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.1/+esm';
+
+        const msg = document.getElementById('msg');
+        const next = '/vouches';
+
+        try {
+            const res = await fetch('/api/supabase-public');
+            if (!res.ok) throw new Error('Config');
+            const { url, anonKey } = await res.json();
+            if (!url || !anonKey) throw new Error('Config');
+
+            const supabase = createClient(url, anonKey, {
+                auth: {
+                    flowType: 'pkce',
+                    detectSessionInUrl: true,
+                    persistSession: true,
+                },
+            });
+
+            const { error } = await supabase.auth.getSession();
+            if (error) console.warn(error);
+
+            window.location.replace(next);
+        } catch (e) {
+            console.error(e);
+            msg.textContent = 'Something went wrong. Redirecting…';
+            window.location.replace(next);
+        }
+    </script>
+</body>
+</html>

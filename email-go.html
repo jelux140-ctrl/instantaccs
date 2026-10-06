@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creed</title>
+  <script src="/script.js?v=abandoned-utm"></script>
+</head>
+<body style="margin:0;background:#050505;color:#888;font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;padding:48px 20px;text-align:center;">
+  Taking you through…
+  <script>
+    (function () {
+      function allowed(href) {
+        try {
+          var u = new URL(href, location.origin);
+          var host = u.hostname.toLowerCase();
+          return (
+            host === 'checkout.stripe.com' ||
+            host === 'www.creedv2.com' ||
+            host === 'creedv2.com' ||
+            host === 'portal.creedv2.com' ||
+            host === 'localhost' ||
+            host === '127.0.0.1' ||
+            host === 'discord.gg' ||
+            host === 'discord.com'
+          );
+        } catch (e) {
+          return false;
+        }
+      }
+
+      var params = new URLSearchParams(location.search);
+      var next = params.get('next');
+      var token = params.get('t');
+      var fallback = '/products?utm_medium=email&utm_source=creed&utm_campaign=' +
+        encodeURIComponent(params.get('utm_campaign') || 'abandoned-checkout');
+      var dest = next && allowed(next) ? next : fallback;
+      var discount = params.get('discount');
+      if (discount) {
+        try {
+          var destUrl = new URL(dest, location.origin);
+          if (!destUrl.searchParams.get('discount')) destUrl.searchParams.set('discount', discount);
+          dest = destUrl.toString();
+        } catch (e) { /* keep dest */ }
+      }
+      if (token) {
+        try {
+          fetch('/api/email-click?t=' + encodeURIComponent(token) +
+            '&c=' + encodeURIComponent(params.get('utm_content') || 'link'), {
+            method: 'POST',
+            keepalive: true,
+          });
+        } catch (e) { /* never block the hop */ }
+      }
+      setTimeout(function () {
+        location.replace(dest);
+      }, 900);
+    })();
+  </script>
+</body>
+</html>

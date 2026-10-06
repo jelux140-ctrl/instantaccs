@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>/*creed-start-at-top*/(function(){try{var n=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||null;var t=n&&n.type?n.type:'navigate';if(t==='navigate'&&!location.hash&&'scrollRestoration' in history){history.scrollRestoration='manual';window.scrollTo(0,0);}}catch(e){}})();</script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EJDCSEKBRW"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-EJDCSEKBRW');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Honeycomb Cursor Effect</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none; /* Hide default cursor */
+        }
+
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Canvas Background */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        /* Custom Cursor */
+        #cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 100001;
+        }
+
+        #cursor-blur {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 184, 0, 0.3);
+            box-shadow: 0 0 20px rgba(255, 184, 0, 0.4);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 100000;
+            transition: width 0.2s, height 0.2s;
+        }
+
+        body:hover #cursor-blur {
+            opacity: 1;
+        }
+
+        /* Cursor Expansion on Hover */
+        a:hover ~ #cursor-blur,
+        button:hover ~ #cursor-blur {
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 184, 0, 0.15);
+        }
+
+        /* Demo Content */
+        .demo-content {
+            padding: 100px 20px;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: #a3a3a3;
+            max-width: 600px;
+        }
+
+        a, button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: rgba(255, 184, 0, 0.1);
+            border: 1px solid rgba(255, 184, 0, 0.3);
+            border-radius: 50px;
+            color: #FFB800;
+            text-decoration: none;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+
+        a:hover, button:hover {
+            background: rgba(255, 184, 0, 0.2);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Canvas for Honeycomb Grid -->
+    <canvas id="bg-canvas"></canvas>
+    
+    <!-- Custom Cursor Elements -->
+    <div id="cursor"></div>
+    <div id="cursor-blur"></div>
+
+    <!-- Demo Content -->
+    <div class="demo-content">
+        <h1>Honeycomb Cursor Effect</h1>
+        <p>Move your mouse around to see the honeycomb grid light up!</p>
+        <div>
+            <a href="#">Hover Me</a>
+            <button>Button</button>
+        </div>
+    </div>
+
+    <script>
+        // =========================================
+        // HONEYCOMB CURSOR EFFECT
+        // =========================================
+
+        // --- 1. Custom Cursor Logic ---
+        const cursor = document.getElementById('cursor');
+        const cursorBlur = document.getElementById('cursor-blur');
+
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+        let blurX = 0, blurY = 0;
+
+        // Check if cursor elements exist to avoid errors
+        if (cursor && cursorBlur) {
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+
+                // Immediate update for dot
+                cursor.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
+            });
+
+            // Smooth follow for blur
+            function animateCursor() {
+                const speed = 0.15;
+                blurX += (mouseX - blurX) * speed;
+                blurY += (mouseY - blurY) * speed;
+
+                cursorBlur.style.transform = `translate(${blurX}px, ${blurY}px) translate(-50%, -50%)`;
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+        }
+
+        // --- 2. Hexagon Grid Background (Honeycomb) ---
+        const canvas = document.getElementById('bg-canvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            let hexs = [];
+            const hexSize = 30;
+
+            function resize() {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+                initHexGrid();
+            }
+            window.addEventListener('resize', resize);
+
+            class Hex {
+                constructor(x, y) {
+                    this.x = x;
+                    this.y = y;
+                    this.opacity = 0;
+                    this.targetOpacity = 0;
+                }
+
+                draw() {
+                    ctx.beginPath();
+                    for (let i = 0; i < 6; i++) {
+                        const angle = 2 * Math.PI / 6 * i;
+                        const x_i = this.x + hexSize * Math.cos(angle);
+                        const y_i = this.y + hexSize * Math.sin(angle);
+                        if (i === 0) ctx.moveTo(x_i, y_i);
+                        else ctx.lineTo(x_i, y_i);
+                    }
+                    ctx.closePath();
+                    ctx.strokeStyle = `rgba(255, 107, 53, ${this.opacity})`;
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+
+                    // Inner glow
+                    if (this.opacity > 0.1) {
+                        ctx.fillStyle = `rgba(255, 107, 53, ${this.opacity * 0.1})`;
+                        ctx.fill();
+                    }
+                }
+
+                update() {
+                    // Distance from mouse
+                    const dx = mouseX - this.x;
+                    const dy = mouseY - this.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    // Light up if close
+                    if (dist < 150) {
+                        this.targetOpacity = 1 - (dist / 150);
+                    } else {
+                        this.targetOpacity = 0;
+                    }
+
+                    // Smooth transition
+                    this.opacity += (this.targetOpacity - this.opacity) * 0.1;
+
+                    // Keep a tiny bit visible always for texture
+                    if (this.opacity < 0.05) this.opacity = 0.05;
+
+                    this.draw();
+                }
+            }
+
+            function initHexGrid() {
+                hexs = [];
+                const rowHeight = hexSize * 1.5; // Vertical distance between rows
+                const colWidth = hexSize * Math.sqrt(3); // Horizontal distance
+
+                const rows = Math.ceil(height / rowHeight) + 1;
+                const cols = Math.ceil(width / colWidth) + 1;
+
+                for (let r = 0; r < rows; r++) {
+                    for (let c = 0; c < cols; c++) {
+                        let x = c * colWidth;
+                        let y = r * rowHeight;
+
+                        // Offset every other row (honeycomb pattern)
+                        if (r % 2 === 1) {
+                            x += colWidth / 2;
+                        }
+
+                        hexs.push(new Hex(x, y));
+                    }
+                }
+            }
+
+            function animateGrid() {
+                ctx.clearRect(0, 0, width, height);
+                hexs.forEach(hex => hex.update());
+                requestAnimationFrame(animateGrid);
+            }
+
+            // Initialize Canvas
+            resize();
+            animateGrid();
+        }
+    </script>
+</body>
+</html>

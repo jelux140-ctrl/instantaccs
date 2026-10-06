@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <script>/*creed-start-at-top*/(function(){try{var n=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||null;var t=n&&n.type?n.type:'navigate';if(t==='navigate'&&!location.hash&&'scrollRestoration' in history){history.scrollRestoration='manual';window.scrollTo(0,0);}}catch(e){}})();</script>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Creed Account</title>
+  <link rel="icon" type="image/png" href="/assets/creedlogo-black.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="/account.css">
+  <link rel="stylesheet" href="/account-wallet.css">
+  <link rel="stylesheet" href="/account-wallet-polish.css">
+</head>
+<body>
+  <div class="account-shell">
+    <section class="brand-pane" aria-label="Creed account benefits">
+      <a class="brand-logo" href="/" aria-label="Back to Creed home"><img src="/assets/navlogo.png" alt="Creed"></a>
+      <div class="brand-copy">
+        <span class="eyebrow">Creed account</span>
+        <h1>Your balance.<br><em>Your advantage.</em></h1>
+        <p>Create an account for credits and faster purchases. Product delivery, downloads, and support stay in the separate order portal.</p>
+        <div class="benefit-list">
+          <div><i class="fas fa-wallet"></i><span><strong>Store credits</strong><small>Fund your balance and use it when you choose.</small></span></div>
+          <div><i class="fas fa-bolt"></i><span><strong>Faster checkout</strong><small>Use available credits without removing guest checkout.</small></span></div>
+          <div><i class="fas fa-shield-halved"></i><span><strong>Secure by default</strong><small>Verified email and protected account sessions.</small></span></div>
+        </div>
+      </div>
+      <p class="portal-note">Already purchased? <a href="https://portal.creedv2.com/">Open the order portal <i class="fas fa-arrow-up-right-from-square"></i></a></p>
+    </section>
+
+    <main class="auth-pane">
+      <a class="back-link" href="/"><i class="fas fa-arrow-left"></i> Back to store</a>
+      <div class="auth-wrap">
+        <div id="auth-view">
+          <div class="auth-heading">
+            <span class="mobile-mark"><img src="/assets/creedlogo.png" alt=""></span>
+            <h2 id="auth-title">Welcome back</h2>
+            <p id="auth-subtitle">Sign in to your Creed account.</p>
+          </div>
+
+          <div class="auth-tabs" role="tablist" aria-label="Account authentication">
+            <button type="button" class="auth-tab active" id="tab-signin" role="tab" aria-selected="true">Sign in</button>
+            <button type="button" class="auth-tab" id="tab-signup" role="tab" aria-selected="false">Create account</button>
+          </div>
+
+          <form id="signin-form" class="auth-form" novalidate>
+            <div class="field"><label for="signin-email">Email address</label><div class="input-wrap"><i class="fas fa-envelope"></i><input id="signin-email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required></div><span class="field-error" id="signin-email-error"></span></div>
+            <div class="field"><div class="label-row"><label for="signin-password">Password</label><button type="button" id="forgot-password" class="text-button">Forgot password?</button></div><div class="input-wrap"><i class="fas fa-lock"></i><input id="signin-password" type="password" autocomplete="current-password" placeholder="Your password" required><button type="button" class="password-toggle" data-target="signin-password" aria-label="Show password"><i class="fas fa-eye"></i></button></div><span class="field-error" id="signin-password-error"></span></div>
+            <button class="primary-button" id="signin-button" type="submit"><span>Sign in</span><i class="fas fa-arrow-right"></i></button>
+          </form>
+
+          <form id="signup-form" class="auth-form hidden" novalidate>
+            <div class="field"><label for="signup-email">Email address</label><div class="input-wrap"><i class="fas fa-envelope"></i><input id="signup-email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required></div><span class="field-error" id="signup-email-error"></span></div>
+            <div class="field"><label for="signup-password">Password</label><div class="input-wrap"><i class="fas fa-lock"></i><input id="signup-password" type="password" autocomplete="new-password" placeholder="8+ characters" required><button type="button" class="password-toggle" data-target="signup-password" aria-label="Show password"><i class="fas fa-eye"></i></button></div><small>At least 8 characters with a letter and number.</small><span class="field-error" id="signup-password-error"></span></div>
+            <div class="field"><label for="signup-confirm">Confirm password</label><div class="input-wrap"><i class="fas fa-lock"></i><input id="signup-confirm" type="password" autocomplete="new-password" placeholder="Repeat password" required><button type="button" class="password-toggle" data-target="signup-confirm" aria-label="Show password"><i class="fas fa-eye"></i></button></div><span class="field-error" id="signup-confirm-error"></span></div>
+            <button class="primary-button" id="signup-button" type="submit"><span>Create account</span><i class="fas fa-arrow-right"></i></button>
+          </form>
+          <div id="auth-message" class="auth-message" role="alert" aria-live="polite"></div>
+        </div>
+
+        <section id="verify-view" class="state-view hidden" aria-live="polite">
+          <div class="state-icon"><i class="fas fa-envelope-open-text"></i></div><span class="eyebrow">One last step</span><h2>Check your inbox</h2><p>We sent a verification link to <strong id="verify-email"></strong>.</p><button id="resend-button" class="primary-button" type="button"><span>Resend verification</span><i class="fas fa-paper-plane"></i></button><button id="verify-back" class="text-button state-back" type="button">Back to sign in</button>
+        </section>
+
+        <section id="reset-view" class="state-view hidden">
+          <div class="state-icon"><i class="fas fa-key"></i></div><h2>Choose a new password</h2><p>Use at least 8 characters with a letter and number.</p><form id="reset-form" class="auth-form"><div class="field"><label for="reset-password">New password</label><div class="input-wrap"><i class="fas fa-lock"></i><input id="reset-password" type="password" autocomplete="new-password" required><button type="button" class="password-toggle" data-target="reset-password" aria-label="Show password"><i class="fas fa-eye"></i></button></div><span class="field-error" id="reset-password-error"></span></div><button id="reset-button" class="primary-button" type="submit"><span>Save new password</span><i class="fas fa-check"></i></button></form>
+        </section>
+
+        <section id="account-view" class="account-view hidden">
+          <div class="account-top"><div><span class="eyebrow">Creed account</span><h2>Welcome back</h2><p id="account-email"></p></div><button id="signout-button" class="outline-button" type="button"><i class="fas fa-arrow-right-from-bracket"></i> Sign out</button></div>
+          <div class="balance-card"><div><span>Available credits</span><strong><small>$</small><b id="wallet-balance">0.00</b></strong><p>Use your account balance for eligible purchases. Guest checkout remains available to everyone.</p></div><button id="add-credits-button" class="add-credits-button" type="button"><i class="fas fa-plus"></i> Add Credits</button></div>
+          <div class="account-actions"><a href="/products"><i class="fas fa-bag-shopping"></i><span><strong>Browse products</strong><small>Continue shopping on Creed</small></span><i class="fas fa-chevron-right"></i></a><a href="https://portal.creedv2.com/"><i class="fas fa-box-open"></i><span><strong>Order portal</strong><small>Downloads, keys, and support</small></span><i class="fas fa-chevron-right"></i></a></div>
+        </section>
+      </div>
+      <p class="auth-footer"><i class="fas fa-lock"></i> Secured account access. Guest checkout is always available.</p>
+    </main>
+  </div>
+  <div id="funds-modal" class="funds-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="funds-title">
+    <div class="funds-modal">
+      <div class="funds-head"><div><span class="eyebrow">Account wallet</span><h2 id="funds-title">Add Credits</h2></div><button id="funds-close" type="button" aria-label="Close"><i class="fas fa-xmark"></i></button></div>
+      <label class="amount-label" for="funds-amount">Choose amount</label>
+      <div class="amount-stepper"><button id="amount-minus" type="button" aria-label="Decrease amount"><i class="fas fa-minus"></i></button><div><span>$</span><input id="funds-amount" type="number" min="5" max="1000" step="5" value="25" inputmode="decimal" aria-label="Credit amount"></div><button id="amount-plus" type="button" aria-label="Increase amount"><i class="fas fa-plus"></i></button></div>
+      <div class="payment-grid" role="radiogroup" aria-label="Payment method">
+        <button class="payment-option active" type="button" data-method="card" aria-pressed="true"><img class="method-illustration card-illustration" src="/assets/payment-methods/credit-card.png" alt=""><img class="method-logo card-logo" src="/assets/payment-methods/card-brands.svg" alt="Visa, Mastercard and American Express"><span class="method-copy"><strong>Debit / Credit Card</strong><small><i class="fas fa-circle-check"></i> Available now</small></span><i class="selection-check fas fa-check" aria-hidden="true"></i></button>
+        <button class="payment-option unavailable" type="button" data-method="paysafe" aria-pressed="false"><img class="method-illustration paysafe-illustration" src="/assets/payment-methods/paysafecard.png" alt=""><img class="method-logo paysafe-logo" src="/assets/payment-methods/paysafe-logo.svg" alt="Paysafecard"><span class="method-copy"><strong>Paysafe Gift Card</strong><small>Coming soon</small></span></button>
+        <button class="payment-option unavailable" type="button" data-method="binance" aria-pressed="false"><img class="method-illustration binance-illustration" src="/assets/payment-methods/binance-giftcard.png" alt=""><img class="method-logo binance-logo" src="/assets/payment-methods/binance-logo.svg" alt="Binance"><span class="method-copy"><strong>Binance Gift Card</strong><small>Coming soon</small></span></button>
+        <button class="payment-option unavailable" type="button" data-method="crypto" aria-pressed="false"><img class="method-illustration crypto-illustration" src="/assets/payment-methods/crypto-coins.png" alt=""><img class="method-logo crypto-logo" src="/assets/payment-methods/crypto-logos.svg" alt="Supported cryptocurrencies"><span class="method-copy"><strong>Cryptocurrency</strong><small>Coming soon</small></span></button>
+      </div>
+      <div class="funds-summary"><div><span>Payment method</span><strong id="summary-method">Card</strong></div><div><span>Transaction fee</span><strong>$0.00</strong></div><div class="summary-total"><span>Total price</span><strong id="summary-total">$25.00</strong></div></div>
+      <div id="funds-error" class="funds-error" role="alert"></div>
+      <button id="pay-now" class="pay-now" type="button"><i class="fas fa-lock"></i><span>Pay securely</span><i class="fas fa-arrow-right"></i></button>
+      <p class="funds-legal">By completing this payment, you agree to our <a href="/terms">Terms &amp; Conditions</a> and <a href="/privacy">Privacy Policy</a>.</p>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/account.js"></script>
+  <script src="/account-wallet.js"></script>
+</body>
+</html>

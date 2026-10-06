@@ -1,0 +1,58 @@
+[
+  {
+    "q": "Are your products undetected?",
+    "a": "Creed builds are re-tested against the live game before they ship. We publish a 99.9% undetection rate — no cheat is 100% risk-free. Check live status at https://www.creedv2.com/status before you inject."
+  },
+  {
+    "q": "How quickly do I receive my product after purchase?",
+    "a": "Card (Stripe) orders deliver automatically: your key and loader land in the email you used at checkout, usually under a minute. Litecoin and PayPal are manual — staff verify payment, then the key is issued. Check spam/junk if nothing shows up."
+  },
+  {
+    "q": "Do you offer refunds?",
+    "a": "No. All sales are final. Ask us before you buy if you are unsure which product or duration to pick. We can help with setup, HWID resets, and troubleshooting after purchase."
+  },
+  {
+    "q": "What payment methods do you accept?",
+    "a": "Credit/debit cards via Stripe (instant). Litecoin and PayPal are available as manual payments — staff confirm them before delivery. Digital wallet credits on your Creed account can also be used at checkout."
+  },
+  {
+    "q": "Is customer support available 24/7?",
+    "a": "Yes. Typical reply is 5–10 minutes via this chat, Discord (https://discord.gg/creedgg), or a portal ticket at https://www.creedv2.com/portal."
+  },
+  {
+    "q": "Can I use your products on multiple computers?",
+    "a": "Each license is tied to one PC / HWID. Extra PCs need extra licenses. Need a reset after a hardware change? Ask support — we handle HWID resets."
+  },
+  {
+    "q": "How often are your products updated?",
+    "a": "Typically within 24–48 hours of a game patch. We monitor Fortnite, Valorant, Rust, Apex, Rainbow Six, COD / Warzone, and ARC Raiders. Status: https://www.creedv2.com/status"
+  },
+  {
+    "q": "Do you offer a free trial?",
+    "a": "Yes — a browser test range (ESP, aimbot, silent aim, grapple) with no download and no payment: https://www.creedv2.com/free-trial. That demo is not a live-game license."
+  },
+  {
+    "q": "Where do I download the loader?",
+    "a": "After purchase, open the email with your key, then log into the customer portal (https://www.creedv2.com/portal) with your order ID / email. The loader and key are there. Close other cheats, run as admin if Windows asks, then start the game."
+  },
+  {
+    "q": "What games do you support?",
+    "a": "Fortnite Public, Valorant, Rust, Apex Legends, Rainbow Six Siege, Call of Duty Black Ops / Warzone, ARC Raiders, temp + permanent HWID spoofers, Universal Aim, and cheap game skin accounts. Browse https://www.creedv2.com/products"
+  },
+  {
+    "q": "What is the Creed customer portal?",
+    "a": "https://www.creedv2.com/portal (also portal.creedv2.com) — look up orders, download the loader, manage keys, open tickets, and use wallet credits."
+  },
+  {
+    "q": "Do you have discount codes?",
+    "a": "New visitors can subscribe on the site for a 5% first-order coupon (CREED5). Other codes (CREED10, CREED20, CREEDEM20) are campaign/staff codes — do not invent extra discounts."
+  },
+  {
+    "q": "Do you offer reseller programs?",
+    "a": "Yes. Ask on Discord (https://discord.gg/creedgg) or through support and we will point you to the reseller application."
+  },
+  {
+    "q": "Is Fortnite Private still for sale?",
+    "a": "No. Fortnite Private and the old AI aimbot SKU are discontinued. Use Fortnite Public or ask which current build fits your account type."
+  }
+]

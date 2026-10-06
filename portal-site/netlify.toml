@@ -1,0 +1,15 @@
+# =============================================================================
+# Creed Portal — Netlify configuration (migrated from vercel.json)
+# Pure static site. It talks to the main site's API at www.creedv2.com; the
+# proxy rewrite below mirrors the old vercel.json (portal.js uses an absolute
+# API_BASE, so this is a safety net for any relative /api call).
+# =============================================================================
+
+[build]
+  publish = "."
+
+[[redirects]]
+  from = "/api/*"
+  to = "https://creedv2.com/api/:splat"
+  status = 200
+  force = true

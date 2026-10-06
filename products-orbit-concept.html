@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>/*creed-start-at-top*/(function(){try{var n=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||null;var t=n&&n.type?n.type:'navigate';if(t==='navigate'&&!location.hash&&'scrollRestoration' in history){history.scrollRestoration='manual';window.scrollTo(0,0);}}catch(e){}})();</script>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080704">
+  <title>Creed Zero-Gravity Arsenal — Products Concept</title>
+  <meta name="description" content="An isolated interactive products-page concept for Creed.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #080704;
+      --ink: #f6f2e9;
+      --muted: #9c978c;
+      --gold: #ffd447;
+      --gold-2: #f5a900;
+      --green: #65e5aa;
+      --ambient-a: 255, 180, 20;
+      --ambient-b: 80, 48, 0;
+      --px: 50vw;
+      --py: 50vh;
+    }
+    * { box-sizing: border-box; }
+    html, body { min-height: 100%; }
+    body {
+      margin: 0; color: var(--ink); background: var(--bg);
+      font-family: "DM Sans", sans-serif; overflow: hidden;
+    }
+    body::before {
+      content: ""; position: fixed; inset: 0; z-index: -3; pointer-events: none;
+      background:
+        radial-gradient(720px 580px at var(--px) var(--py), rgba(var(--ambient-a), .24), transparent 67%),
+        radial-gradient(900px 700px at 12% 112%, rgba(var(--ambient-b), .22), transparent 62%),
+        linear-gradient(145deg, #0c0a06, #050504 70%);
+      transition: background .65s ease;
+    }
+    body::after {
+      content: ""; position: fixed; inset: 0; z-index: 100; opacity: .055; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.9'/%3E%3C/svg%3E");
+      mix-blend-mode: soft-light;
+    }
+    button, a { font: inherit; -webkit-tap-highlight-color: transparent; }
+    button { color: inherit; }
+    button:focus-visible, a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+    a { color: inherit; text-decoration: none; }
+    .skip { position: fixed; left: 14px; top: -80px; z-index: 200; padding: 12px 16px; border-radius: 10px; background: var(--gold); color: #090702; }
+    .skip:focus { top: 14px; }
+    #space-lines { position: fixed; inset: 0; z-index: 1; width: 100%; height: 100%; pointer-events: none; opacity: .34; }
+    .ambient-wash {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0;
+      transition: opacity .42s ease, background .55s ease;
+      background:
+        radial-gradient(900px 720px at 50% 48%, rgba(var(--ambient-a), .48), transparent 70%),
+        linear-gradient(135deg, rgba(var(--ambient-b), .96), rgba(var(--ambient-a), .46));
+    }
+    body:has(.orbiter:hover) .ambient-wash,
+    body:has(.orbiter:focus-visible) .ambient-wash,
+    body:has(.detail.open) .ambient-wash,
+    body.is-hovering .ambient-wash { opacity: .82; }
+    body:has(.p1:is(:hover,:focus-visible)) { --ambient-a: 235,160,35; --ambient-b: 70,35,5; }
+    body:has(.p2:is(:hover,:focus-visible)) { --ambient-a: 255,205,45; --ambient-b: 73,48,0; }
+    body:has(.p3:is(:hover,:focus-visible)) { --ambient-a: 224,81,38; --ambient-b: 68,20,8; }
+    body:has(.p4:is(:hover,:focus-visible)) { --ambient-a: 174,83,255; --ambient-b: 33,16,77; }
+    body:has(.p5:is(:hover,:focus-visible)) { --ambient-a: 255,75,75; --ambient-b: 78,12,16; }
+    body:has(.p6:is(:hover,:focus-visible)) { --ambient-a: 72,184,148; --ambient-b: 8,45,38; }
+    body:has(.p7:is(:hover,:focus-visible)) { --ambient-a: 255,70,104; --ambient-b: 76,10,28; }
+    body:has(.p8:is(:hover,:focus-visible)) { --ambient-a: 55,148,255; --ambient-b: 8,30,68; }
+    body:has(.p9:is(:hover,:focus-visible)) { --ambient-a: 160,85,255; --ambient-b: 35,12,72; }
+
+    .topbar {
+      position: fixed; z-index: 30; left: 24px; right: 24px; top: 20px; height: 58px;
+      display: flex; align-items: center; justify-content: space-between; pointer-events: none;
+    }
+    .brand, .cart-pill, .back-link { pointer-events: auto; }
+    .brand { display: flex; align-items: center; gap: 13px; }
+    .brand-mark { width: 38px; height: 38px; object-fit: contain; }
+    .brand-copy strong { display: block; font: 700 13px "Space Grotesk"; letter-spacing: .19em; }
+    .brand-copy span { color: #777167; font: 600 9px "Space Grotesk"; letter-spacing: .15em; }
+    .top-actions { display: flex; align-items: center; gap: 8px; pointer-events: auto; }
+    .back-link, .cart-pill {
+      min-height: 46px; display: inline-flex; align-items: center; gap: 9px; border: 1px solid rgba(255,255,255,.11);
+      border-radius: 999px; background: rgba(10,9,6,.58); backdrop-filter: blur(16px); color: #c5bfb3;
+    }
+    .back-link { padding: 0 16px; font-size: 12px; }
+    .cart-pill { padding: 0 8px 0 13px; cursor: pointer; }
+    .back-link, .cart-pill { transition: transform .25s ease, border-color .25s ease, background .25s ease, color .25s ease; }
+    .back-link:hover, .cart-pill:hover { transform: translateY(-2px); border-color: rgba(255,212,71,.42); background: rgba(25,20,8,.82); color: white; }
+    .back-link:active, .cart-pill:active { transform: translateY(0) scale(.97); }
+    .cart-count { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 50%; border: 1px solid rgba(255,255,255,.15); color: white; font: 700 11px "Space Grotesk"; }
+    .cart-plus { width: 30px; height: 30px; display: grid; place-items: center; font-size: 20px; }
+
+    .intro {
+      position: fixed; z-index: 4; left: 30px; bottom: 25px; max-width: 310px; pointer-events: none;
+    }
+    .intro span { color: var(--gold); font: 600 10px "Space Grotesk"; letter-spacing: .17em; text-transform: uppercase; }
+    .intro h1 { margin: 9px 0 8px; font: 700 clamp(30px,3vw,50px)/.92 "Space Grotesk"; letter-spacing: -.055em; }
+    .intro p { margin: 0; color: #777167; font-size: 12px; line-height: 1.5; }
+    .hint {
+      position: fixed; z-index: 4; right: 28px; bottom: 27px; display: flex; align-items: center; gap: 10px;
+      color: #777167; font: 600 9px "Space Grotesk"; letter-spacing: .12em; text-transform: uppercase;
+    }
+    .hint i { width: 34px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold)); }
+
+    .space { position: fixed; z-index: 2; inset: 0; perspective: 1100px; transform-style: preserve-3d; }
+    .space-inner { position: absolute; inset: 0; transform-style: preserve-3d; will-change: transform; }
+    .orbiter {
+      --x: 50%; --y: 50%; --w: 150px; --rot: 0deg; --delay: 0s; --bob: 13px;
+      position: absolute; left: var(--x); top: var(--y); width: var(--w); padding: 0; border: 0; background: transparent;
+      transform: translate(-50%, -50%) rotate(var(--rot)); cursor: pointer; text-align: left; transform-style: preserve-3d;
+    }
+    .orbiter::before {
+      content: ""; position: absolute; z-index: -1; left: 50%; top: 42%; width: 270%; aspect-ratio: 1; border-radius: 50%;
+      translate: -50% -50%; opacity: 0; scale: .55; pointer-events: none;
+      background: radial-gradient(circle, rgba(var(--ambient-a), .38), rgba(var(--ambient-a), .12) 34%, transparent 68%);
+      filter: blur(18px); transition: opacity .32s, scale .5s cubic-bezier(.2,.8,.2,1);
+    }
+    .orbiter:hover::before, .orbiter:focus-visible::before { opacity: 1; scale: 1; }
+    .orbiter-float { position: relative; display: block; animation: float 7.4s ease-in-out var(--delay) infinite; transform-style: preserve-3d; }
+    @keyframes float { 0%,100% { translate: 0 -3px; } 50% { translate: 0 4px; } }
+    .module {
+      position: relative; display: block; aspect-ratio: .77; overflow: visible;
+      border: 0; background: transparent;
+      filter: drop-shadow(0 24px 24px rgba(0,0,0,.48));
+      transition: transform .45s cubic-bezier(.2,.8,.2,1), filter .35s;
+      transform-style: preserve-3d;
+    }
+    .module::before { display: none; }
+    .module::after { display: none; }
+    .module img { width: 100%; height: 100%; object-fit: contain; display: block; filter: saturate(.96) contrast(1.03); transition: transform .55s cubic-bezier(.2,.8,.2,1), filter .3s; }
+    .orbiter:hover { z-index: 8; }
+    .orbiter:hover .orbiter-float, .orbiter:focus-visible .orbiter-float { animation-play-state: paused; }
+    .orbiter:hover .module, .orbiter:focus-visible .module { transform: translateZ(36px) scale(1.075); filter: drop-shadow(0 30px 34px rgba(0,0,0,.56)) drop-shadow(0 0 24px rgba(var(--ambient-a),.18)); }
+    .orbiter:hover .module img { filter: saturate(1.03) contrast(1.05); }
+    .module-data {
+      position: relative; z-index: 5; display: flex; align-items: flex-start; justify-content: space-between; gap: 10px;
+      margin: 10px -7px 0; padding: 9px 10px; border: 1px solid rgba(255,255,255,.14); border-radius: 10px;
+      background: rgba(8,7,5,.82); box-shadow: 0 12px 30px rgba(0,0,0,.28); backdrop-filter: blur(13px);
+      opacity: 0; visibility: hidden; transform: translateY(-2px);
+      transition: opacity .22s, transform .3s, visibility .22s;
+    }
+    .orbiter:hover .module-data, .orbiter:focus-visible .module-data { opacity: 1; visibility: visible; transform: translateY(6px); }
+    .module-name { color: #fff; font: 700 11px "Space Grotesk"; letter-spacing: .07em; text-transform: uppercase; }
+    .module-price { color: var(--gold); font: 700 12px "Space Grotesk"; white-space: nowrap; }
+    .module-type { display: block; margin-top: 3px; color: #aaa397; font-size: 8px; letter-spacing: .08em; text-transform: uppercase; }
+    .status-dot { display: none; }
+
+    .p1 { --x: 14%; --y: 34%; --w: 136px; --rot: -7deg; --delay: -.8s; }
+    .p2 { --x: 39%; --y: 19%; --w: 174px; --rot: 4deg; --delay: -2.2s; }
+    .p3 { --x: 68%; --y: 28%; --w: 150px; --rot: -3deg; --delay: -1.4s; }
+    .p4 { --x: 88%; --y: 39%; --w: 132px; --rot: 7deg; --delay: -3.1s; }
+    .p5 { --x: 23%; --y: 70%; --w: 160px; --rot: 5deg; --delay: -3.8s; }
+    .p6 { --x: 49%; --y: 58%; --w: 144px; --rot: -6deg; --delay: -.3s; }
+    .p7 { --x: 67%; --y: 76%; --w: 166px; --rot: 3deg; --delay: -2.8s; }
+    .p8 { --x: 79%; --y: 78%; --w: 126px; --rot: -5deg; --delay: -1.8s; }
+    .p9 { --x: 88%; --y: 61%; --w: 112px; --rot: 7deg; --delay: -3.5s; }
+
+    .detail {
+      position: fixed; inset: 0; z-index: 60; display: grid; grid-template-columns: 1.18fr .82fr;
+      opacity: 0; visibility: hidden; background:
+        radial-gradient(900px 700px at 25% 48%, rgba(var(--ambient-a), .32), transparent 65%),
+        linear-gradient(145deg, rgba(var(--ambient-b), .55), #090806 76%);
+      transition: opacity .28s ease, visibility .28s;
+    }
+    .detail.open { opacity: 1; visibility: visible; }
+    .detail::before { content: ""; position: absolute; inset: 0; opacity: .12; background-image: linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px); background-size: 54px 54px; mask-image: radial-gradient(circle at 30% 50%, black, transparent 65%); }
+    .detail-close {
+      position: absolute; z-index: 6; right: 24px; top: 22px; width: 48px; height: 48px; display: grid; place-items: center;
+      border: 1px solid rgba(255,255,255,.2); border-radius: 50%; background: rgba(10,9,6,.18); color: white; cursor: pointer; backdrop-filter: blur(10px);
+    }
+    .detail-visual { position: relative; display: grid; place-items: center; min-height: 100vh; }
+    .detail-image-wrap { width: min(470px, 54vw); aspect-ratio: .77; overflow: visible; filter: drop-shadow(0 50px 55px rgba(0,0,0,.48)); transform: rotate(-2deg); }
+    .detail-image-wrap img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .detail-orbit { position: absolute; width: 600px; height: 600px; border: 1px solid rgba(255,255,255,.08); border-radius: 50%; animation: orbit-spin 18s linear infinite; }
+    .detail-orbit::before, .detail-orbit::after { content: ""; position: absolute; border-radius: 50%; background: var(--gold); box-shadow: 0 0 20px var(--gold); }
+    .detail-orbit::before { width: 7px; height: 7px; left: 8%; top: 22%; }.detail-orbit::after { width: 4px; height: 4px; right: 12%; bottom: 18%; }
+    @keyframes orbit-spin { to { rotate: 360deg; } }
+    .detail-panel { position: relative; z-index: 2; align-self: center; margin-right: 34px; padding: 34px; border: 1px solid rgba(255,255,255,.16); border-radius: 24px; background: rgba(245,241,232,.93); color: #12100c; backdrop-filter: blur(24px); box-shadow: 0 40px 100px rgba(0,0,0,.24); }
+    .detail-kicker { font: 700 10px "Space Grotesk"; letter-spacing: .16em; text-transform: uppercase; }
+    .detail-title { margin: 12px 0 10px; font: 700 clamp(38px,4vw,66px)/.9 "Space Grotesk"; letter-spacing: -.06em; }
+    .detail-description { color: #5e5a52; line-height: 1.6; font-size: 14px; }
+    .detail-status { display: inline-flex; align-items: center; gap: 7px; margin: 8px 0 24px; color: #176b4b; font-weight: 700; font-size: 11px; }
+    .detail-status i { width: 7px; height: 7px; border-radius: 50%; background: #26b87c; }
+    .duration-label { display: block; margin-bottom: 9px; font: 700 10px "Space Grotesk"; letter-spacing: .12em; text-transform: uppercase; }
+    .duration-options { display: grid; grid-template-columns: repeat(4,1fr); gap: 7px; margin-bottom: 24px; }
+    .duration {
+      min-height: 62px; padding: 9px; border: 1px solid rgba(18,16,12,.14); border-radius: 12px; background: rgba(255,255,255,.48); cursor: pointer;
+      transition: transform .22s ease, border-color .22s ease, background .22s ease, box-shadow .22s ease;
+    }
+    .duration:hover { transform: translateY(-2px); border-color: rgba(18,16,12,.42); box-shadow: 0 8px 18px rgba(30,22,5,.08); }
+    .duration:active { transform: translateY(0) scale(.97); }
+    .duration strong, .duration span { display: block; }.duration strong { font-size: 12px; }.duration span { margin-top: 5px; color: #625d54; font: 700 13px "Space Grotesk"; }
+    .duration.selected { border-color: #17130a; background: #17130a; color: white; box-shadow: 0 9px 22px rgba(18,16,12,.18); }.duration.selected span { color: var(--gold); }
+    .purchase-line { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: stretch; }
+    .add-button { min-height: 62px; padding: 0 24px; border: 1px solid rgba(112,72,0,.16); border-radius: 14px; color: #0b0903; background: linear-gradient(135deg, #ffe983, #ffb800); font-weight: 800; cursor: pointer; box-shadow: 0 15px 40px rgba(205,147,0,.22); transition: transform .22s ease, box-shadow .25s ease, filter .25s ease; }
+    .add-button::after { content: " →"; display: inline-block; margin-left: 8px; transition: transform .22s ease; }
+    .add-button:hover { transform: translateY(-3px); filter: brightness(1.04); box-shadow: 0 20px 42px rgba(205,147,0,.32); }
+    .add-button:hover::after { transform: translateX(4px); }
+    .add-button:active { transform: translateY(0) scale(.98); }
+    .detail-price { min-width: 116px; display: grid; place-items: center; border: 1px solid rgba(18,16,12,.13); border-radius: 13px; font: 700 20px "Space Grotesk"; }
+    .detail-foot { display: flex; justify-content: space-between; gap: 12px; margin-top: 14px; color: #726d64; font-size: 10px; }
+    .transition-clone { position: fixed; z-index: 80; object-fit: contain; pointer-events: none; filter: drop-shadow(0 35px 32px rgba(0,0,0,.5)); }
+    .toast { position: fixed; z-index: 120; left: 50%; bottom: 24px; translate: -50% 24px; opacity: 0; padding: 13px 18px; border-radius: 999px; background: #f7f2e8; color: #11100c; font-weight: 700; font-size: 12px; transition: .3s; }
+    .toast.show { translate: -50% 0; opacity: 1; }
+    .cart-scrim { position: fixed; z-index: 104; inset: 0; opacity: 0; visibility: hidden; background: rgba(0,0,0,.62); backdrop-filter: blur(5px); transition: opacity .32s ease, visibility .32s; }
+    .cart-drawer {
+      position: fixed; z-index: 105; top: 10px; right: 10px; bottom: 10px; width: min(430px, calc(100vw - 20px));
+      display: flex; flex-direction: column; overflow: hidden; border: 1px solid rgba(255,212,71,.2); border-radius: 24px;
+      background: rgba(13,11,7,.96); box-shadow: -28px 0 80px rgba(0,0,0,.48); backdrop-filter: blur(28px);
+      transform: translateX(calc(100% + 28px)); opacity: .7; transition: transform .48s cubic-bezier(.22,.8,.2,1), opacity .3s ease;
+    }
+    body.cart-open .cart-scrim { opacity: 1; visibility: visible; }
+    body.cart-open .cart-drawer { transform: translateX(0); opacity: 1; }
+    .cart-head { display: flex; align-items: center; justify-content: space-between; padding: 24px; border-bottom: 1px solid rgba(255,255,255,.09); }
+    .cart-head span { color: var(--gold); font: 700 9px "Space Grotesk"; letter-spacing: .15em; text-transform: uppercase; }
+    .cart-head h2 { margin: 4px 0 0; font: 700 26px "Space Grotesk"; letter-spacing: -.04em; }
+    .cart-close { width: 42px; height: 42px; border: 1px solid rgba(255,255,255,.13); border-radius: 50%; background: rgba(255,255,255,.04); cursor: pointer; font-size: 22px; transition: transform .25s ease, background .25s ease, border-color .25s ease; }
+    .cart-close:hover { transform: rotate(7deg) scale(1.05); border-color: rgba(255,212,71,.45); background: rgba(255,212,71,.1); }
+    .cart-close:active { transform: scale(.93); }
+    .cart-items { flex: 1; overflow-y: auto; padding: 16px; scrollbar-width: thin; scrollbar-color: rgba(255,212,71,.4) transparent; }
+    .cart-empty { height: 100%; min-height: 260px; display: grid; place-items: center; text-align: center; color: #8f897e; }
+    .cart-empty strong { display: block; margin-bottom: 6px; color: #f5f1e8; font: 700 18px "Space Grotesk"; }
+    .cart-item { display: grid; grid-template-columns: 68px 1fr auto; gap: 13px; align-items: center; padding: 13px; border: 1px solid rgba(255,255,255,.09); border-radius: 15px; background: rgba(255,255,255,.035); animation: cart-item-in .38s cubic-bezier(.22,.8,.2,1) both; }
+    .cart-item + .cart-item { margin-top: 10px; }
+    @keyframes cart-item-in { from { opacity: 0; transform: translateX(18px); } }
+    .cart-item img { width: 62px; height: 78px; object-fit: contain; filter: drop-shadow(0 9px 8px rgba(0,0,0,.3)); }
+    .cart-item strong { display: block; font: 700 13px "Space Grotesk"; }
+    .cart-item small { display: block; margin-top: 4px; color: #9b958a; font-size: 11px; }
+    .cart-item-price { color: var(--gold); font: 700 14px "Space Grotesk"; text-align: right; }
+    .cart-remove { display: block; margin: 7px 0 0 auto; padding: 0; border: 0; background: transparent; color: #908a80; cursor: pointer; font-size: 10px; transition: color .2s ease, transform .2s ease; }
+    .cart-remove:hover { color: white; transform: translateX(-2px); }
+    .cart-foot { padding: 20px; border-top: 1px solid rgba(255,255,255,.09); background: rgba(0,0,0,.18); }
+    .cart-total { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; color: #aaa398; font-size: 12px; }
+    .cart-total strong { color: white; font: 700 25px "Space Grotesk"; }
+    .checkout-button { width: 100%; min-height: 58px; border: 0; border-radius: 14px; background: linear-gradient(135deg,#ffe779,#ffb600); color: #0c0902; cursor: pointer; font-weight: 800; transition: transform .22s ease, box-shadow .25s ease, filter .25s ease; }
+    .checkout-button:hover:not(:disabled) { transform: translateY(-3px); filter: brightness(1.04); box-shadow: 0 18px 38px rgba(215,155,0,.25); }
+    .checkout-button:active:not(:disabled) { transform: translateY(0) scale(.98); }
+    .checkout-button:disabled { opacity: .35; cursor: not-allowed; }
+
+    @media (max-width: 800px) {
+      body { overflow: auto; }
+      .topbar { left: 12px; right: 12px; top: 10px; height: 54px; }
+      .brand-copy { display: none; }
+      .brand-mark { width: 34px; height: 34px; }
+      .back-link { display: none; }
+      .cart-pill { min-height: 44px; }
+      .space { position: relative; inset: auto; min-height: 100svh; padding: 104px 16px 140px; perspective: none; }
+      .space-inner { position: relative; inset: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 54px 28px; transform: none !important; }
+      .orbiter { position: relative; left: auto; top: auto; width: min(39vw, 168px); justify-self: center; transform: rotate(var(--rot)); }
+      .orbiter:nth-child(even) { margin-top: 72px; }
+      .orbiter:hover .module { transform: scale(1.04); }
+      .intro { position: absolute; left: 16px; top: 74px; bottom: auto; max-width: 280px; }
+      .intro h1 { font-size: 34px; }
+      .intro p { display: none; }
+      .hint { display: none; }
+      .detail { position: fixed; overflow-y: auto; grid-template-columns: 1fr; }
+      .detail-visual { min-height: 58svh; padding: 90px 0 20px; }
+      .detail-image-wrap { width: min(58vw, 280px); border-radius: 20px; }
+      .detail-orbit { width: 82vw; height: 82vw; }
+      .detail-panel { align-self: auto; margin: 0 10px 10px; padding: 24px 18px; border-radius: 20px; }
+      .detail-title { font-size: 42px; }
+      .duration-options { grid-template-columns: 1fr 1fr; }
+      .purchase-line { grid-template-columns: 1fr; }
+      .detail-price { min-height: 48px; grid-row: 1; }
+      .detail-close { top: 14px; right: 14px; }
+      .cart-drawer { top: 6px; right: 6px; bottom: 6px; width: calc(100vw - 12px); border-radius: 20px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#arsenal">Skip to products</a>
+  <canvas id="space-lines" aria-hidden="true"></canvas>
+  <div class="ambient-wash" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="brand" href="/creed-ascension-concept.html" aria-label="Back to Creed concept homepage">
+      <img class="brand-mark" src="assets/creedlogo.png" alt="">
+      <span class="brand-copy"><strong>CREED</strong><span>ZERO-G ARSENAL</span></span>
+    </a>
+    <div class="top-actions">
+      <a class="back-link" href="/creed-ascension-concept.html">← Concept home</a>
+      <button class="cart-pill" type="button" aria-label="Open cart" aria-controls="concept-cart" aria-expanded="false"><span class="cart-count">0</span><span class="cart-plus">+</span></button>
+    </div>
+  </header>
+
+  <div class="intro">
+    <span>All systems available</span>
+    <h1>THE ARSENAL</h1>
+    <p>Move through the field. Hover to inspect. Select a module to configure access.</p>
+  </div>
+  <div class="hint" aria-hidden="true"><i></i> Move to explore · click to open</div>
+
+  <main class="space" id="arsenal">
+    <div class="space-inner">
+      <button class="orbiter p1" type="button" data-product="0"><span class="orbiter-float"><span class="module"><span class="status-dot"></span><img src="assets/product-cutouts/arc-raiders-box.png" alt="ARC Raiders"></span><span class="module-data"><span><strong class="module-name">ARC Raiders</strong><small class="module-type">Extraction</small></span><span class="module-price">$9.99</span></span></span></button>
+      <button class="orbiter p2" type="button" data-product="1"><span class="orbiter-float"><span class="module"><span class="status-dot"></span><img src="assets/product-cutouts/rainbow-six-box.png" alt="Rainbow Six Siege"></span><span class="module-data"><span><strong class="module-name">Rainbow Six</strong><small class="module-type">Tactical</small></span><span class="module-price">$7.99</span></span></span></button>
+      <button class="orbiter p3" type="button" data-product="2"><span class="orbiter-float"><span class="module"><span class="status-dot"></span><img src="assets/product-cutouts/rust-box.png" alt="Rust"></span><span class="module-data"><span><strong class="module-name">Rust</strong><small class="module-type">Survival</small></span><span class="module-price">$9.99</span></span></span></button>
+      <button class="orbiter p4" type="button" data-product="3"><span class="orbiter-float"><span class="module"><span class="status-dot"></span><img src="assets/product-cutouts/fortnite-box.png" alt="Fortnite"></span><span class="module-data"><span><strong class="module-name">Fortnite</strong><small class="module-type">Battle royale</small></span><span class="module-price">$7.99</span></span></span></button>
+      <button class="orbiter p5" type="button" data-product="4"><span class="orbiter-float"><span class="module"><span class="status-dot"></span><img src="assets/product-cutouts/apex-box.png" alt="Apex Legends"></span><span class="module-data"><span><strong class="module-name">Apex Legends</strong><small class="module-type">Arena</small></span><span class="module-price">$7.90</span></span></span></button>
+      <button class="orbiter p6" type="button" data-product="5"><span class="orbiter-float"><span class="module"><span class="status-dot"></span><img src="assets/product-cutouts/cod-box.png" alt="Call of Duty Warzone"></span><span class="module-data"><span><strong class="module-name">Call of Duty</strong><small class="module-type">Warzone</small></span><span class="module-price">$4.99</span></span></span></button>
+      <button class="orbiter p7" type="button" data-product="6"><span class="orbiter-float"><span class="module"><span class="status-dot"></span><img src="assets/product-cutouts/valorant-box.png" alt="Valorant"></span><span class="module-data"><span><strong class="module-name">Valorant</strong><small class="module-type">Competitive</small></span><span class="module-price">$9.99</span></span></span></button>
+      <button class="orbiter p8" type="button" data-product="7"><span class="orbiter-float"><span class="module"><span class="status-dot"></span><img src="assets/product-cutouts/perm-spoofer-box.png" alt="Permanent HWID Spoofer"></span><span class="module-data"><span><strong class="module-name">Perm Spoofer</strong><small class="module-type">Protection</small></span><span class="module-price">$24.99</span></span></span></button>
+      <button class="orbiter p9" type="button" data-product="8"><span class="orbiter-float"><span class="module"><span class="status-dot"></span><img src="assets/product-cutouts/temp-spoofer-box.png" alt="Temporary HWID Spoofer"></span><span class="module-data"><span><strong class="module-name">Temp Spoofer</strong><small class="module-type">Protection</small></span><span class="module-price">$4.99</span></span></span></button>
+    </div>
+  </main>
+
+  <section class="detail" aria-label="Product details" inert>
+    <button class="detail-close" type="button" aria-label="Close product details">×</button>
+    <div class="detail-visual">
+      <div class="detail-orbit" aria-hidden="true"></div>
+      <div class="detail-image-wrap"><img class="detail-image" src="assets/product-cutouts/arc-raiders-box.png" alt=""></div>
+    </div>
+    <div class="detail-panel">
+      <span class="detail-kicker">Creed access module · <span class="detail-category">Extraction</span></span>
+      <h2 class="detail-title">ARC Raiders</h2>
+      <div class="detail-status"><i></i> Operational · In stock</div>
+      <p class="detail-description">Premium access configured for quick delivery, guided setup, and management through your customer portal.</p>
+      <span class="duration-label">Configure duration</span>
+      <div class="duration-options"></div>
+      <div class="purchase-line"><button class="add-button" type="button">Add access to cart</button><div class="detail-price">$9.99</div></div>
+      <div class="detail-foot"><span>Secure checkout</span><span>Portal delivery</span><span>Setup guide included</span></div>
+    </div>
+  </section>
+
+  <div class="cart-scrim" aria-hidden="true"></div>
+  <aside class="cart-drawer" id="concept-cart" aria-label="Shopping cart" inert>
+    <div class="cart-head">
+      <div><span>Configured access</span><h2>Your arsenal</h2></div>
+      <button class="cart-close" type="button" aria-label="Close cart">×</button>
+    </div>
+    <div class="cart-items"></div>
+    <div class="cart-foot">
+      <div class="cart-total"><span>Total</span><strong>$0.00</strong></div>
+      <button class="checkout-button" type="button" disabled>Proceed to checkout →</button>
+    </div>
+  </aside>
+  <div class="toast" role="status" aria-live="polite">Added to your arsenal</div>
+
+  <script>
+    const products = [
+      { name:"ARC Raiders", category:"Extraction", art:"assets/product-cutouts/arc-raiders-box.png", colors:["235, 160, 35","70, 35, 5"], durations:[["1 Day","$9.99"],["7 Days","$32.99"],["30 Days","$54.99"],["Lifetime","$279.99"]] },
+      { name:"Rainbow Six", category:"Tactical", art:"assets/product-cutouts/rainbow-six-box.png", colors:["255, 205, 45","73, 48, 0"], durations:[["1 Day","$7.99"],["7 Days","$32.99"],["30 Days","$59.99"],["Lifetime","$299.99"]] },
+      { name:"Rust", category:"Survival", art:"assets/product-cutouts/rust-box.png", colors:["224, 81, 38","68, 20, 8"], durations:[["1 Day","$9.99"],["3 Days","$18.99"],["1 Week","$32.99"],["1 Month","$61.99"]] },
+      { name:"Fortnite", category:"Battle royale", art:"assets/product-cutouts/fortnite-box.png", colors:["174, 83, 255","33, 16, 77"], durations:[["1 Day","$7.99"],["1 Week","$27.99"],["1 Month","$47.99"],["Lifetime","$249.99"]] },
+      { name:"Apex Legends", category:"Arena", art:"assets/product-cutouts/apex-box.png", colors:["255, 75, 75","78, 12, 16"], durations:[["1 Day","$7.90"],["3 Days","$16.90"],["7 Days","$24.99"],["1 Month","$49.90"]] },
+      { name:"Call of Duty", category:"Warzone", art:"assets/product-cutouts/cod-box.png", colors:["72, 184, 148","8, 45, 38"], durations:[["1 Day","$4.99"],["7 Days","$24.99"],["30 Days","$49.99"],["Lifetime","$179.99"]] },
+      { name:"Valorant", category:"Competitive", art:"assets/product-cutouts/valorant-box.png", colors:["255, 70, 104","76, 10, 28"], durations:[["1 Day","$9.99"],["7 Days","$32.99"],["30 Days","$59.99"],["Lifetime","$199.99"]] },
+      { name:"Permanent Spoofer", category:"Protection", art:"assets/product-cutouts/perm-spoofer-box.png", colors:["55, 148, 255","8, 30, 68"], durations:[["One-Time","$24.99"],["Lifetime","$69.99"]] },
+      { name:"Temporary Spoofer", category:"Protection", art:"assets/product-cutouts/temp-spoofer-box.png", colors:["160, 85, 255","35, 12, 72"], durations:[["One-Time","$4.99"],["7 Days","$18.99"],["30 Days","$34.99"]] }
+    ];
+    const root = document.documentElement;
+    const orbiters = [...document.querySelectorAll(".orbiter")];
+    const spaceInner = document.querySelector(".space-inner");
+    const detail = document.querySelector(".detail");
+    const detailImage = document.querySelector(".detail-image");
+    const detailTitle = document.querySelector(".detail-title");
+    const detailCategory = document.querySelector(".detail-category");
+    const durationOptions = document.querySelector(".duration-options");
+    const detailPrice = document.querySelector(".detail-price");
+    const cartCount = document.querySelector(".cart-count");
+    const cartPill = document.querySelector(".cart-pill");
+    const cartDrawer = document.querySelector(".cart-drawer");
+    const cartItems = document.querySelector(".cart-items");
+    const cartTotal = document.querySelector(".cart-total strong");
+    const checkoutButton = document.querySelector(".checkout-button");
+    const cartScrim = document.querySelector(".cart-scrim");
+    const toast = document.querySelector(".toast");
+    const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let activeIndex = null;
+    let selectedPrice = "";
+    let selectedDuration = "";
+    let cart = [];
+    let toastTimer;
+
+    function setAtmosphere(product) {
+      root.style.setProperty("--ambient-a", product.colors[0]);
+      root.style.setProperty("--ambient-b", product.colors[1]);
+    }
+    orbiters.forEach((orbiter, index) => {
+      const product = products[index];
+      orbiter.addEventListener("pointerenter", () => {
+        setAtmosphere(product);
+        document.body.classList.add("is-hovering");
+      });
+      orbiter.addEventListener("focus", () => {
+        setAtmosphere(product);
+      });
+      orbiter.addEventListener("pointerleave", () => {
+        document.body.classList.remove("is-hovering");
+        orbiter.style.removeProperty("--tilt-x");
+        orbiter.style.removeProperty("--tilt-y");
+      });
+    });
+    spaceInner.addEventListener("click", event => {
+      const orbiter = event.target.closest(".orbiter");
+      if (!orbiter) return;
+      openProduct(Number(orbiter.dataset.product), orbiter);
+    });
+
+    function renderDurations(product) {
+      durationOptions.innerHTML = "";
+      product.durations.forEach(([label, price], index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "duration" + (index === 0 ? " selected" : "");
+        button.innerHTML = `<strong>${label}</strong><span>${price}</span>`;
+        button.addEventListener("click", () => {
+          durationOptions.querySelectorAll(".duration").forEach(item => item.classList.remove("selected"));
+          button.classList.add("selected");
+          selectedDuration = label;
+          selectedPrice = price;
+          detailPrice.textContent = price;
+        });
+        durationOptions.append(button);
+      });
+      selectedDuration = product.durations[0][0];
+      selectedPrice = product.durations[0][1];
+      detailPrice.textContent = selectedPrice;
+    }
+
+    function openProduct(index, source) {
+      const product = products[index];
+      activeIndex = index;
+      setAtmosphere(product);
+      document.body.classList.add("is-hovering");
+      detailTitle.textContent = product.name;
+      detailCategory.textContent = product.category;
+      detailImage.src = product.art;
+      detailImage.alt = product.name;
+      renderDurations(product);
+      detail.classList.add("open");
+      detail.removeAttribute("inert");
+      document.body.style.overflow = "hidden";
+      const sourceImage = source.querySelector(".module img");
+      if (reducedMotion) {
+        detail.querySelector(".detail-close").focus();
+        return;
+      }
+      const start = sourceImage.getBoundingClientRect();
+      const target = detail.querySelector(".detail-image-wrap").getBoundingClientRect();
+      const clone = sourceImage.cloneNode();
+      clone.className = "transition-clone";
+      Object.assign(clone.style, { left:start.left+"px", top:start.top+"px", width:start.width+"px", height:start.height+"px" });
+      document.body.append(clone);
+      detailImage.style.opacity = "0";
+      const flight = clone.animate([
+        { left:start.left+"px", top:start.top+"px", width:start.width+"px", height:start.height+"px", transform:"rotate(0deg)" },
+        { left:target.left+"px", top:target.top+"px", width:target.width+"px", height:target.height+"px", transform:"rotate(-2deg)" }
+      ], { duration:720, easing:"cubic-bezier(.77,0,.18,1)", fill:"forwards" });
+      flight.onfinish = () => {
+          detailImage.style.opacity = "1";
+          clone.remove();
+          detail.querySelector(".detail-close").focus();
+      };
+      detail.querySelector(".detail-panel").animate([
+        { transform:"translateY(35px)", opacity:0 },
+        { transform:"translateY(0)", opacity:1 }
+      ], { duration:550, delay:180, easing:"cubic-bezier(.22,.8,.3,1)", fill:"both" });
+    }
+
+    function closeProduct() {
+      detail.classList.remove("open");
+      detail.setAttribute("inert", "");
+      document.body.style.overflow = "";
+      document.body.classList.remove("is-hovering");
+      if (activeIndex !== null) orbiters[activeIndex].focus();
+      activeIndex = null;
+    }
+    document.querySelector(".detail-close").addEventListener("click", closeProduct);
+    document.addEventListener("keydown", event => {
+      if (event.key !== "Escape") return;
+      if (document.body.classList.contains("cart-open")) hideCart();
+      else if (detail.classList.contains("open")) closeProduct();
+    });
+
+    function renderCart() {
+      cartCount.textContent = String(cart.length);
+      const total = cart.reduce((sum, item) => sum + Number(item.price.replace(/[^0-9.]/g, "")), 0);
+      cartTotal.textContent = `$${total.toFixed(2)}`;
+      checkoutButton.disabled = cart.length === 0;
+      if (!cart.length) {
+        cartItems.innerHTML = '<div class="cart-empty"><div><strong>Your arsenal is empty</strong>Configure a product to begin.</div></div>';
+        return;
+      }
+      cartItems.innerHTML = cart.map(item => `
+        <article class="cart-item">
+          <img src="${item.product.art}" alt="">
+          <div><strong>${item.product.name}</strong><small>${item.duration} access</small></div>
+          <div class="cart-item-price">${item.price}<button class="cart-remove" type="button" data-remove="${item.id}">Remove</button></div>
+        </article>`).join("");
+    }
+
+    function showCart() {
+      renderCart();
+      cartDrawer.removeAttribute("inert");
+      document.body.classList.add("cart-open");
+      cartPill.setAttribute("aria-expanded", "true");
+      setTimeout(() => document.querySelector(".cart-close").focus(), 120);
+    }
+
+    function hideCart() {
+      document.body.classList.remove("cart-open");
+      cartPill.setAttribute("aria-expanded", "false");
+      setTimeout(() => cartDrawer.setAttribute("inert", ""), 480);
+      cartPill.focus();
+    }
+
+    cartPill.addEventListener("click", showCart);
+    document.querySelector(".cart-close").addEventListener("click", hideCart);
+    cartScrim.addEventListener("click", hideCart);
+    cartItems.addEventListener("click", event => {
+      const remove = event.target.closest("[data-remove]");
+      if (!remove) return;
+      cart = cart.filter(item => item.id !== Number(remove.dataset.remove));
+      renderCart();
+    });
+    checkoutButton.addEventListener("click", () => { window.location.href = "/products"; });
+
+    document.querySelector(".add-button").addEventListener("click", () => {
+      cart.push({ id: Date.now(), product: products[activeIndex], duration: selectedDuration, price: selectedPrice });
+      renderCart();
+      cartCount.animate([
+        { transform:"scale(.62)" },
+        { transform:"scale(1.18)", offset:.55 },
+        { transform:"scale(1)" }
+      ], { duration:480, easing:"ease-out" });
+      toast.textContent = `${products[activeIndex].name} · ${selectedPrice} added`;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 2800);
+    });
+    renderCart();
+
+    const canvas = document.querySelector("#space-lines");
+    const ctx = canvas.getContext("2d");
+    function drawLines() {
+      const ratio = Math.min(devicePixelRatio || 1, 1.5);
+      canvas.width = innerWidth * ratio; canvas.height = innerHeight * ratio;
+      canvas.style.width = innerWidth + "px"; canvas.style.height = innerHeight + "px";
+      ctx.setTransform(ratio,0,0,ratio,0,0);
+      const points = orbiters.map(item => {
+        const rect = item.getBoundingClientRect();
+        return { x:rect.left+rect.width/2, y:rect.top+rect.height/2 };
+      });
+      ctx.clearRect(0,0,innerWidth,innerHeight);
+      ctx.setLineDash([2,7]);
+      for (let i=0; i<points.length; i++) {
+        let nearest = null, distance = Infinity;
+        for (let j=0; j<points.length; j++) {
+          if (i===j) continue;
+          const d = Math.hypot(points[i].x-points[j].x, points[i].y-points[j].y);
+          if (d<distance) { distance=d; nearest=points[j]; }
+        }
+        if (nearest) {
+          ctx.beginPath(); ctx.moveTo(points[i].x,points[i].y); ctx.lineTo(nearest.x,nearest.y);
+          ctx.strokeStyle="rgba(255,210,70,.10)"; ctx.stroke();
+        }
+      }
+    }
+    drawLines();
+    addEventListener("resize", drawLines, { passive:true });
+  </script>
+</body>
+</html>

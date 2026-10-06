@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script>/*creed-start-at-top*/(function(){try{var n=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||null;var t=n&&n.type?n.type:'navigate';if(t==='navigate'&&!location.hash&&'scrollRestoration' in history){history.scrollRestoration='manual';window.scrollTo(0,0);}}catch(e){}})();</script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EJDCSEKBRW"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-EJDCSEKBRW');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful | Creed</title>
+    <link rel="icon" type="image/png" href="/assets/creedlogo-black.png">
+    <link rel="stylesheet" href="/styles.css?v=cursor3">
+
+    <!-- Icons -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <canvas id="bg-canvas"></canvas>
+    <div id="cursor"></div>
+    <div id="cursor-blur"></div>
+
+    <!-- Navigation -->
+    <header class="fade-in visible">
+        <nav class="navbar glass-panel">
+            <div class="logo">
+                <img src="/assets/navlogo.png" alt="Creed Logo" class="logo-image">
+            </div>
+
+            <div class="nav-links">
+                <a href="/"><i class="fas fa-home"></i> Home</a>
+                <a href="/products"><i class="fas fa-box"></i> Products</a>
+                <a href="/free-trial"><i class="fas fa-gamepad"></i> Free Trial</a>
+                <a href="/faq"><i class="fas fa-circle-question"></i> FAQ</a>
+                <a href="/status"><i class="fas fa-server"></i> Status</a>
+                <a href="/vouches"><i class="fas fa-star"></i> Reviews</a>
+                <a href="/support"><i class="fas fa-headset"></i> Support</a>
+            </div>
+
+            <div class="nav-icons">
+                <a href="https://discord.gg/creedgg" target="_blank" class="icon-btn">
+                    <i class="fab fa-discord" style="font-size: 20px;"></i>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Success Content -->
+    <section class="container" style="min-height: 70vh; display: flex; align-items: center; justify-content: center; padding: 100px 20px;">
+        <div class="glass-panel" style="max-width: 600px; width: 100%; padding: 60px 40px; text-align: center;">
+            <div style="font-size: 80px; color: #22c55e; margin-bottom: 30px;">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h1 style="font-size: 2.5rem; margin-bottom: 20px; color: var(--primary);">Payment Successful!</h1>
+            <p style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 40px;">
+                Thank you for your purchase! Your order has been processed successfully.
+            </p>
+            <div style="background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.2); border-radius: 8px; padding: 20px; margin-bottom: 30px; text-align: left;">
+                <p style="color: var(--text-muted); margin-bottom: 8px; font-size: 0.9rem;">Your order id <span style="opacity:0.85;">(save this — use it to sign in to the customer portal)</span></p>
+                <p id="creed-order-id" style="font-family: 'Space Grotesk', monospace; font-size: 1.1rem; color: var(--primary); word-break: break-all;">Loading…</p>
+            </div>
+            
+            <!-- Customer portal (primary) -->
+            <div id="portal-box" style="background: linear-gradient(135deg, rgba(255, 184, 0, 0.12) 0%, rgba(255, 184, 0, 0.04) 100%); border: 2px solid rgba(255, 184, 0, 0.35); border-radius: 12px; padding: 30px; margin-bottom: 24px; display: none;">
+                <div style="font-size: 44px; color: #FFB800; margin-bottom: 12px;">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <h2 style="font-size: 1.5rem; margin-bottom: 12px; color: var(--primary);">Open your order portal</h2>
+                <p style="font-size: 1rem; color: var(--text-muted); margin-bottom: 18px; line-height: 1.6;">
+                    Claim your order, open support tickets, and message our team — your access link is tied to this purchase.
+                </p>
+                <a id="portal-link" href="/portal" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-arrow-right"></i> Go to portal
+                </a>
+                <p id="portal-status" style="margin-top: 14px; font-size: 0.9rem; color: var(--text-muted);"></p>
+            </div>
+
+            <!-- Discord (optional) -->
+            <div style="background: linear-gradient(135deg, rgba(88, 101, 242, 0.12) 0%, rgba(88, 101, 242, 0.04) 100%); border: 2px solid rgba(88, 101, 242, 0.25); border-radius: 12px; padding: 24px; margin-bottom: 40px;">
+                <div style="font-size: 40px; color: #5865F2; margin-bottom: 10px;">
+                    <i class="fab fa-discord"></i>
+                </div>
+                <h2 style="font-size: 1.25rem; margin-bottom: 10px; color: var(--primary);">Discord community</h2>
+                <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 16px; line-height: 1.5;">
+                    Optional: hang out with the community — order delivery and tickets are handled in the portal above.
+                </p>
+                <a href="https://discord.gg/creedgg" target="_blank" rel="noopener"
+                   class="discord-join-btn"
+                   style="display: inline-flex; align-items: center; gap: 10px; background: #5865F2; color: white; padding: 10px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.95rem;">
+                    <i class="fab fa-discord"></i> Join Discord
+                </a>
+            </div>
+            
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <a href="/products" class="btn btn-primary">Continue Shopping</a>
+                <a href="/support" class="btn btn-secondary">Get Support</a>
+            </div>
+        </div>
+    </section>
+
+    <script src="/script.js?v=yt1"></script>
+    <script>
+        // Try to get session ID from multiple sources:
+        // 1. localStorage (stored before redirect - most reliable)
+        // 2. URL parameters (if Stripe passes it, but filter out literal "{CHECKOUT_SESSION_ID}")
+        // 3. Fallback to order ID from localStorage
+        
+        const urlParams = new URLSearchParams(window.location.search);
+        let sessionIdFromUrl = urlParams.get('session_id') || urlParams.get('sessionId') || urlParams.get('id');
+        
+        // Filter out the literal placeholder string if Stripe didn't replace it
+        if (sessionIdFromUrl === '{CHECKOUT_SESSION_ID}' || sessionIdFromUrl === '{session_id}' || sessionIdFromUrl === '{sessionId}' || sessionIdFromUrl === '{id}') {
+            sessionIdFromUrl = null;
+        }
+        
+        const sessionIdFromStorage = localStorage.getItem('pending_order_session_id');
+        const orderIdFromStorage = localStorage.getItem('pending_order_id');
+        
+        const creedOrderEl = document.getElementById('creed-order-id');
+        const storedOrder =
+            orderIdFromStorage && /^(creed_|order_)/i.test(orderIdFromStorage) ? orderIdFromStorage : '';
+        if (storedOrder) {
+            creedOrderEl.textContent = storedOrder;
+        }
+
+        (async function portalBootstrap() {
+            const sessionForPortal = sessionIdFromStorage || sessionIdFromUrl;
+            const portalBox = document.getElementById('portal-box');
+            const portalLink = document.getElementById('portal-link');
+            const portalStatus = document.getElementById('portal-status');
+
+            if (!sessionForPortal || !sessionForPortal.startsWith('cs_')) {
+                portalBox.style.display = 'block';
+                if (storedOrder) {
+                    creedOrderEl.textContent = storedOrder;
+                    portalStatus.textContent = 'Open the portal below and enter your order id if prompted.';
+                } else {
+                    if (creedOrderEl.textContent === 'Loading…') creedOrderEl.textContent = '—';
+                    portalStatus.textContent =
+                        'If your order id does not appear in a few seconds, refresh this page or check your email. You can always sign in at the portal using your order id once you have it.';
+                }
+                return;
+            }
+
+            portalBox.style.display = 'block';
+            portalStatus.textContent = 'Preparing your secure portal link…';
+
+            try {
+                // portal-bootstrap verifies the id against Stripe and rejects
+                // anything that is not a 'cs_...' session. Wallet-credit orders
+                // never touch Stripe, so they claim portal access by order id
+                // instead.
+                const isStripeSession = String(sessionForPortal || '').startsWith('cs_');
+                const res = isStripeSession
+                    ? await fetch('/api/portal-bootstrap', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ session_id: sessionForPortal }),
+                    })
+                    : await fetch('/api/portal-claim-by-order', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ order_id: sessionForPortal }),
+                    });
+                const data = await res.json();
+                if (!res.ok) {
+                    portalStatus.textContent = (data.hint || data.error || 'Could not create portal link yet.') + ' Try refreshing this page.';
+                    if (!storedOrder && creedOrderEl.textContent === 'Loading…') creedOrderEl.textContent = '—';
+                    return;
+                }
+                if (data.portal_token) {
+                    localStorage.setItem('creed_portal_token', data.portal_token);
+                }
+                if (data.portal_url) {
+                    portalLink.href = data.portal_url;
+                }
+                if (data.order && data.order.id) {
+                    creedOrderEl.textContent = data.order.id;
+                } else if (creedOrderEl.textContent === 'Loading…') {
+                    creedOrderEl.textContent = storedOrder || '—';
+                }
+                portalStatus.textContent = 'Saved your access on this device. Open the portal below — use your order id above if asked to sign in.';
+            } catch (e) {
+                portalStatus.textContent = 'Could not reach the portal service. Open the portal and sign in using your order id above.';
+                if (!storedOrder && creedOrderEl.textContent === 'Loading…') creedOrderEl.textContent = '—';
+            }
+        })();
+
+        setTimeout(() => {
+            if (sessionIdFromStorage) {
+                localStorage.removeItem('pending_order_session_id');
+            }
+            if (orderIdFromStorage) {
+                localStorage.removeItem('pending_order_id');
+            }
+        }, 5000);
+
+        (function trackPaidOrder() {
+            try {
+                if (sessionStorage.getItem('creed_umami_order_sent')) return;
+                var raw = localStorage.getItem('creed_umami_order');
+                var snapshot = raw ? JSON.parse(raw) : null;
+                var items = snapshot && snapshot.items ? snapshot.items : [];
+                if (!items.length || typeof window.creedTrack !== 'function') return;
+                items.forEach(function (item) {
+                    window.creedTrack('order', {
+                        revenue: Number(item.price || 0) * (item.quantity || 1),
+                        currency: 'USD',
+                        product: item.name || item.id || 'Product',
+                        discount: (snapshot && snapshot.discountCode) || '',
+                        referral: (snapshot && snapshot.referralCode) || '',
+                        youtube: (snapshot && snapshot.youtube) || (typeof window.getCreedYoutube === 'function' ? window.getCreedYoutube() : ''),
+                        tiktok: (snapshot && snapshot.tiktok) || (typeof window.getCreedTiktok === 'function' ? window.getCreedTiktok() : ''),
+                        campaign: (snapshot && snapshot.campaign) || (typeof window.getCreedEmailCampaign === 'function' ? window.getCreedEmailCampaign() : ''),
+                        customer: (snapshot && snapshot.customerId) || (typeof window.creedCustomerId === 'function' ? window.creedCustomerId() : ''),
+                        email: (snapshot && snapshot.email) || '',
+                        orderId: (snapshot && snapshot.orderId) || (localStorage.getItem('pending_order_id') || '')
+                    });
+                });
+                if (typeof window.creedSaveEmail === 'function' && snapshot && snapshot.email) {
+                    window.creedSaveEmail({
+                        kind: 'customer',
+                        email: snapshot.email,
+                        source: 'order',
+                        customerId: snapshot.customerId || '',
+                        orderId: snapshot.orderId || ''
+                    });
+                }
+                if (typeof window.creedSaveOrder === 'function' && snapshot && snapshot.orderId) {
+                    window.creedSaveOrder({
+                        orderId: snapshot.orderId,
+                        email: snapshot.email || '',
+                        status: 'completed',
+                        amount: snapshot.total || 0,
+                        currency: 'USD',
+                        paymentMethod: snapshot.paymentMethod || 'stripe',
+                        sessionId: snapshot.sessionId || '',
+                        items: snapshot.items || [],
+                        paidAt: new Date().toISOString()
+                    });
+                }
+                sessionStorage.setItem('creed_umami_order_sent', '1');
+                localStorage.removeItem('creed_umami_order');
+            } catch (e) { /* ignore */ }
+        })();
+    </script>
+</body>
+
+</html>

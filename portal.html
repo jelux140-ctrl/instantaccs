@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>/*creed-start-at-top*/(function(){try{var n=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||null;var t=n&&n.type?n.type:'navigate';if(t==='navigate'&&!location.hash&&'scrollRestoration' in history){history.scrollRestoration='manual';window.scrollTo(0,0);}}catch(e){}})();</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="creed-api-proxy" content="0">
+    <meta name="creed-api-origin" content="https://www.creedv2.com">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Customer Portal | Creed</title>
+    <link rel="icon" type="image/png" href="/assets/creedlogo-black.png">
+    <link rel="stylesheet" href="/styles.css?v=cursor3">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="portal-page">
+    <canvas id="bg-canvas"></canvas>
+    <div id="cursor"></div>
+    <div id="cursor-blur"></div>
+
+    <header class="fade-in visible">
+        <nav class="navbar glass-panel">
+            <div class="logo">
+                <a href="/" style="display:flex;align-items:center;"><img src="/assets/navlogo.png" alt="Creed" class="logo-image"></a>
+            </div>
+            <div class="nav-links">
+                <a href="/"><i class="fas fa-home"></i> Home</a>
+                <a href="/products"><i class="fas fa-box"></i> Products</a>
+                <a href="/free-trial"><i class="fas fa-gamepad"></i> Free Trial</a>
+                <a href="/support"><i class="fas fa-headset"></i> Support</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="portal-dc">
+        <aside class="portal-dc-sidebar">
+            <div class="portal-dc-sidebar-head">Creed portal</div>
+            <div class="portal-dc-channels">
+                <div class="portal-ch-cat">Information</div>
+                <button type="button" class="portal-ch active" data-channel="announcements" id="ch-announcements"># announcements</button>
+
+                <div class="portal-ch-cat">Your account</div>
+                <button type="button" class="portal-ch" data-channel="order" id="ch-order"># order</button>
+                <button type="button" class="portal-ch" data-channel="tickets" id="ch-tickets"># support</button>
+
+                <div class="portal-ch-group portal-ch-group--staff" id="staff-channel-group" hidden>
+                    <div class="portal-ch-cat">Staff only</div>
+                    <button type="button" class="portal-ch" data-channel="staff-inbox" id="ch-staff-inbox"># inbox</button>
+                    <button type="button" class="portal-ch" data-channel="staff-announce" id="ch-staff-announce"># post news</button>
+                </div>
+            </div>
+            <div class="portal-dc-sidebar-foot">
+                <button type="button" class="portal-staff-btn" id="btn-staff-signin">Staff sign in</button>
+                <button type="button" class="portal-staff-btn" id="btn-staff-signout" hidden>Staff sign out</button>
+            </div>
+        </aside>
+
+        <main class="portal-dc-main">
+            <header class="portal-dc-titlebar">
+                <h2 id="portal-channel-title"># announcements</h2>
+            </header>
+            <div class="portal-dc-content">
+                <section class="portal-ch-panel active" id="panel-announcements" data-panel="announcements">
+                    <div id="announcements-list"></div>
+                </section>
+
+                <section class="portal-ch-panel" id="panel-order" data-panel="order">
+                    <div id="portal-gate-order" class="glass-panel gate-box">
+                        <h2 style="margin-bottom: 10px;">Access your order</h2>
+                        <p id="portal-gate-hint-order" class="muted" style="margin-bottom: 12px;"></p>
+                        <p class="muted" style="margin-bottom: 12px; font-size: 0.9rem; line-height: 1.5;">
+                            Enter the <strong>order id</strong> shown on the payment success page (for example <code style="font-size:0.85em;">creed_…</code> or <code style="font-size:0.85em;">order_…</code>). Use the exact characters — no extra spaces.
+                        </p>
+                        <label for="manual-token-order">Order id</label>
+                        <input type="text" id="manual-token-order" placeholder="e.g. creed_… or order_…" autocomplete="off" spellcheck="false">
+                        <button type="button" class="btn btn-primary" id="btn-save-token-order" style="margin-top:10px;">Continue</button>
+                        <div id="portal-claim-status-order"></div>
+                    </div>
+                    <div id="portal-order-body" style="display: none;">
+                        <div class="glass-panel portal-card" id="order-card">
+                            <h2 style="margin-bottom: 10px; font-size: 1.15rem;">Your order</h2>
+                            <div id="order-summary"></div>
+                            <button type="button" class="btn btn-secondary" id="btn-logout" style="margin-top: 14px;">Forget token on this device</button>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="portal-ch-panel" id="panel-tickets" data-panel="tickets">
+                    <div id="portal-gate-tickets" class="glass-panel gate-box">
+                        <h2 style="margin-bottom: 10px;">Support</h2>
+                        <p class="muted" style="margin-bottom: 12px; font-size: 0.9rem; line-height: 1.5;">
+                            Sign in with your <strong>order id</strong> (same as on the Order tab), then you can create and manage support tickets.
+                        </p>
+                        <label for="manual-token-tickets">Order id</label>
+                        <input type="text" id="manual-token-tickets" placeholder="e.g. creed_… or order_…" autocomplete="off" spellcheck="false">
+                        <button type="button" class="btn btn-primary" id="btn-save-token-tickets" style="margin-top:10px;">Continue</button>
+                        <div id="portal-claim-status-tickets"></div>
+                    </div>
+                    <div id="portal-tickets-body" style="display: none;">
+                        <div class="portal-support-grid">
+                            <div>
+                                <h3 style="margin-bottom: 10px; font-size: 0.95rem; color: var(--text-muted);">Your tickets</h3>
+                                <div id="tickets-list"></div>
+                                <div class="glass-panel portal-card" style="margin-top: 14px;">
+                                    <h3 style="margin-bottom: 8px; font-size: 0.95rem;">New ticket</h3>
+                                    <input type="text" id="new-ticket-subject" placeholder="Subject" style="width:100%;padding:10px;margin:6px 0;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:rgba(0,0,0,0.4);color:#fff;">
+                                    <textarea id="new-ticket-msg" rows="3" placeholder="First message (optional)" style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:rgba(0,0,0,0.4);color:#fff;"></textarea>
+                                    <button type="button" class="btn btn-primary" id="btn-create-ticket" style="margin-top:8px;">Create ticket</button>
+                                </div>
+                            </div>
+                            <div>
+                                <div id="ticket-thread" style="display: none;">
+                                    <h3 style="font-size: 1rem; margin-bottom: 8px; color: var(--primary);">Conversation</h3>
+                                    <p id="customer-ticket-banner" class="muted" style="display:none; font-size:0.88rem; margin-bottom:10px;"></p>
+                                    <div id="messages-box"></div>
+                                    <div id="customer-reply-area">
+                                        <textarea id="reply-msg" rows="3" placeholder="Message…" style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:rgba(0,0,0,0.4);color:#fff;"></textarea>
+                                        <button type="button" class="btn btn-primary" id="btn-send-msg" style="margin-top:8px;">Send</button>
+                                    </div>
+                                </div>
+                                <p id="ticket-thread-placeholder" class="muted" style="padding: 20px; text-align: center; border: 1px dashed rgba(255,255,255,0.12); border-radius: 10px;">
+                                    Select a ticket to view the thread.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="portal-ch-panel" id="panel-staff-announce" data-panel="staff-announce">
+                    <div id="staff-announce-wrap">
+                        <div class="portal-announce-grid">
+                            <div class="glass-panel portal-card">
+                                <h3 style="margin: 0 0 12px; font-size: 1.05rem; color: var(--primary);">Compose announcement</h3>
+                                <label for="admin-ann-title" style="font-size:0.85rem;color:var(--text-muted);">Title</label>
+                                <input type="text" id="admin-ann-title" placeholder="Title" maxlength="200" style="width:100%;padding:10px;margin:6px 0 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:rgba(0,0,0,0.4);color:#fff;">
+                                <div class="portal-md-toolbar" id="admin-ann-toolbar" aria-label="Insert markdown">
+                                    <button type="button" class="portal-md-btn" data-insert="bold" title="Bold">B</button>
+                                    <button type="button" class="portal-md-btn" data-insert="italic" title="Italic"><i>I</i></button>
+                                    <button type="button" class="portal-md-btn" data-insert="h2" title="Heading">H2</button>
+                                    <button type="button" class="portal-md-btn" data-insert="link" title="Link">Link</button>
+                                    <button type="button" class="portal-md-btn" data-insert="ul" title="List">• List</button>
+                                    <button type="button" class="portal-md-btn" data-insert="code" title="Code">&lt;/&gt;</button>
+                                </div>
+                                <label for="admin-ann-body" style="font-size:0.85rem;color:var(--text-muted);">Body (Markdown)</label>
+                                <textarea id="admin-ann-body" rows="14" placeholder="Use **bold**, *italic*, [links](https://…), ## headings, lists, and `inline code`." style="width:100%;padding:10px;margin:6px 0;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:rgba(0,0,0,0.4);color:#fff;font-family:ui-monospace,monospace;font-size:0.88rem;"></textarea>
+                                <label style="display:flex;align-items:center;gap:8px;margin-top:10px;cursor:pointer;font-size:0.9rem;">
+                                    <input type="checkbox" id="admin-ann-publish" checked> <span>Published</span>
+                                </label>
+                                <label for="admin-ann-when" style="font-size:0.85rem;color:var(--text-muted);display:block;margin-top:8px;">Schedule (optional, local time)</label>
+                                <input type="datetime-local" id="admin-ann-when" style="width:100%;max-width:280px;padding:8px;margin:6px 0 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:rgba(0,0,0,0.4);color:#fff;">
+                                <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                                    <button type="button" class="btn btn-primary" id="btn-ann-save">Save</button>
+                                    <button type="button" class="btn btn-secondary" id="btn-ann-clear">Clear form</button>
+                                </div>
+                                <p id="admin-ann-status" class="muted" style="font-size:0.88rem;margin-top:10px;"></p>
+                            </div>
+                            <div>
+                                <h3 style="margin: 0 0 12px; font-size: 0.95rem; color: var(--text-muted);">Existing posts</h3>
+                                <div id="admin-ann-list" class="muted" style="font-size:0.9rem;">Sign in as staff to load posts.</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="portal-ch-panel" id="panel-staff-inbox" data-panel="staff-inbox">
+                    <p id="staff-inbox-locked" class="muted">Sign in with the staff button in the sidebar to view the team inbox.</p>
+                    <div id="staff-inbox-body" style="display: none;">
+                        <div class="portal-support-grid">
+                            <div>
+                                <h3 style="margin-bottom: 10px; font-size: 0.95rem;">All tickets</h3>
+                                <div id="staff-inbox-list"></div>
+                                <p class="muted" style="font-size: 0.82rem; margin-top: 12px;">Close or reply from here. For full orders see <a href="/admin" style="color: var(--primary);">Admin</a>.</p>
+                            </div>
+                            <div>
+                                <div id="staff-ticket-thread" style="display: none;">
+                                    <div style="display:flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
+                                        <h3 style="font-size: 1rem; margin: 0; color: var(--primary);">Thread</h3>
+                                        <div style="display:flex; flex-wrap:wrap; gap:8px; justify-content:flex-end;">
+                                            <button type="button" class="btn btn-secondary" id="btn-staff-reopen-ticket" style="font-size: 0.85rem; display:none;">Reopen</button>
+                                            <button type="button" class="btn btn-secondary" id="btn-staff-close-ticket" style="font-size: 0.85rem;">Close</button>
+                                            <button type="button" class="btn btn-primary" id="btn-staff-claim-ticket" style="font-size: 0.85rem;">Order claimed</button>
+                                        </div>
+                                    </div>
+                                    <p id="staff-ticket-banner" class="muted" style="display:none; font-size:0.88rem; margin-bottom:10px;"></p>
+                                    <div id="staff-messages-box"></div>
+                                    <div id="staff-reply-area">
+                                        <textarea id="staff-reply-msg" rows="3" placeholder="Reply as staff…" style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:rgba(0,0,0,0.4);color:#fff;"></textarea>
+                                        <button type="button" class="btn btn-primary" id="btn-staff-send" style="margin-top:8px;">Send as staff</button>
+                                    </div>
+                                </div>
+                                <p id="staff-thread-placeholder" class="muted" style="padding: 20px; text-align: center; border: 1px dashed rgba(255,255,255,0.12); border-radius: 10px;">
+                                    Select a ticket from the list.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <div id="staff-modal" class="portal-modal" hidden>
+        <div class="portal-modal-backdrop" id="staff-modal-backdrop"></div>
+        <div class="portal-modal-box glass-panel">
+            <h3>Staff sign in</h3>
+            <p class="muted" style="font-size: 0.9rem; margin-bottom: 10px;">Enter your <strong>staff access key</strong>. Treat it like a password — keep it private and don’t share it with anyone.</p>
+            <input type="password" id="staff-token-input" placeholder="Staff access key" autocomplete="off">
+            <div class="portal-modal-actions">
+                <button type="button" class="btn btn-primary" id="btn-staff-confirm">Unlock staff channels</button>
+                <button type="button" class="btn btn-secondary" id="btn-staff-cancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked@12.0.0/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.9/dist/purify.min.js"></script>
+    <script src="/portal-shell.js?v=11"></script>
+    <script src="/portal.js?v=12"></script>
+</body>
+</html>

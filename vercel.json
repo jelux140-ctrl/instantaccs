@@ -1,0 +1,283 @@
+{
+  "redirects": [
+    {
+      "source": "/reviews",
+      "destination": "/vouches",
+      "permanent": true
+    },
+    {
+      "source": "/reviews/",
+      "destination": "/vouches",
+      "permanent": true
+    },
+    {
+      "source": "/portal",
+      "destination": "https://portal.creedv2.com/",
+      "permanent": true
+    },
+    {
+      "source": "/portal/",
+      "destination": "https://portal.creedv2.com/",
+      "permanent": true
+    },
+    {
+      "source": "/yt/:code",
+      "destination": "/?yt=:code",
+      "permanent": false
+    },
+    {
+      "source": "/tt/:code",
+      "destination": "/?tt=:code",
+      "permanent": false
+    },
+    {
+      "source": "/product/ai-aimbot",
+      "destination": "/product/fortnite",
+      "permanent": true
+    },
+    {
+      "source": "/product/fortnite-public",
+      "destination": "/product/fortnite",
+      "permanent": true
+    },
+    {
+      "source": "/product/fortnite-private",
+      "destination": "/product/fortnite",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "/api/[...path]?path=:path*"
+    },
+    {
+      "source": "/unsubscribe",
+      "destination": "/api/[...path]?path=unsubscribe"
+    },
+    {
+      "source": "/email-go",
+      "destination": "/email-go.html"
+    },
+    {
+      "source": "/sitemap.xml",
+      "destination": "/api/[...path]?path=sitemap-blogs"
+    },
+    {
+      "source": "/robots.txt",
+      "destination": "/robots.txt"
+    },
+    {
+      "source": "/creed2026indexnow.txt",
+      "destination": "/creed2026indexnow.txt"
+    },
+    {
+      "source": "/feed",
+      "destination": "/api/[...path]?path=rss"
+    },
+    {
+      "source": "/rss",
+      "destination": "/api/[...path]?path=rss"
+    },
+    {
+      "source": "/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/products",
+      "destination": "/products.html"
+    },
+    {
+      "source": "/free-trial",
+      "destination": "/free-trial.html"
+    },
+    {
+      "source": "/account",
+      "destination": "/account.html"
+    },
+    {
+      "source": "/status",
+      "destination": "/status.html"
+    },
+    {
+      "source": "/auth-callback",
+      "destination": "/auth-callback.html"
+    },
+    {
+      "source": "/vouches",
+      "destination": "/vouches.html"
+    },
+    {
+      "source": "/support",
+      "destination": "/support.html"
+    },
+    {
+      "source": "/guides",
+      "destination": "/guides.html"
+    },
+    {
+      "source": "/faq",
+      "destination": "/faq.html"
+    },
+    {
+      "source": "/product/fortnite",
+      "destination": "/product-fortnite-public.html"
+    },
+    {
+      "source": "/product/temp-spoofer",
+      "destination": "/product-temp-spoofer.html"
+    },
+    {
+      "source": "/product/perm-spoofer",
+      "destination": "/product-perm-spoofer.html"
+    },
+    {
+      "source": "/product/rust",
+      "destination": "/product-rust.html"
+    },
+    {
+      "source": "/product/cod-black-ops-7",
+      "destination": "/product-cod-black-ops-7.html"
+    },
+    {
+      "source": "/product/arc-raiders",
+      "destination": "/product-arc-raiders.html"
+    },
+    {
+      "source": "/product/apex-legends",
+      "destination": "/product-apex-legends.html"
+    },
+    {
+      "source": "/product/valorant",
+      "destination": "/product-valorant.html"
+    },
+    {
+      "source": "/product/fortnite-skins",
+      "destination": "/product-fortnite-skins.html"
+    },
+    {
+      "source": "/product/valorant-skins",
+      "destination": "/product-valorant-skins.html"
+    },
+    {
+      "source": "/product/apex-skins",
+      "destination": "/product-apex-skins.html"
+    },
+    {
+      "source": "/product/rainbowsiege-skins",
+      "destination": "/product-rainbowsiege-skins.html"
+    },
+    {
+      "source": "/product/warzone-skins",
+      "destination": "/product-warzone-skins.html"
+    },
+    {
+      "source": "/product/universal-aim",
+      "destination": "/product-universal-aim.html"
+    },
+    {
+      "source": "/product/rainbowsiege",
+      "destination": "/product-rainbowsiege.html"
+    },
+    {
+      "source": "/blog",
+      "destination": "/blog.html"
+    },
+    {
+      "source": "/blog/:slug",
+      "destination": "/api/[...path]?path=blog-ssr&slug=:slug"
+    },
+    {
+      "source": "/blog-admin",
+      "destination": "/blog-admin.html"
+    },
+    {
+      "source": "/admin",
+      "destination": "/admin.html"
+    },
+    {
+      "source": "/maintenance",
+      "destination": "/maintenance.html"
+    },
+    {
+      "source": "/abandoned-checkout-email",
+      "destination": "/abandoned-checkout-email.html"
+    },
+    {
+      "source": "/payment-success",
+      "destination": "/payment-success.html"
+    },
+    {
+      "source": "/payment-failed",
+      "destination": "/payment-failed.html"
+    }
+  ],
+  "crons": [
+    {
+      "path": "/api/cron-abandoned-checkout",
+      "schedule": "0 16 * * *"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains; preload"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "no-referrer"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=(), payment=(self)"
+        }
+      ]
+    },
+    {
+      "source": "/sitemap.xml",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/xml"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        }
+      ]
+    },
+    {
+      "source": "/robots.txt",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/plain"
+        }
+      ]
+    },
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, POST, PATCH, DELETE, OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type, Authorization, X-Creed-Staff-Token"
+        }
+      ]
+    }
+  ]
+}

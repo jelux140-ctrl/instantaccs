@@ -1,0 +1,32 @@
+Hey yes, we can wire a Discord bot to our order data for notifications only (read-only).
+
+Base URL
+https://www.creedv2.com/api
+
+Authentication
+I'll DM you the token. Use it as:
+- Query param: ?token=<token>
+- OR header: Authorization: Bearer <token>
+
+Endpoint
+GET /get-orders
+
+Response Fields
+- id              : Order ID (e.g., ord_xxx)
+- status          : completed | pending | failed
+- amount          : Total amount (number)
+- currency        : e.g., "usd"
+- customerEmail   : Customer email
+- discordUsername : Discord username (if collected)
+- items           : Array of purchased items (name, quantity, amount_total)
+- createdAt       : ISO timestamp
+- paidAt          : ISO timestamp (null if unpaid)
+
+Example Request
+https://www.creedv2.com/api/get-orders?token=YOUR_TOKEN
+
+Polling Tips
+- Poll every 30-60s (don't hammer it)
+- Filter status === "completed" for paid orders
+- Newest orders first (createdAt descending)
+- Optional: ?search=email@example.com to filter by email

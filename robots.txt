@@ -1,0 +1,18 @@
+User-agent: *
+Allow: /
+Allow: /products
+Allow: /product/
+Allow: /blog
+Allow: /blog/
+Allow: /status
+Allow: /vouches
+Allow: /support
+
+Disallow: /admin
+Disallow: /blog-admin
+Disallow: /api/
+Allow: /api/rss
+Disallow: /payment-success
+Disallow: /payment-failed
+
+Sitemap: https://www.creedv2.com/sitemap.xml

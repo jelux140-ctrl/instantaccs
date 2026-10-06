@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="creed-api-proxy" content="1">
+    <meta name="creed-api-origin" content="">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Creed Dashboard</title>
+    <link rel="icon" type="image/png" href="https://www.creedv2.com/assets/creedlogo-black.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="portal.css">
+</head>
+<body>
+    <!-- Particles Background -->
+    <div class="particles-container" id="particles"></div>
+    
+    <!-- Public Announcements (shown before login) -->
+    <div id="public-announcements" class="public-announcements">
+        <div class="announcements-box">
+            <h2><i class="fas fa-bullhorn"></i> Announcements</h2>
+            <div id="announcements-list-public" class="announcements-list">
+                <p class="loading-text">Loading announcements...</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Login Screen -->
+    <div id="login-screen" class="login-screen">
+        <div class="login-box">
+            <div class="login-logo">
+                <img src="https://creedv2.com/assets/creedlogo.png" alt="Creed">
+                <span>Creed Dashboard</span>
+            </div>
+            
+            <!-- Customer order access (separate from Creed accounts/wallet) -->
+            <div id="customer-login">
+                <h2>Access your order</h2>
+                <p class="login-subtitle">Enter your Order ID. We’ll email the verified customer a secure access link.</p>
+                <div class="login-form">
+                    <div class="input-group">
+                        <label for="order-id-input">Order ID</label>
+                        <input type="text" id="order-id-input" placeholder="e.g. creed_... or order_..." autocomplete="off">
+                        <span class="input-hint">Found in your payment confirmation email</span>
+                    </div>
+                    <button type="button" class="btn-primary" id="btn-login">
+                        <i class="fas fa-arrow-right"></i>
+                        Email secure link
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Admin Login (hidden by default) -->
+            <div id="admin-login" class="hidden">
+                <h2><i class="fas fa-shield-alt"></i> Staff Login</h2>
+                <p class="login-subtitle">Enter your admin token to access staff features</p>
+                
+                <div class="login-form">
+                    <div class="input-group">
+                        <label>Admin Token</label>
+                        <input type="password" id="admin-token-input" placeholder="Enter admin token" autocomplete="off">
+                        <span class="input-hint">Staff access only</span>
+                    </div>
+                    <button type="button" class="btn-primary" id="btn-admin-login">
+                        <i class="fas fa-lock"></i>
+                        Staff Login
+                    </button>
+                </div>
+            </div>
+            
+            <div class="login-toggle">
+                <button type="button" class="btn-toggle" id="btn-toggle-login">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Staff Login</span>
+                </button>
+            </div>
+            
+            <div id="login-error" class="login-error"></div>
+            
+            <div class="login-footer">
+                <a href="https://creedv2.com/support" target="_blank">Need help? Contact support</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div id="dashboard" class="dashboard hidden">
+        <!-- Top Header -->
+        <header class="top-header">
+            <div class="header-left">
+                <div class="logo">
+                    <img src="https://creedv2.com/assets/creedlogo.png" alt="Creed">
+                    <span>Dashboard</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="user-info">
+                    <span class="user-name" id="user-name">Loading...</span>
+                    <span class="user-expiry" id="user-expiry"></span>
+                </div>
+                <button type="button" class="btn-logout" id="btn-logout" title="Logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </header>
+
+        <div class="dashboard-container">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="sidebar-user">
+                    <div class="user-avatar" id="user-avatar">CR</div>
+                    <div class="user-details">
+                        <span class="user-fullname" id="sidebar-name">Customer</span>
+                        <span class="user-since" id="user-since">Member</span>
+                    </div>
+                    <div class="status-badge active" id="status-badge">
+                        <span class="status-dot"></span>
+                        Active
+                    </div>
+                </div>
+
+                <nav class="sidebar-nav" id="sidebar-nav">
+                    <a href="#" class="nav-item customer-only active" data-section="overview">
+                        <i class="fas fa-home"></i>
+                        <span>Overview</span>
+                    </a>
+                    <a href="#" class="nav-item customer-only" data-section="downloads">
+                        <i class="fas fa-download"></i>
+                        <span>Downloads</span>
+                    </a>
+                    <a href="#" class="nav-item customer-only" data-section="tickets">
+                        <i class="fas fa-ticket-alt"></i>
+                        <span>Support</span>
+                    </a>
+                    <a href="#" class="nav-item customer-only" data-section="settings">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                    <!-- Admin-only nav items -->
+                    <a href="#" class="nav-item admin-only hidden" data-section="staff-inbox">
+                        <i class="fas fa-inbox"></i>
+                        <span>Staff Inbox</span>
+                    </a>
+                    <a href="#" class="nav-item admin-only hidden" data-section="announcements-admin">
+                        <i class="fas fa-bullhorn"></i>
+                        <span>Announcements</span>
+                    </a>
+                </nav>
+
+                <div class="sidebar-footer">
+                    <a href="https://creedv2.com/products" target="_blank" class="footer-link">
+                        <i class="fas fa-shopping-cart"></i>
+                        Go to Store
+                    </a>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <!-- Overview Section -->
+                <section id="section-overview" class="content-section active">
+                    <div class="section-header">
+                        <h1>Overview</h1>
+                        <p class="section-subtitle">Account summary and license status</p>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-label">License Status</span>
+                                <span class="stat-value status-active" id="license-status">Active</span>
+                            </div>
+                            <div class="stat-badge" id="days-left">0d left</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-label">Created On</span>
+                                <span class="stat-value" id="created-date">—</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-hourglass-half"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-label">Expiration</span>
+                                <span class="stat-value" id="expiry-date">—</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="order-details-card">
+                        <h3>Order Details</h3>
+                        <div class="order-info" id="order-info">
+                            <p class="loading-text">Loading order information...</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Downloads Section -->
+                <section id="section-downloads" class="content-section">
+                    <div class="section-header">
+                        <h1>Downloads</h1>
+                        <p class="section-subtitle">Latest loader releases for your products</p>
+                    </div>
+
+                    <div class="downloads-grid" id="downloads-list">
+                        <div class="download-card skeleton">
+                            <div class="skeleton-header"></div>
+                            <div class="skeleton-body"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Support Section -->
+                <section id="section-tickets" class="content-section">
+                    <div class="section-header">
+                        <h1>Support</h1>
+                        <p class="section-subtitle">Create and manage support tickets</p>
+                    </div>
+
+                    <div class="support-grid">
+                        <div class="tickets-panel">
+                            <h3>Your Tickets</h3>
+                            <div class="tickets-list" id="tickets-list">
+                                <p class="empty-text">No tickets yet</p>
+                            </div>
+                            
+                            <div class="new-ticket-card">
+                                <h4>Create New Ticket</h4>
+                                <input type="text" id="ticket-subject" placeholder="Subject" maxlength="100">
+                                <textarea id="ticket-message" rows="3" placeholder="Describe your issue..."></textarea>
+                                <button type="button" class="btn-primary" id="btn-create-ticket">
+                                    <i class="fas fa-plus"></i>
+                                    Create Ticket
+                                </button>
+                                <div class="discord-help-card">
+                                    <div>
+                                        <h5>Need faster help?</h5>
+                                        <p>Join Discord for setup help, updates, and quick support.</p>
+                                    </div>
+                                    <a href="https://discord.gg/creedgg" target="_blank" rel="noopener noreferrer" class="btn-discord-help">
+                                        <i class="fab fa-discord"></i>
+                                        Join Discord
+                                    </a>
+                                </div>
+                                <div class="guide-help-card">
+                                    <div>
+                                        <h5>Looking for setup steps?</h5>
+                                        <p>Open the official product guide before creating a ticket.</p>
+                                    </div>
+                                    <a href="https://asd-57.gitbook.io/creedv2-product-guide/l7LValhrIxIUPOFNH6gc/" target="_blank" rel="noopener noreferrer" class="btn-guide-help">
+                                        <i class="fas fa-book-open"></i>
+                                        Open product guide
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="chat-panel" id="chat-panel">
+                            <div class="chat-placeholder" id="chat-placeholder">
+                                <i class="fas fa-comments"></i>
+                                <p>Select a ticket to view the conversation</p>
+                            </div>
+                            
+                            <div class="chat-container hidden" id="chat-container">
+                                <div class="chat-header">
+                                    <h4 id="chat-subject">Ticket Subject</h4>
+                                    <span class="chat-status" id="chat-status">Open</span>
+                                </div>
+                                <div class="chat-messages" id="chat-messages"></div>
+                                <div class="chat-input-area" id="chat-input-area">
+                                    <textarea id="reply-message" rows="2" placeholder="Type your message..."></textarea>
+                                    <button type="button" class="btn-primary" id="btn-send-reply">
+                                        <i class="fas fa-paper-plane"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Settings Section -->
+                <section id="section-settings" class="content-section">
+                    <div class="section-header">
+                        <h1>Settings</h1>
+                        <p class="section-subtitle">Manage your account preferences</p>
+                    </div>
+
+                    <div class="settings-grid">
+                        <div class="settings-card">
+                            <div class="settings-card-header">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <div>
+                                    <h4>Cancel Subscription</h4>
+                                    <p>No active subscription found for your account.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-card">
+                            <h4><i class="fas fa-lock"></i> Session</h4>
+                            <p class="settings-desc">Your current session is active. You can logout from all devices by clicking below.</p>
+                            <button type="button" class="btn-secondary" id="btn-logout-all">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Logout
+                            </button>
+                        </div>
+
+                        <div class="settings-card">
+                            <h4><i class="fas fa-key"></i> Order Information</h4>
+                            <div class="order-id-display">
+                                <span class="label">Order ID:</span>
+                                <code id="settings-order-id">—</code>
+                            </div>
+                            <p class="settings-hint">Keep your Order ID safe. You'll need it to access this dashboard.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Staff Inbox Section (Admin Only) -->
+                <section id="section-staff-inbox" class="content-section">
+                    <div class="section-header">
+                        <h1><i class="fas fa-inbox"></i> Staff Inbox</h1>
+                        <p class="section-subtitle">View and respond to all customer tickets</p>
+                    </div>
+
+                    <div class="support-grid">
+                        <div class="tickets-panel">
+                            <h3>All Tickets</h3>
+                            <div class="tickets-list" id="staff-tickets-list">
+                                <p class="empty-text">No tickets found</p>
+                            </div>
+                        </div>
+
+                        <div class="chat-panel" id="staff-chat-panel">
+                            <div class="chat-placeholder" id="staff-chat-placeholder">
+                                <i class="fas fa-headset"></i>
+                                <p>Select a ticket to view and respond</p>
+                            </div>
+                            
+                            <div class="chat-container hidden" id="staff-chat-container">
+                                <div class="chat-header">
+                                    <div>
+                                        <h4 id="staff-chat-subject">Ticket Subject</h4>
+                                        <small id="staff-chat-order" style="color: var(--text-muted);"></small>
+                                    </div>
+                                    <div style="display: flex; gap: 8px;">
+                                        <span class="chat-status" id="staff-chat-status">Open</span>
+                                    </div>
+                                </div>
+                                <div class="chat-messages" id="staff-chat-messages"></div>
+                                <div class="chat-actions" style="padding: 12px 20px; border-top: 1px solid var(--border-color); display: flex; gap: 10px;">
+                                    <button type="button" class="btn-secondary" id="btn-close-ticket" style="font-size: 0.85rem;">
+                                        <i class="fas fa-check"></i> Close Ticket
+                                    </button>
+                                    <button type="button" class="btn-secondary" id="btn-claim-ticket" style="font-size: 0.85rem; background: rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.3); color: #ef4444;">
+                                        <i class="fas fa-flag"></i> Mark Claimed
+                                    </button>
+                                </div>
+                                <div class="chat-input-area" id="staff-chat-input-area">
+                                    <textarea id="staff-reply-message" rows="2" placeholder="Type your response..."></textarea>
+                                    <button type="button" class="btn-primary" id="btn-staff-send-reply">
+                                        <i class="fas fa-paper-plane"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Announcements Admin Section (Admin Only) -->
+                <section id="section-announcements-admin" class="content-section">
+                    <div class="section-header">
+                        <h1><i class="fas fa-bullhorn"></i> Manage Announcements</h1>
+                        <p class="section-subtitle">Create and manage public announcements</p>
+                    </div>
+
+                    <div class="support-grid">
+                        <div class="tickets-panel">
+                            <div class="new-ticket-card">
+                                <h4>Create Announcement</h4>
+                                <input type="text" id="ann-title" placeholder="Announcement title" maxlength="200">
+                                <textarea id="ann-body" rows="6" placeholder="Announcement content (supports markdown)..." style="font-family: monospace;"></textarea>
+                                <label style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px; cursor: pointer; color: var(--text-secondary);">
+                                    <input type="checkbox" id="ann-published" checked style="width: auto;">
+                                    <span>Publish immediately</span>
+                                </label>
+                                <button type="button" class="btn-primary" id="btn-post-announcement">
+                                    <i class="fas fa-paper-plane"></i>
+                                    Post Announcement
+                                </button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 style="margin-bottom: 16px; color: var(--text-secondary); font-size: 0.95rem;">Existing Announcements</h3>
+                            <div id="admin-announcements-list">
+                                <p class="empty-text">No announcements yet</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <script src="portal.js"></script>
+</body>
+</html>

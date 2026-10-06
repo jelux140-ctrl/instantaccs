@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Success Page Preview | Creed</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FFB800;
+            --bg: #0a0a0a;
+            --card: #111111;
+            --text: #ffffff;
+            --text-muted: #888888;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 184, 0, 0.1);
+            border-radius: 16px;
+            padding: 60px 40px;
+            text-align: center;
+        }
+        .success-icon {
+            font-size: 80px;
+            color: #22c55e;
+            margin-bottom: 30px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+        }
+        /* Order ID Box */
+        .order-box {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+        .order-box label {
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            display: block;
+        }
+        .order-box label span {
+            opacity: 0.85;
+        }
+        .order-id {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 1.1rem;
+            color: var(--primary);
+            word-break: break-all;
+        }
+        /* Portal Box */
+        .portal-box {
+            background: linear-gradient(135deg, rgba(255, 184, 0, 0.12) 0%, rgba(255, 184, 0, 0.04) 100%);
+            border: 2px solid rgba(255, 184, 0, 0.35);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 24px;
+        }
+        .portal-icon {
+            font-size: 44px;
+            color: #FFB800;
+            margin-bottom: 12px;
+        }
+        .portal-box h2 {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+            color: var(--primary);
+        }
+        .portal-box p {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 18px;
+            line-height: 1.6;
+        }
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #FFB800 0%, #FFD700 100%);
+            color: #000;
+            padding: 14px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        /* Discord Box */
+        .discord-box {
+            background: linear-gradient(135deg, rgba(88, 101, 242, 0.12) 0%, rgba(88, 101, 242, 0.04) 100%);
+            border: 2px solid rgba(88, 101, 242, 0.25);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 40px;
+        }
+        .discord-icon {
+            font-size: 40px;
+            color: #5865F2;
+            margin-bottom: 10px;
+        }
+        .discord-box h2 {
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        .discord-box p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+        .discord-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #5865F2;
+            color: white;
+            padding: 10px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        .back-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+        .back-link:hover {
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="glass-panel">
+            <!-- Success Icon -->
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            
+            <!-- Title -->
+            <h1>Payment Successful!</h1>
+            <p class="subtitle">Thank you for your purchase! Your order has been processed successfully.</p>
+            
+            <!-- Order ID Box -->
+            <div class="order-box">
+                <label>Your order id <span>(save this — use it to sign in to the customer portal)</span></label>
+                <p class="order-id">creed_1234567890</p>
+            </div>
+            
+            <!-- Portal Section -->
+            <div class="portal-box">
+                <div class="portal-icon">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <h2>Open your order portal</h2>
+                <p>Claim your order, open support tickets, and message our team — your access link is tied to this purchase.</p>
+                <a href="/portal" class="btn-primary">
+                    <i class="fas fa-arrow-right"></i> Go to portal
+                </a>
+                <p style="margin-top: 14px; font-size: 0.9rem; color: var(--text-muted);">
+                    License keys are in your portal
+                </p>
+            </div>
+            
+            <!-- Discord Section -->
+            <div class="discord-box">
+                <div class="discord-icon">
+                    <i class="fab fa-discord"></i>
+                </div>
+                <h2>Discord community</h2>
+                <p>Optional: hang out with the community — order delivery and tickets are handled in the portal above.</p>
+                <a href="https://discord.gg/creedgg" target="_blank" class="discord-btn">
+                    <i class="fab fa-discord"></i> Join Discord
+                </a>
+            </div>
+            
+            <!-- Back Link -->
+            <a href="/" class="back-link">← Return to store</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>/*creed-start-at-top*/(function(){try{var n=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||null;var t=n&&n.type?n.type:'navigate';if(t==='navigate'&&!location.hash&&'scrollRestoration' in history){history.scrollRestoration='manual';window.scrollTo(0,0);}}catch(e){}})();</script>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#080704">
+  <title>Creed Ascension — Homepage Concept</title>
+  <meta name="description" content="An isolated immersive homepage concept for Creed.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.56/build/spline-viewer.js"></script>
+  <style>
+    :root {
+      --ink: #070705;
+      --surface: #0d0c09;
+      --surface-2: #14120c;
+      --line: rgba(255, 214, 83, .15);
+      --gold: #ffd447;
+      --gold-2: #ffb800;
+      --cream: #f7f2e7;
+      --muted: #aaa596;
+      --green: #63e6a7;
+      --mx: 50vw;
+      --my: 20vh;
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; background: var(--ink); }
+    body {
+      margin: 0;
+      color: var(--cream);
+      background:
+        radial-gradient(900px 520px at var(--mx) var(--my), rgba(255, 190, 0, .075), transparent 60%),
+        var(--ink);
+      font-family: "DM Sans", sans-serif;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 99;
+      pointer-events: none;
+      opacity: .035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
+    }
+    #field {
+      position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1;
+      opacity: .52; pointer-events: none;
+    }
+    .progress-rail {
+      position: fixed; z-index: 80; top: 0; left: 0; width: 100%; height: 2px;
+      transform: scaleX(0); transform-origin: left center;
+      background: linear-gradient(90deg, #ff9f0a, #ffe782);
+      box-shadow: 0 0 16px rgba(255, 197, 48, .75);
+    }
+    .cursor-core, .cursor-ring {
+      position: fixed; z-index: 90; left: 0; top: 0; pointer-events: none; border-radius: 50%;
+      transform: translate(-50%, -50%); mix-blend-mode: difference;
+    }
+    .cursor-core { width: 5px; height: 5px; background: white; }
+    .cursor-ring { width: 32px; height: 32px; border: 1px solid rgba(255,255,255,.7); transition: width .2s, height .2s, background .2s; }
+    body.cursor-active .cursor-ring { width: 52px; height: 52px; background: rgba(255,255,255,.1); }
+    a { color: inherit; text-decoration: none; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    img { max-width: 100%; display: block; }
+    .shell { width: min(1240px, calc(100% - 40px)); margin-inline: auto; }
+    .skip {
+      position: fixed; left: 16px; top: -80px; z-index: 1000;
+      background: var(--gold); color: #080704; padding: 12px 18px; border-radius: 10px;
+    }
+    .skip:focus { top: 16px; }
+
+    .nav-wrap { position: fixed; inset: 18px 0 auto; z-index: 60; }
+    .nav {
+      height: 68px; padding: 0 12px 0 18px; display: flex; align-items: center; gap: 26px;
+      border: 1px solid rgba(255,255,255,.1); border-radius: 18px;
+      background: rgba(8, 7, 4, .68); box-shadow: 0 18px 60px rgba(0,0,0,.32);
+      backdrop-filter: blur(18px) saturate(140%);
+    }
+    .brand { display: flex; align-items: center; min-width: 54px; }
+    .brand img { width: 38px; height: 38px; object-fit: contain; }
+    .nav-links { display: flex; gap: 28px; margin: auto; }
+    .nav-links a { color: #c7c2b7; font-size: 14px; font-weight: 600; transition: color .2s; }
+    .nav-links a:hover { color: white; }
+    .nav-actions { display: flex; align-items: center; gap: 8px; }
+    .icon-btn, .menu-btn {
+      width: 44px; height: 44px; display: grid; place-items: center; border-radius: 13px;
+      border: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.045); color: white;
+      cursor: pointer;
+    }
+    .menu-btn { display: none; }
+    .nav-cta, .primary-btn, .secondary-btn {
+      min-height: 44px; display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 0 19px; border-radius: 13px; font-weight: 700; transition: transform .2s, box-shadow .2s, background .2s;
+    }
+    .nav-cta, .primary-btn {
+      color: #0a0802; background: linear-gradient(135deg, #ffe275, var(--gold-2));
+      box-shadow: 0 10px 38px rgba(255, 190, 0, .18), inset 0 1px rgba(255,255,255,.55);
+    }
+    .nav-cta:hover, .primary-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 48px rgba(255,190,0,.27); }
+
+    .hero {
+      position: relative; min-height: 100svh; display: grid; align-items: center; overflow: hidden;
+      border-bottom: 1px solid var(--line);
+    }
+    .hero::before {
+      content: ""; position: absolute; inset: 0;
+      background:
+        linear-gradient(90deg, var(--ink) 0%, rgba(7,7,5,.88) 30%, transparent 58%),
+        linear-gradient(0deg, var(--ink) 0%, transparent 28%);
+      z-index: 2; pointer-events: none;
+    }
+    .hero-grid {
+      position: absolute; inset: 0; opacity: .18;
+      background-image:
+        linear-gradient(rgba(255,212,71,.11) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,212,71,.11) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: linear-gradient(to bottom, black, transparent 85%);
+    }
+    .spline-stage { position: absolute; z-index: 1; inset: 0 0 0 35%; overflow: hidden; }
+    spline-viewer { width: 100%; height: 100%; display: block; transform: scale(1.06); }
+    .hero-copy { position: relative; z-index: 4; width: min(680px, 58%); padding: 140px 0 90px; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 10px; color: var(--gold);
+      font: 600 12px/1 "Space Grotesk", sans-serif; letter-spacing: .19em; text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: 26px; height: 1px; background: currentColor; box-shadow: 0 0 12px currentColor; }
+    .hero h1 {
+      margin: 24px 0 22px; max-width: 760px;
+      font: 700 clamp(58px, 7.3vw, 112px)/.86 "Space Grotesk", sans-serif;
+      letter-spacing: -.075em;
+    }
+    .hero h1 span { color: transparent; -webkit-text-stroke: 1px rgba(255,220,110,.85); text-shadow: 0 0 40px rgba(255,190,0,.1); }
+    .hero-lede { max-width: 570px; margin: 0 0 34px; color: #b9b4a9; font-size: clamp(17px, 1.4vw, 20px); line-height: 1.65; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .primary-btn, .secondary-btn { min-height: 54px; padding: 0 24px; border-radius: 15px; }
+    .secondary-btn { border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.04); color: white; }
+    .secondary-btn:hover { background: rgba(255,255,255,.08); transform: translateY(-2px); }
+    .micro-proof { display: flex; align-items: center; gap: 12px; margin-top: 30px; color: #999487; font-size: 13px; }
+    .avatar-stack { display: flex; }
+    .avatar-stack span {
+      width: 28px; height: 28px; margin-left: -7px; border: 2px solid var(--ink); border-radius: 50%;
+      background: linear-gradient(135deg, #5f4a19, #12100b); overflow: hidden;
+    }
+    .avatar-stack span:first-child { margin-left: 0; }
+    .avatar-stack img { width: 100%; height: 100%; object-fit: cover; }
+    .live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 12px var(--green); }
+    .scroll-cue {
+      position: absolute; right: 34px; bottom: 35px; z-index: 5; display: flex; align-items: center; gap: 10px;
+      color: #898477; font-size: 11px; letter-spacing: .15em; writing-mode: vertical-rl;
+    }
+    .scroll-cue::after { content: ""; width: 1px; height: 48px; background: linear-gradient(var(--gold), transparent); }
+
+    .signal-bar { border-bottom: 1px solid var(--line); background: #0a0906; overflow: hidden; }
+    .signal-track {
+      width: max-content; display: flex; gap: 56px; padding: 17px 0;
+      animation: marquee 26s linear infinite; color: #aaa596; font: 600 12px "Space Grotesk"; letter-spacing: .13em; text-transform: uppercase;
+    }
+    .signal-track span { display: inline-flex; align-items: center; gap: 12px; }
+    .signal-track i { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 8px var(--gold); }
+    @keyframes marquee { to { transform: translateX(-50%); } }
+
+    .velocity-band {
+      position: relative; overflow: hidden; padding: 44px 0 56px; border-block: 1px solid var(--line);
+      background: linear-gradient(180deg, #090805, #0e0c07 50%, #090805);
+    }
+    .velocity-row {
+      display: flex; width: max-content; white-space: nowrap; will-change: transform;
+      font: 700 clamp(54px, 9vw, 138px)/.82 "Space Grotesk"; letter-spacing: -.07em;
+      color: transparent; -webkit-text-stroke: 1px rgba(255,214,83,.42);
+    }
+    .velocity-row + .velocity-row { color: var(--cream); -webkit-text-stroke: 0; opacity: .06; transform: translateX(-18%); }
+    .velocity-row span { padding-right: .2em; }
+
+    section.content { padding: 120px 0; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 30px; margin-bottom: 42px; }
+    .section-head h2 { margin: 12px 0 0; font: 700 clamp(38px, 5vw, 72px)/.98 "Space Grotesk"; letter-spacing: -.055em; max-width: 760px; }
+    .section-head p { max-width: 370px; margin: 0; color: var(--muted); line-height: 1.65; }
+
+    .product-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+    .product-card {
+      --spot-x: 50%; --spot-y: 50%;
+      position: relative; grid-column: span 4; min-height: 460px; overflow: hidden; border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.1); background:
+        radial-gradient(450px circle at var(--spot-x) var(--spot-y), rgba(255,210,60,.13), transparent 48%),
+        linear-gradient(145deg, #15130d, #090906 65%);
+      transform-style: preserve-3d; isolation: isolate;
+    }
+    .product-card:first-child { grid-column: span 6; }
+    .product-card:nth-child(2) { grid-column: span 6; }
+    .product-card::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 1px rgba(255,255,255,.08); pointer-events: none; }
+    .product-art { position: absolute; inset: 0; z-index: -1; }
+    .product-art::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, #090906 5%, transparent 68%); }
+    .product-art img { width: 100%; height: 100%; object-fit: cover; opacity: .7; filter: saturate(.88) contrast(1.08); transition: transform .55s cubic-bezier(.2,.8,.2,1), opacity .3s; }
+    .product-card:hover .product-art img { transform: scale(1.045); opacity: .84; }
+    .product-top { display: flex; justify-content: space-between; align-items: center; padding: 20px; }
+    .availability { display: inline-flex; align-items: center; gap: 7px; padding: 8px 11px; border-radius: 999px; background: rgba(8,8,6,.68); backdrop-filter: blur(10px); font-size: 11px; border: 1px solid rgba(255,255,255,.1); }
+    .availability i { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); }
+    .card-arrow { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; background: rgba(10,9,6,.68); border: 1px solid rgba(255,255,255,.12); transition: transform .25s, background .25s; }
+    .product-card:hover .card-arrow { transform: rotate(-35deg); background: var(--gold); color: #090806; }
+    .product-info { position: absolute; left: 24px; right: 24px; bottom: 24px; }
+    .product-meta { display: flex; justify-content: space-between; align-items: end; gap: 14px; }
+    .product-title { margin: 0 0 5px; font: 700 clamp(25px, 2.5vw, 36px) "Space Grotesk"; letter-spacing: -.04em; }
+    .product-sub { color: #a39d90; font-size: 13px; }
+    .price { color: var(--gold); font: 700 20px "Space Grotesk"; white-space: nowrap; }
+
+    .experience { position: relative; padding: 40px 0 120px; }
+    .experience-grid { display: grid; grid-template-columns: 1.18fr .82fr; gap: 16px; }
+    .panel {
+      position: relative; min-height: 280px; padding: 30px; overflow: hidden; border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.1); background: linear-gradient(145deg, rgba(24,21,13,.95), rgba(10,9,6,.96));
+    }
+    .panel.large { grid-row: span 2; min-height: 592px; display: flex; flex-direction: column; }
+    .panel h3 { margin: 14px 0 16px; font: 700 clamp(27px, 3vw, 44px)/1.04 "Space Grotesk"; letter-spacing: -.04em; }
+    .panel p { color: var(--muted); max-width: 470px; line-height: 1.65; margin: 0; }
+    .experience-grid > .panel:not(.large) { min-height: 288px; display: flex; flex-direction: column; }
+    .command-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+    .live-pill { display: inline-flex; align-items: center; gap: 7px; color: #a7dfc5; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+    .live-pill i { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 12px var(--green); animation: pulse 1.8s ease-in-out infinite; }
+    @keyframes pulse { 50% { opacity: .35; transform: scale(.7); } }
+    .command-screen {
+      position: relative; min-height: 315px; margin: 26px 0 24px; border-radius: 16px; overflow: hidden;
+      border: 1px solid rgba(255,211,67,.18); background:
+        linear-gradient(rgba(255,214,71,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,214,71,.035) 1px, transparent 1px), #090805;
+      background-size: 30px 30px;
+    }
+    .command-screen::after {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(transparent 48%, rgba(255,210,50,.07) 50%, transparent 52%);
+      background-size: 100% 7px; animation: scan 7s linear infinite;
+    }
+    @keyframes scan { to { background-position-y: 315px; } }
+    .node-map { position: absolute; inset: 0; }
+    .map-links { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+    .map-links path {
+      fill: none; stroke: rgba(255, 210, 64, .25); stroke-width: .32;
+      stroke-dasharray: 1.5 1.2; vector-effect: non-scaling-stroke;
+      animation: data-flow 8s linear infinite;
+    }
+    .map-links path:nth-child(2) { animation-delay: -2.5s; }
+    .map-links path:nth-child(3) { animation-delay: -5s; }
+    @keyframes data-flow { to { stroke-dashoffset: -24; } }
+    .network-node {
+      position: absolute; width: 10px; height: 10px; border: 2px solid var(--gold); border-radius: 50%;
+      background: #0a0905; box-shadow: 0 0 0 5px rgba(255,210,60,.07), 0 0 18px rgba(255,210,60,.4);
+    }
+    .network-node::after { content: attr(data-label); position: absolute; left: 17px; top: 50%; translate: 0 -50%; color: #aaa493; font: 600 9px "Space Grotesk"; letter-spacing: .1em; white-space: nowrap; }
+    .network-node.n1 { left: 18%; top: 67%; }.network-node.n2 { left: 39%; top: 36%; }.network-node.n3 { left: 68%; top: 56%; }.network-node.n4 { left: 79%; top: 24%; }
+    .network-node.active { width: 15px; height: 15px; background: var(--gold); animation: beacon 2s ease-out infinite; }
+    @keyframes beacon { 70%,100% { box-shadow: 0 0 0 24px transparent, 0 0 25px rgba(255,210,60,.45); } }
+    .screen-readout { position: absolute; left: 18px; right: 18px; bottom: 16px; display: flex; justify-content: space-between; gap: 10px; color: #777266; font: 10px "Space Grotesk"; letter-spacing: .08em; text-transform: uppercase; }
+    .metric-row { display: flex; gap: 26px; margin-top: 22px; }
+    .metric strong { display: block; color: white; font: 700 25px "Space Grotesk"; }
+    .metric span { color: #8f8a7f; font-size: 12px; }
+    .status-list { display: grid; gap: 15px; margin-top: 10px; }
+    .status-item { display: flex; align-items: center; gap: 12px; color: #cbc6b9; }
+    .status-item svg { color: var(--gold); flex: 0 0 auto; }
+    .delivery-route { display: grid; gap: 0; margin-top: 22px; }
+    .route-step { position: relative; display: grid; grid-template-columns: 34px 1fr auto; align-items: center; gap: 12px; min-height: 52px; }
+    .route-step:not(:last-child)::after { content: ""; position: absolute; left: 16px; top: 34px; bottom: -18px; width: 1px; background: linear-gradient(var(--gold), rgba(255,211,67,.08)); }
+    .route-icon { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 10px; color: var(--gold); background: rgba(255,211,67,.08); border: 1px solid rgba(255,211,67,.14); }
+    .route-copy strong { display: block; font-size: 13px; }.route-copy span { color: #7f7a6e; font-size: 11px; }
+    .route-state { color: var(--green); font-size: 9px; letter-spacing: .08em; text-transform: uppercase; }
+    .panel-callout { margin-top: 30px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.07); display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+    .panel-callout-note { color: #8f8a7f; font-size: 12px; }
+    .panel-link { display: inline-flex; align-items: center; gap: 8px; color: var(--gold); font-weight: 700; font-size: 13px; }
+
+    .chapter { padding: 120px 0; position: relative; }
+    .showcase-shell {
+      position: relative; min-height: 720px; border-radius: 30px; overflow: hidden;
+      border: 1px solid rgba(255,255,255,.1); background: #0b0a07;
+      box-shadow: 0 50px 120px rgba(0,0,0,.38);
+    }
+    .showcase-stage { position: absolute; inset: 0; }
+    .showcase-slide {
+      position: absolute; inset: 0; display: grid; grid-template-columns: .9fr 1.1fr;
+      opacity: 0; visibility: hidden; transition: opacity .45s ease, visibility .45s;
+    }
+    .showcase-slide.active { opacity: 1; visibility: visible; }
+    .showcase-copy { position: relative; z-index: 2; align-self: end; padding: 58px; }
+    .showcase-index { color: var(--gold); font: 600 12px "Space Grotesk"; letter-spacing: .14em; }
+    .showcase-copy h3 { margin: 14px 0 16px; font: 700 clamp(48px, 6vw, 90px)/.88 "Space Grotesk"; letter-spacing: -.065em; }
+    .showcase-copy p { max-width: 470px; color: #aaa497; line-height: 1.7; }
+    .showcase-specs { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0 28px; }
+    .showcase-specs span { padding: 8px 11px; border: 1px solid rgba(255,255,255,.1); border-radius: 999px; background: rgba(255,255,255,.035); color: #c8c2b5; font-size: 11px; }
+    .showcase-art { position: relative; min-height: 720px; overflow: hidden; }
+    .showcase-art img { width: 100%; height: 100%; object-fit: cover; opacity: .86; transform: scale(1.04); transition: transform 1.2s cubic-bezier(.2,.8,.2,1); }
+    .showcase-slide.active .showcase-art img { transform: scale(1); }
+    .showcase-art::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, #0b0a07 0%, transparent 50%), linear-gradient(0deg, #0b0a07 0%, transparent 35%); }
+    .showcase-nav { position: absolute; z-index: 5; top: 26px; left: 26px; right: 26px; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+    .game-tabs { display: flex; padding: 5px; gap: 4px; border-radius: 15px; border: 1px solid rgba(255,255,255,.1); background: rgba(8,7,5,.7); backdrop-filter: blur(16px); overflow-x: auto; scrollbar-width: none; }
+    .game-tab { min-height: 42px; padding: 0 15px; border: 0; border-radius: 11px; color: #9d978b; background: transparent; font: 600 12px "DM Sans"; white-space: nowrap; cursor: pointer; }
+    .game-tab.active { color: #080704; background: var(--gold); box-shadow: 0 7px 22px rgba(255,195,20,.2); }
+    .showcase-progress { display: flex; align-items: center; gap: 8px; color: #aaa497; font: 11px "Space Grotesk"; letter-spacing: .1em; }
+    .showcase-progress i { width: 80px; height: 2px; background: rgba(255,255,255,.12); position: relative; overflow: hidden; }
+    .showcase-progress i::after { content: ""; position: absolute; inset: 0; background: var(--gold); transform: scaleX(var(--game-progress, .2)); transform-origin: left; transition: transform .4s; }
+
+    .compare-grid { display: grid; grid-template-columns: .72fr 1.28fr; align-items: center; gap: 64px; }
+    .compare-copy h2 { margin: 14px 0 20px; font: 700 clamp(42px, 5vw, 76px)/.94 "Space Grotesk"; letter-spacing: -.06em; }
+    .compare-copy p { color: var(--muted); line-height: 1.7; }
+    .compare-frame { position: relative; aspect-ratio: 16/10; border-radius: 24px; overflow: hidden; border: 1px solid rgba(255,255,255,.12); background: #100e09; user-select: none; touch-action: none; }
+    .compare-layer { position: absolute; inset: 0; overflow: hidden; }
+    .compare-layer img { width: 100%; height: 100%; object-fit: cover; }
+    .compare-layer.before { filter: grayscale(1) brightness(.47); }
+    .compare-layer.after { width: 58%; border-right: 1px solid var(--gold); }
+    .compare-layer.after img { width: calc(100vw); max-width: none; }
+    .compare-label { position: absolute; z-index: 3; top: 18px; padding: 8px 11px; border-radius: 999px; background: rgba(8,7,5,.72); backdrop-filter: blur(12px); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; }
+    .compare-label.left { left: 18px; }.compare-label.right { right: 18px; }
+    .compare-handle { position: absolute; z-index: 4; left: 58%; top: 50%; width: 48px; height: 48px; translate: -50% -50%; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.5); border-radius: 50%; background: var(--gold); color: #080704; box-shadow: 0 0 0 8px rgba(255,211,71,.11), 0 15px 40px rgba(0,0,0,.35); cursor: ew-resize; }
+    .compare-note { display: flex; align-items: center; gap: 10px; margin-top: 20px; color: #8f897d; font-size: 12px; }
+    .compare-note svg { color: var(--gold); }
+
+    .portal-lab { display: grid; grid-template-columns: .68fr 1.32fr; gap: 20px; padding: 20px; border-radius: 28px; border: 1px solid rgba(255,255,255,.1); background: linear-gradient(145deg, #15120b, #080705); }
+    .portal-side { padding: 28px 18px 28px 26px; display: flex; flex-direction: column; }
+    .portal-side h2 { margin: 14px 0 16px; font: 700 clamp(38px, 4vw, 62px)/.95 "Space Grotesk"; letter-spacing: -.055em; }
+    .portal-side > p { color: var(--muted); line-height: 1.65; }
+    .portal-tabs { display: grid; gap: 8px; margin-top: 28px; }
+    .portal-tab { min-height: 54px; padding: 0 14px; display: flex; align-items: center; gap: 12px; border: 1px solid transparent; border-radius: 13px; background: transparent; color: #8e887b; text-align: left; cursor: pointer; }
+    .portal-tab svg { width: 18px; color: #777166; }
+    .portal-tab.active { color: white; background: rgba(255,211,71,.07); border-color: rgba(255,211,71,.15); }
+    .portal-tab.active svg { color: var(--gold); }
+    .portal-window { min-height: 600px; overflow: hidden; border: 1px solid rgba(255,255,255,.1); border-radius: 20px; background: #090908; box-shadow: 0 25px 70px rgba(0,0,0,.3); }
+    .window-bar { height: 50px; padding: 0 18px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,.07); }
+    .window-dots { display: flex; gap: 6px; }.window-dots i { width: 8px; height: 8px; border-radius: 50%; background: #35332d; }.window-dots i:first-child { background: var(--gold); }
+    .window-url { color: #666157; font: 10px "Space Grotesk"; letter-spacing: .08em; }
+    .portal-screen { display: none; padding: 26px; min-height: 550px; }
+    .portal-screen.active { display: block; animation: screen-in .38s ease both; }
+    @keyframes screen-in { from { opacity: 0; transform: translateY(8px); } }
+    .screen-title { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 22px; }
+    .screen-title h3 { margin: 0; font: 700 24px "Space Grotesk"; }.screen-title span { color: var(--green); font-size: 10px; text-transform: uppercase; letter-spacing: .1em; }
+    .portal-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+    .portal-stat { min-height: 108px; padding: 16px; border-radius: 14px; border: 1px solid rgba(255,255,255,.08); background: #11110f; }
+    .portal-stat span { color: #777267; font-size: 10px; text-transform: uppercase; letter-spacing: .08em; }
+    .portal-stat strong { display: block; margin-top: 18px; font: 700 20px "Space Grotesk"; }
+    .portal-stat strong.is-active { color: var(--green); }
+    .license-card { margin-top: 12px; padding: 20px; border-radius: 15px; border: 1px solid rgba(255,211,71,.15); background: linear-gradient(120deg, rgba(255,211,71,.07), transparent); }
+    .license-card-top { display: flex; justify-content: space-between; gap: 14px; }.license-card h4 { margin: 0; font: 700 17px "Space Grotesk"; }.license-card p { color: #777267; font-size: 12px; }
+    .license-key { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 18px; padding: 13px; border-radius: 10px; background: #080806; color: var(--gold); font: 12px monospace; border: 1px solid rgba(255,255,255,.08); }
+    .download-row, .ticket-row { display: grid; grid-template-columns: 44px 1fr auto; align-items: center; gap: 13px; padding: 14px; margin-bottom: 9px; border: 1px solid rgba(255,255,255,.08); border-radius: 13px; background: #11110f; }
+    .download-icon { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 11px; background: rgba(255,211,71,.08); color: var(--gold); }
+    .download-row strong, .ticket-row strong { display: block; font-size: 13px; }.download-row small, .ticket-row small { color: #777267; }
+    .mini-action { min-height: 36px; padding: 0 12px; border: 0; border-radius: 9px; background: var(--gold); color: #080704; font-weight: 700; cursor: pointer; }
+
+    .journey { position: relative; padding: 120px 0; overflow: hidden; }
+    .journey-track { position: relative; display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+    .journey-track::before { content: ""; position: absolute; left: 8%; right: 8%; top: 51px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: .35; }
+    .journey-step { position: relative; min-height: 280px; padding: 22px; border-radius: 18px; border: 1px solid rgba(255,255,255,.09); background: rgba(15,13,8,.88); }
+    .journey-number { width: 58px; height: 58px; display: grid; place-items: center; border-radius: 50%; color: var(--gold); background: #0a0906; border: 1px solid rgba(255,211,71,.25); box-shadow: 0 0 0 8px #090805; font: 700 13px "Space Grotesk"; }
+    .journey-step h3 { margin: 62px 0 10px; font: 700 24px "Space Grotesk"; }.journey-step p { color: #8f897d; line-height: 1.55; font-size: 14px; }
+    .journey-state { position: absolute; left: 22px; bottom: 20px; color: var(--green); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; }
+
+    .vouch-wall { overflow: hidden; padding: 40px 0 110px; }
+    .vouch-row { display: flex; width: max-content; gap: 12px; margin-bottom: 12px; will-change: transform; }
+    .vouch-chip { width: 330px; min-height: 132px; padding: 18px; border: 1px solid rgba(255,255,255,.09); border-radius: 16px; background: linear-gradient(145deg, #15130d, #0b0a07); }
+    .vouch-user { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }.vouch-avatar { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; color: #080704; background: linear-gradient(135deg, #ffe47a, #9a6800); font: 700 11px "Space Grotesk"; }
+    .vouch-user strong { display: block; font-size: 12px; }.vouch-user span { color: #777267; font-size: 10px; }.vouch-chip p { margin: 0; color: #bcb6aa; font-size: 13px; line-height: 1.5; }
+
+    .discord-terminal { display: grid; grid-template-columns: .9fr 1.1fr; min-height: 560px; overflow: hidden; border: 1px solid rgba(109,125,255,.22); border-radius: 28px; background: #0b0b0f; }
+    .discord-copy { padding: 54px; display: flex; flex-direction: column; justify-content: center; background: radial-gradient(circle at 0 50%, rgba(88,101,242,.15), transparent 55%); }
+    .discord-copy h2 { margin: 14px 0 18px; font: 700 clamp(42px,5vw,72px)/.92 "Space Grotesk"; letter-spacing: -.055em; }.discord-copy p { color: #a5a4ae; line-height: 1.65; max-width: 460px; }
+    .discord-btn { align-self: flex-start; margin-top: 24px; min-height: 50px; padding: 0 20px; display: inline-flex; align-items: center; gap: 10px; border-radius: 13px; background: #5865f2; color: white; font-weight: 700; }
+    .terminal-window { margin: 24px 24px 24px 0; padding: 18px; border: 1px solid rgba(255,255,255,.08); border-radius: 18px; background: #111116; }
+    .terminal-head { display: flex; justify-content: space-between; padding: 0 4px 16px; border-bottom: 1px solid rgba(255,255,255,.07); color: #73727b; font-size: 11px; }
+    .chat-feed { display: grid; gap: 18px; padding: 22px 6px; }
+    .chat-message { display: grid; grid-template-columns: 38px 1fr; gap: 11px; opacity: .35; transform: translateY(8px); }
+    .chat-message.visible { opacity: 1; transform: none; transition: .45s ease; }
+    .chat-avatar { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%; background: #25252d; color: #92909b; font-weight: 700; font-size: 11px; }
+    .chat-body strong { font-size: 12px; }.chat-body time { margin-left: 7px; color: #5f5e67; font-size: 9px; }.chat-body p { margin: 4px 0 0; color: #a8a7af; font-size: 13px; line-height: 1.4; }
+    .typing { display: flex; align-items: center; gap: 5px; color: #676670; font-size: 10px; }.typing i { width: 5px; height: 5px; border-radius: 50%; background: #777681; animation: typing 1.2s infinite; }.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+    @keyframes typing { 50% { translate: 0 -4px; opacity: .4; } }
+
+    .manual { padding: 120px 0; }
+    .manual-layout { display: grid; grid-template-columns: .55fr 1.45fr; gap: 60px; }
+    .manual-intro { position: sticky; top: 120px; align-self: start; }.manual-intro h2 { margin: 14px 0 18px; font: 700 clamp(42px,5vw,70px)/.94 "Space Grotesk"; letter-spacing: -.06em; }.manual-intro p { color: var(--muted); line-height: 1.65; }
+    .faq-list { border-top: 1px solid rgba(255,255,255,.1); }
+    .faq-item { border-bottom: 1px solid rgba(255,255,255,.1); }
+    .faq-button { width: 100%; min-height: 86px; padding: 0; display: grid; grid-template-columns: 40px 1fr 44px; align-items: center; gap: 18px; border: 0; color: white; background: transparent; text-align: left; cursor: pointer; }
+    .faq-number { color: var(--gold); font: 11px "Space Grotesk"; }.faq-button strong { font: 600 clamp(18px,2vw,25px) "Space Grotesk"; }
+    .faq-plus { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 50%; border: 1px solid rgba(255,255,255,.12); transition: transform .25s, background .25s; }
+    .faq-item.open .faq-plus { transform: rotate(45deg); background: var(--gold); color: #080704; }
+    .faq-answer { height: 0; overflow: hidden; }.faq-answer-inner { padding: 0 70px 26px 58px; color: #999386; line-height: 1.65; }
+
+    .social-proof { padding: 110px 0; border-block: 1px solid var(--line); background: #0a0906; }
+    .quote { max-width: 920px; margin: 0 auto; text-align: center; }
+    .stars { color: var(--gold); letter-spacing: 5px; }
+    .quote blockquote { margin: 24px 0; font: 600 clamp(28px, 4.4vw, 58px)/1.12 "Space Grotesk"; letter-spacing: -.045em; }
+    .quote cite { color: var(--muted); font-style: normal; }
+
+    .final-cta { padding: 120px 0; }
+    .cta-card {
+      position: relative; min-height: 470px; overflow: hidden; padding: 64px; border-radius: 30px;
+      display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
+      border: 1px solid rgba(255,212,71,.3);
+      background:
+        linear-gradient(90deg, rgba(6,6,4,.96) 15%, rgba(6,6,4,.55) 62%, rgba(6,6,4,.8)),
+        url("assets/creedbanner.png") center/cover;
+      box-shadow: 0 40px 100px rgba(0,0,0,.45), inset 0 1px rgba(255,255,255,.08);
+    }
+    .cta-card h2 { max-width: 700px; margin: 14px 0 24px; font: 700 clamp(42px, 6vw, 84px)/.94 "Space Grotesk"; letter-spacing: -.06em; }
+    .cta-card p { max-width: 520px; color: #c0baae; font-size: 18px; line-height: 1.6; margin: 0 0 28px; }
+
+    footer { padding: 0 0 32px; color: #797469; font-size: 13px; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 20px; border-top: 1px solid var(--line); padding-top: 26px; }
+    .concept-badge { color: var(--gold); }
+
+    .reveal { opacity: 0; transform: translateY(30px); }
+    .mobile-menu {
+      display: none; position: fixed; z-index: 59; inset: 94px 20px auto; padding: 18px;
+      border: 1px solid rgba(255,255,255,.1); border-radius: 18px; background: rgba(8,7,4,.96);
+    }
+    .mobile-menu.open { display: grid; gap: 8px; }
+    .mobile-menu a { padding: 14px; border-radius: 12px; background: rgba(255,255,255,.04); }
+
+    @media (max-width: 900px) {
+      .nav-links, .nav-actions .icon-btn { display: none; }
+      .nav-actions { margin-left: auto; }
+      .menu-btn { display: grid; }
+      .spline-stage { inset: 8% -18% 20% -18%; opacity: .78; display: grid; place-items: center; }
+      spline-viewer { width: 136%; height: 100%; transform: none; }
+      .hero::before { background: linear-gradient(0deg, var(--ink) 2%, rgba(7,7,5,.2) 58%, rgba(7,7,5,.8)); }
+      .hero-copy { width: 100%; align-self: end; padding: 48vh 0 78px; }
+      .hero h1 { font-size: clamp(54px, 15vw, 90px); max-width: 670px; }
+      .hero-lede { color: #d0cabe; }
+      .product-card, .product-card:first-child, .product-card:nth-child(2) { grid-column: span 6; min-height: 420px; }
+      .section-head { align-items: start; flex-direction: column; }
+      .experience-grid { grid-template-columns: 1fr; }
+      .panel.large { grid-row: auto; min-height: 530px; }
+      .showcase-slide { grid-template-columns: 1fr; }
+      .showcase-copy { align-self: end; padding: 38px; }
+      .showcase-art { position: absolute; inset: 0; min-height: 0; }
+      .showcase-copy { padding-top: 300px; }
+      .compare-grid, .portal-lab, .discord-terminal, .manual-layout { grid-template-columns: 1fr; }
+      .portal-side { padding: 24px 20px; }
+      .portal-tabs { display: flex; overflow-x: auto; }
+      .portal-tab { min-width: max-content; }
+      .journey-track { grid-template-columns: repeat(2,1fr); }
+      .journey-track::before { display: none; }
+      .terminal-window { margin: 0 20px 20px; }
+      .manual-intro { position: static; }
+    }
+    @media (max-width: 620px) {
+      .shell { width: min(100% - 24px, 1240px); }
+      .nav-wrap { inset: 10px 0 auto; }
+      .nav { width: calc(100% - 20px); height: 56px; padding: 0 7px 0 13px; border-radius: 16px; }
+      .brand { min-width: 40px; }
+      .brand img { width: 32px; height: 32px; }
+      .menu-btn { width: 42px; height: 42px; border-radius: 12px; }
+      .nav-cta { display: none; }
+      .spline-stage { inset: 70px -42% 37% -42%; opacity: .82; }
+      spline-viewer { width: 184%; height: 100%; transform: translateX(0); }
+      .hero-copy { padding: 48vh 0 48px; }
+      .hero h1 { margin-top: 16px; letter-spacing: -.07em; font-size: clamp(49px, 14.5vw, 64px); line-height: .89; }
+      .hero-lede { font-size: 16px; line-height: 1.55; }
+      .hero-actions { gap: 8px; }
+      .hero-actions a { flex: 1; min-width: 0; min-height: 48px; padding: 0 14px; border-radius: 13px; font-size: 13px; }
+      .micro-proof { align-items: flex-start; }
+      .scroll-cue { display: none; }
+      section.content { padding: 88px 0; }
+      .product-grid { display: grid; grid-template-columns: 1fr; }
+      .product-card, .product-card:first-child, .product-card:nth-child(2) { grid-column: auto; min-height: 410px; }
+      .experience { padding-bottom: 88px; }
+      .panel { padding: 24px; }
+      .panel.large { min-height: 480px; }
+      .experience-grid > .panel:not(.large) { min-height: 306px; }
+      .panel h3 { margin-top: 16px; margin-bottom: 20px; }
+      .status-list { margin-top: 2px; gap: 16px; }
+      .panel-callout { margin-top: 32px; padding-top: 20px; }
+      .panel-callout-note { line-height: 1.45; }
+      .metric-row { gap: 18px; }
+      .cta-card { min-height: 530px; padding: 30px 24px; background-position: 66% center; }
+      .footer-inner { align-items: flex-start; flex-direction: column; }
+      .chapter, .journey, .manual { padding: 88px 0; }
+      .showcase-shell { min-height: 690px; border-radius: 22px; }
+      .showcase-slide { min-height: 690px; }
+      .showcase-nav { top: 14px; left: 14px; right: 14px; align-items: flex-start; }
+      .showcase-progress { display: none; }
+      .game-tabs { width: 100%; }
+      .showcase-copy { padding: 330px 22px 28px; }
+      .showcase-copy h3 { font-size: 47px; }
+      .showcase-art { height: 68%; }
+      .compare-grid { gap: 30px; }
+      .compare-frame { aspect-ratio: 4/5; }
+      .compare-layer.after img { width: calc(100vw - 24px); }
+      .portal-lab { padding: 10px; border-radius: 22px; }
+      .portal-window { min-height: 560px; }
+      .portal-screen { padding: 16px; }
+      .portal-stats { grid-template-columns: 1fr 1fr; }
+      .portal-stat:last-child { grid-column: 1/-1; }
+      .journey-track { grid-template-columns: 1fr; }
+      .journey-step { min-height: 220px; }
+      .journey-step h3 { margin-top: 34px; }
+      .discord-copy { padding: 34px 24px; }
+      .terminal-window { margin: 0 10px 10px; }
+      .manual-layout { gap: 32px; }
+      .faq-button { grid-template-columns: 28px 1fr 40px; gap: 10px; }
+      .faq-answer-inner { padding: 0 50px 24px 38px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+      spline-viewer { display: none; }
+      .spline-stage { background: radial-gradient(circle at center, rgba(255,190,0,.2), transparent 55%); }
+    }
+    @media (pointer: coarse), (max-width: 900px) {
+      .cursor-core, .cursor-ring { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="field" aria-hidden="true"></canvas>
+  <div class="progress-rail" aria-hidden="true"></div>
+  <div class="cursor-core" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <div class="nav-wrap">
+    <nav class="nav shell" aria-label="Primary">
+      <a class="brand" href="#" aria-label="Creed concept home"><img src="assets/creedlogo.png" alt="Creed"></a>
+      <div class="nav-links">
+        <a href="#arsenal">Arsenal</a>
+        <a href="#experience">Why Creed</a>
+        <a href="#proof">Vouches</a>
+      </div>
+      <div class="nav-actions">
+        <a class="icon-btn" href="https://discord.gg/creedgg" target="_blank" rel="noreferrer" aria-label="Join Discord">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.54 5.34A16.3 16.3 0 0 0 15.44 4l-.5 1.03a15.2 15.2 0 0 0-5.87 0L8.55 4a16.5 16.5 0 0 0-4.1 1.35C1.85 9.2 1.15 12.95 1.5 16.65a16.7 16.7 0 0 0 5.03 2.55l1.23-1.67a10.9 10.9 0 0 1-1.93-.93l.47-.36c3.72 1.72 7.75 1.72 11.42 0l.47.36c-.62.37-1.27.68-1.93.93l1.23 1.67a16.6 16.6 0 0 0 5.03-2.55c.42-4.29-.72-8-2.96-11.31ZM8.68 14.4c-1.12 0-2.04-1.03-2.04-2.3s.9-2.3 2.04-2.3c1.15 0 2.06 1.04 2.04 2.3 0 1.27-.9 2.3-2.04 2.3Zm6.64 0c-1.12 0-2.04-1.03-2.04-2.3s.9-2.3 2.04-2.3c1.15 0 2.06 1.04 2.04 2.3 0 1.27-.9 2.3-2.04 2.3Z"/></svg>
+        </a>
+        <a class="nav-cta" href="/products">Enter the arsenal <span aria-hidden="true">↗</span></a>
+        <button class="menu-btn" type="button" aria-label="Open menu" aria-expanded="false">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </nav>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#arsenal">Arsenal</a><a href="#experience">Why Creed</a><a href="#proof">Vouches</a><a href="https://discord.gg/creedgg">Discord</a>
+  </div>
+
+  <main id="main">
+    <section class="hero">
+      <div class="hero-grid" aria-hidden="true"></div>
+      <div class="spline-stage" role="img" aria-label="Interactive 3D robot">
+        <spline-viewer loading-anim-type="spinner-small-dark" url="https://prod.spline.design/gkffBtMcNZ88V3Nl/scene.splinecode"></spline-viewer>
+      </div>
+      <div class="shell">
+        <div class="hero-copy">
+          <div class="eyebrow hero-reveal">Creed systems online</div>
+          <h1 class="hero-reveal">DON'T JUST PLAY. <span>ASCEND.</span></h1>
+          <p class="hero-lede hero-reveal">Premium game enhancements engineered for players who refuse to leave the outcome to chance.</p>
+          <div class="hero-actions hero-reveal">
+            <a class="primary-btn" href="/products">Explore products <span aria-hidden="true">↗</span></a>
+            <a class="secondary-btn" href="#experience">See the difference</a>
+          </div>
+          <div class="micro-proof hero-reveal">
+            <div class="avatar-stack" aria-hidden="true">
+              <span><img src="assets/fortnite.png" alt=""></span>
+              <span><img src="assets/rustthumb (1).png" alt=""></span>
+              <span><img src="assets/apexthumb (1).png" alt=""></span>
+            </div>
+            <span class="live-dot" aria-hidden="true"></span>
+            <span>7,700+ verified community vouches</span>
+          </div>
+        </div>
+      </div>
+      <div class="scroll-cue" aria-hidden="true">SCROLL TO ENTER</div>
+    </section>
+
+    <section class="signal-bar" aria-label="Service highlights">
+      <div class="signal-track">
+        <span><i></i>Instant access</span><span><i></i>Secure checkout</span><span><i></i>24/7 support</span><span><i></i>Live status monitoring</span><span><i></i>Guided setup</span>
+        <span><i></i>Instant access</span><span><i></i>Secure checkout</span><span><i></i>24/7 support</span><span><i></i>Live status monitoring</span><span><i></i>Guided setup</span>
+      </div>
+    </section>
+
+    <section class="content shell" id="arsenal">
+      <div class="section-head reveal">
+        <div><span class="eyebrow">Choose your advantage</span><h2>THE ARSENAL</h2></div>
+        <p>Curated tools for the games you play. Hover to inspect, choose your platform, and enter ready.</p>
+      </div>
+      <div class="product-grid">
+        <a class="product-card tilt reveal" href="/product/arc-raiders">
+          <div class="product-art"><img src="assets/arcaraidersproduct.png" alt="Arc Raiders product artwork"></div>
+          <div class="product-top"><span class="availability"><i></i> Operational</span><span class="card-arrow">↗</span></div>
+          <div class="product-info"><div class="product-meta"><div><h3 class="product-title">ARC Raiders</h3><span class="product-sub">ESP • Aim • Utility</span></div><span class="price">From $9.99</span></div></div>
+        </a>
+        <a class="product-card tilt reveal" href="/product/rainbowsiege">
+          <div class="product-art"><img src="assets/rainbow6product.png" alt="Rainbow Six Siege product artwork"></div>
+          <div class="product-top"><span class="availability"><i></i> Operational</span><span class="card-arrow">↗</span></div>
+          <div class="product-info"><div class="product-meta"><div><h3 class="product-title">Rainbow Six</h3><span class="product-sub">Precision suite</span></div><span class="price">From $7.99</span></div></div>
+        </a>
+        <a class="product-card tilt reveal" href="/product/rust">
+          <div class="product-art"><img src="assets/rustproduct.png" alt="Rust product artwork"></div>
+          <div class="product-top"><span class="availability"><i></i> Operational</span><span class="card-arrow">↗</span></div>
+          <div class="product-info"><div class="product-meta"><div><h3 class="product-title">Rust</h3><span class="product-sub">Survival redefined</span></div><span class="price">From $9.99</span></div></div>
+        </a>
+        <a class="product-card tilt reveal" href="/product/fortnite-public">
+          <div class="product-art"><img src="assets/fortnitepublic.png" alt="Fortnite product artwork"></div>
+          <div class="product-top"><span class="availability"><i></i> Operational</span><span class="card-arrow">↗</span></div>
+          <div class="product-info"><div class="product-meta"><div><h3 class="product-title">Fortnite</h3><span class="product-sub">External suite</span></div><span class="price">From $7.99</span></div></div>
+        </a>
+        <a class="product-card tilt reveal" href="/product/apex-legends">
+          <div class="product-art"><img src="assets/apexproduct.png" alt="Apex Legends product artwork"></div>
+          <div class="product-top"><span class="availability"><i></i> Operational</span><span class="card-arrow">↗</span></div>
+          <div class="product-info"><div class="product-meta"><div><h3 class="product-title">Apex Legends</h3><span class="product-sub">Competitive edge</span></div><span class="price">From $7.90</span></div></div>
+        </a>
+      </div>
+    </section>
+
+    <section class="velocity-band" aria-label="Creed brand statement">
+      <div class="velocity-row"><span>PLAY DIFFERENT / PLAY DIFFERENT / PLAY DIFFERENT /</span><span>PLAY DIFFERENT / PLAY DIFFERENT / PLAY DIFFERENT /</span></div>
+      <div class="velocity-row"><span>CREED SYSTEMS / CREED SYSTEMS / CREED SYSTEMS /</span><span>CREED SYSTEMS / CREED SYSTEMS / CREED SYSTEMS /</span></div>
+    </section>
+
+    <section class="experience shell" id="experience">
+      <div class="section-head reveal">
+        <div><span class="eyebrow">More than a download</span><h2>BUILT LIKE A SYSTEM.</h2></div>
+        <p>From checkout to setup, every touchpoint is designed to keep you informed and moving.</p>
+      </div>
+      <div class="experience-grid">
+        <article class="panel large reveal">
+          <div class="command-head">
+            <span class="eyebrow">Creed command</span>
+            <span class="live-pill"><i></i> Network live</span>
+          </div>
+          <div class="command-screen" aria-hidden="true">
+            <div class="node-map">
+              <svg class="map-links" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M18 67 C25 59 31 44 39 36"></path>
+                <path d="M39 36 C48 41 57 50 68 56"></path>
+                <path d="M39 36 C54 31 67 28 79 24"></path>
+              </svg>
+              <span class="network-node n1" data-label="ORDER"></span>
+              <span class="network-node n2 active" data-label="CREED CORE"></span>
+              <span class="network-node n3" data-label="PORTAL"></span>
+              <span class="network-node n4" data-label="SUPPORT"></span>
+            </div>
+            <div class="screen-readout"><span>Session secured</span><span>Latency 24ms</span><span>All systems nominal</span></div>
+          </div>
+          <h3>Your entire order. One command center.</h3>
+          <p>Live status, licenses, loaders, expiration, tickets, and setup guides stay connected inside your private portal.</p>
+          <div class="metric-row">
+            <div class="metric"><strong>7.7K+</strong><span>community vouches</span></div>
+            <div class="metric"><strong>24/7</strong><span>support access</span></div>
+            <div class="metric"><strong>1</strong><span>connected portal</span></div>
+          </div>
+        </article>
+        <article class="panel reveal">
+          <span class="eyebrow">Clear delivery</span>
+          <h3>From payment to play.</h3>
+          <div class="delivery-route">
+            <div class="route-step">
+              <span class="route-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg></span>
+              <span class="route-copy"><strong>Secure checkout</strong><span>Card payment confirmed</span></span><span class="route-state">Verified</span>
+            </div>
+            <div class="route-step">
+              <span class="route-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="15" r="4"/><path d="m11 12 8-8m-3 3 3 3m-6 0 3 3"/></svg></span>
+              <span class="route-copy"><strong>Access assigned</strong><span>License secured to order</span></span><span class="route-state">Ready</span>
+            </div>
+            <div class="route-step">
+              <span class="route-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M5 21h14"/></svg></span>
+              <span class="route-copy"><strong>Portal delivery</strong><span>Loader and guide available</span></span><span class="route-state">Online</span>
+            </div>
+          </div>
+        </article>
+        <article class="panel reveal">
+          <span class="eyebrow">Always informed</span>
+          <h3>Know before you launch.</h3>
+          <div class="status-list">
+            <div class="status-item"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg>Live product status</div>
+            <div class="status-item"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg>Expiration at a glance</div>
+            <div class="status-item"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg>Step-by-step guides</div>
+          </div>
+          <div class="panel-callout">
+            <span class="panel-callout-note">No guessing. No dead links.</span>
+            <a class="panel-link magnetic" href="/status">View live status <span>↗</span></a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="chapter shell" id="game-lab">
+      <div class="section-head reveal">
+        <div><span class="eyebrow">Interactive loadout</span><h2>CHOOSE YOUR WORLD.</h2></div>
+        <p>Switch between games and inspect the visual identity, starting price, and core experience of each product.</p>
+      </div>
+      <div class="showcase-shell reveal">
+        <div class="showcase-nav">
+          <div class="game-tabs" role="tablist" aria-label="Choose a game">
+            <button class="game-tab active" type="button" role="tab" aria-selected="true" data-game="0">ARC Raiders</button>
+            <button class="game-tab" type="button" role="tab" aria-selected="false" data-game="1">Rainbow Six</button>
+            <button class="game-tab" type="button" role="tab" aria-selected="false" data-game="2">Rust</button>
+            <button class="game-tab" type="button" role="tab" aria-selected="false" data-game="3">Fortnite</button>
+          </div>
+          <div class="showcase-progress"><span>01 / 04</span><i></i></div>
+        </div>
+        <div class="showcase-stage">
+          <article class="showcase-slide active" data-slide="0">
+            <div class="showcase-copy"><span class="showcase-index">01 / EXTRACTION</span><h3>ARC RAIDERS</h3><p>Move through every raid with sharper awareness, faster decisions, and a loadout built for hostile territory.</p><div class="showcase-specs"><span>Windows 10/11</span><span>Instant delivery</span><span>Live status</span></div><a class="primary-btn magnetic" href="/product/arc-raiders">Inspect product ↗</a></div>
+            <div class="showcase-art"><img src="assets/arcaraidersproduct.png" alt="ARC Raiders product"></div>
+          </article>
+          <article class="showcase-slide" data-slide="1">
+            <div class="showcase-copy"><span class="showcase-index">02 / TACTICAL</span><h3>RAINBOW SIX</h3><p>Precision information and tactical control for players who want to read the room before they enter it.</p><div class="showcase-specs"><span>Windows 10/11</span><span>From $7.99</span><span>Guided setup</span></div><a class="primary-btn magnetic" href="/product/rainbowsiege">Inspect product ↗</a></div>
+            <div class="showcase-art"><img src="assets/rainbow6product.png" alt="Rainbow Six product"></div>
+          </article>
+          <article class="showcase-slide" data-slide="2">
+            <div class="showcase-copy"><span class="showcase-index">03 / SURVIVAL</span><h3>RUST</h3><p>Turn uncertainty into information and make every roam, monument, and encounter work in your favor.</p><div class="showcase-specs"><span>Secure loader</span><span>From $9.99</span><span>Portal access</span></div><a class="primary-btn magnetic" href="/product/rust">Inspect product ↗</a></div>
+            <div class="showcase-art"><img src="assets/rustproduct.png" alt="Rust product"></div>
+          </article>
+          <article class="showcase-slide" data-slide="3">
+            <div class="showcase-copy"><span class="showcase-index">04 / BATTLE ROYALE</span><h3>FORTNITE</h3><p>A clean external suite designed for fluid fights, confident rotations, and consistent performance.</p><div class="showcase-specs"><span>External suite</span><span>From $7.99</span><span>Fast access</span></div><a class="primary-btn magnetic" href="/product/fortnite-public">Inspect product ↗</a></div>
+            <div class="showcase-art"><img src="assets/fortnitepublic.png" alt="Fortnite product"></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter shell">
+      <div class="compare-grid">
+        <div class="compare-copy reveal">
+          <span class="eyebrow">Drag to reveal</span>
+          <h2>INFORMATION CHANGES THE FIGHT.</h2>
+          <p>Explore the visual difference between entering blind and entering with a complete picture. Drag the control across the frame.</p>
+          <div class="compare-note"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-4-4 4 4-4 4M9 8l-4 4 4 4"/></svg>Interactive concept demonstration</div>
+        </div>
+        <div class="compare-frame reveal" role="slider" aria-label="Compare standard and enhanced view" aria-valuemin="0" aria-valuemax="100" aria-valuenow="58" tabindex="0">
+          <div class="compare-layer before"><img src="assets/creedbanner2.png" alt="Standard game view"></div>
+          <div class="compare-layer after"><img src="assets/creedbanner2.png" alt="Enhanced game view"></div>
+          <span class="compare-label left">Enhanced</span><span class="compare-label right">Standard</span>
+          <span class="compare-handle" aria-hidden="true">↔</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter shell" id="portal-preview">
+      <div class="portal-lab reveal">
+        <div class="portal-side">
+          <span class="eyebrow">Your private command center</span>
+          <h2>EVERYTHING. ONE PORTAL.</h2>
+          <p>Click through a working preview of the experience customers receive after checkout.</p>
+          <div class="portal-tabs" role="tablist" aria-label="Portal preview">
+            <button class="portal-tab active" type="button" role="tab" aria-selected="true" data-portal="overview"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Overview</button>
+            <button class="portal-tab" type="button" role="tab" aria-selected="false" data-portal="downloads"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M5 21h14"/></svg>Downloads</button>
+            <button class="portal-tab" type="button" role="tab" aria-selected="false" data-portal="support"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg>Support</button>
+          </div>
+        </div>
+        <div class="portal-window">
+          <div class="window-bar"><div class="window-dots"><i></i><i></i><i></i></div><span class="window-url">portal.creedv2.com / secured</span><span class="live-pill"><i></i> Online</span></div>
+          <div class="portal-screen active" data-screen="overview">
+            <div class="screen-title"><h3>Good evening, operator.</h3><span>License active</span></div>
+            <div class="portal-stats"><div class="portal-stat"><span>Status</span><strong class="is-active">Active</strong></div><div class="portal-stat"><span>Products</span><strong>01</strong></div><div class="portal-stat"><span>Expires</span><strong>Aug 18</strong></div></div>
+            <div class="license-card"><div class="license-card-top"><div><h4>ARC Raiders</h4><p>30-day access · Windows</p></div><span class="availability"><i></i> Operational</span></div><div class="license-key"><span>CRD-••••-••••-7F2A</span><span>Protected</span></div></div>
+          </div>
+          <div class="portal-screen" data-screen="downloads">
+            <div class="screen-title"><h3>Downloads</h3><span>Files verified</span></div>
+            <div class="download-row"><span class="download-icon">↓</span><span><strong>ARC Raiders Loader</strong><small>Latest stable release · 8.4 MB</small></span><button class="mini-action" type="button">Download</button></div>
+            <div class="download-row"><span class="download-icon">↗</span><span><strong>Setup Guide</strong><small>Complete installation walkthrough</small></span><button class="mini-action" type="button">Open</button></div>
+            <div class="license-card"><h4>Before you launch</h4><p>Check live status, follow the setup guide, and keep your loader updated for the smoothest experience.</p></div>
+          </div>
+          <div class="portal-screen" data-screen="support">
+            <div class="screen-title"><h3>Support center</h3><span>Team online</span></div>
+            <div class="ticket-row"><span class="download-icon">01</span><span><strong>Installation assistance</strong><small>Last reply · 2 minutes ago</small></span><span class="route-state">Open</span></div>
+            <div class="license-card"><h4>Need a faster answer?</h4><p>Join the Discord community for setup assistance, announcements, and real-time product updates.</p><a class="discord-btn magnetic" href="https://discord.gg/creedgg" target="_blank" rel="noreferrer">Open Discord ↗</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="journey">
+      <div class="shell">
+        <div class="section-head reveal"><div><span class="eyebrow">No confusion after checkout</span><h2>FROM CART TO COMMAND.</h2></div><p>A connected delivery journey designed to make each next step unmistakable.</p></div>
+        <div class="journey-track">
+          <article class="journey-step"><span class="journey-number">01</span><h3>Choose access</h3><p>Select your game and license duration.</p><span class="journey-state">Loadout selected</span></article>
+          <article class="journey-step"><span class="journey-number">02</span><h3>Secure checkout</h3><p>Complete payment through the available method.</p><span class="journey-state">Payment verified</span></article>
+          <article class="journey-step"><span class="journey-number">03</span><h3>Receive access</h3><p>Your order, license, and instructions are connected.</p><span class="journey-state">Access assigned</span></article>
+          <article class="journey-step"><span class="journey-number">04</span><h3>Enter the portal</h3><p>Download, check status, and reach support.</p><span class="journey-state">System online</span></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter shell">
+      <div class="discord-terminal reveal">
+        <div class="discord-copy">
+          <span class="eyebrow">Creed communications</span>
+          <h2>NEVER PLAY ALONE.</h2>
+          <p>Setup help, live updates, product announcements, and thousands of players—inside one always-on community.</p>
+          <a class="discord-btn magnetic" href="https://discord.gg/creedgg" target="_blank" rel="noreferrer"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M19.5 5.3A16 16 0 0 0 15.4 4l-.5 1a15 15 0 0 0-5.8 0L8.5 4a16 16 0 0 0-4.1 1.3C1.8 9.2 1.1 13 1.5 16.7a16 16 0 0 0 5 2.5l1.3-1.7a11 11 0 0 1-2-.9l.5-.4a13.4 13.4 0 0 0 11.4 0l.5.4a11 11 0 0 1-2 .9l1.3 1.7a16 16 0 0 0 5-2.5c.4-4.3-.7-8-3-11.4ZM8.7 14.4c-1.2 0-2.1-1-2.1-2.3s.9-2.3 2.1-2.3 2 1 2 2.3-.9 2.3-2 2.3Zm6.6 0c-1.1 0-2-1-2-2.3s.9-2.3 2-2.3 2.1 1 2.1 2.3-.9 2.3-2.1 2.3Z"/></svg>Join Creed Discord</a>
+        </div>
+        <div class="terminal-window">
+          <div class="terminal-head"><span># community-live</span><span>7,700+ members</span></div>
+          <div class="chat-feed">
+            <div class="chat-message"><span class="chat-avatar">KV</span><div class="chat-body"><strong>kev</strong><time>Today 8:42 PM</time><p>setup guide was actually straight forward, got it running first try</p></div></div>
+            <div class="chat-message"><span class="chat-avatar">CR</span><div class="chat-body"><strong>Creed Support</strong><time>Today 8:43 PM</time><p>Love to hear it. Ping us if you need anything else.</p></div></div>
+            <div class="chat-message"><span class="chat-avatar">NX</span><div class="chat-body"><strong>nex</strong><time>Today 8:45 PM</time><p>portal showing expiry dates now is clean ngl</p></div></div>
+            <div class="chat-message"><span class="chat-avatar">JM</span><div class="chat-body"><strong>jamie</strong><time>Today 8:46 PM</time><p>arc update is live for everyone?</p></div></div>
+          </div>
+          <div class="typing"><i></i><i></i><i></i><span>Creed Support is typing…</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="vouch-wall" aria-label="Community vouches">
+      <div class="section-head shell reveal"><div><span class="eyebrow">Signal from the community</span><h2>THE WALL DOESN'T LIE.</h2></div><p>Real moments from players moving through the Creed ecosystem.</p></div>
+      <div class="vouch-row">
+        <article class="vouch-chip"><div class="vouch-user"><span class="vouch-avatar">RV</span><div><strong>raven</strong><span>Verified customer</span></div></div><p>Portal delivery was instant and everything was actually where it said it would be.</p></article>
+        <article class="vouch-chip"><div class="vouch-user"><span class="vouch-avatar">LX</span><div><strong>luxe</strong><span>Verified customer</span></div></div><p>Support answered before I even finished explaining the issue lol. Solid team.</p></article>
+        <article class="vouch-chip"><div class="vouch-user"><span class="vouch-avatar">K2</span><div><strong>k2zero</strong><span>Verified customer</span></div></div><p>Loader, key, guide — all there. Cleanest checkout flow I've used for this stuff.</p></article>
+        <article class="vouch-chip"><div class="vouch-user"><span class="vouch-avatar">MY</span><div><strong>mythic</strong><span>Verified customer</span></div></div><p>Been around since old Creed. The new setup is a massive upgrade.</p></article>
+        <article class="vouch-chip"><div class="vouch-user"><span class="vouch-avatar">RV</span><div><strong>raven</strong><span>Verified customer</span></div></div><p>Portal delivery was instant and everything was actually where it said it would be.</p></article>
+      </div>
+      <div class="vouch-row">
+        <article class="vouch-chip"><div class="vouch-user"><span class="vouch-avatar">AZ</span><div><strong>azura</strong><span>Verified customer</span></div></div><p>Actually feels like a proper service now and not just a download link in an email.</p></article>
+        <article class="vouch-chip"><div class="vouch-user"><span class="vouch-avatar">VN</span><div><strong>venom</strong><span>Verified customer</span></div></div><p>R6 access came through fast, followed the guide, zero headaches.</p></article>
+        <article class="vouch-chip"><div class="vouch-user"><span class="vouch-avatar">SR</span><div><strong>sora</strong><span>Verified customer</span></div></div><p>Status page plus Discord updates make everything way easier to follow.</p></article>
+        <article class="vouch-chip"><div class="vouch-user"><span class="vouch-avatar">DP</span><div><strong>drops</strong><span>Verified customer</span></div></div><p>Was expecting to wait. Had the order and instructions ready immediately.</p></article>
+        <article class="vouch-chip"><div class="vouch-user"><span class="vouch-avatar">AZ</span><div><strong>azura</strong><span>Verified customer</span></div></div><p>Actually feels like a proper service now and not just a download link in an email.</p></article>
+      </div>
+    </section>
+
+    <section class="manual shell">
+      <div class="manual-layout">
+        <div class="manual-intro reveal"><span class="eyebrow">Field manual</span><h2>BEFORE YOU ENTER.</h2><p>Everything important, explained without burying the answer.</p></div>
+        <div class="faq-list reveal">
+          <article class="faq-item open"><button class="faq-button" type="button" aria-expanded="true"><span class="faq-number">01</span><strong>How do I receive my order?</strong><span class="faq-plus">+</span></button><div class="faq-answer"><div class="faq-answer-inner">After a successful card payment, your order details and available access are delivered by email and connected to your customer portal. Manually verified payment methods remain pending until staff confirmation.</div></div></article>
+          <article class="faq-item"><button class="faq-button" type="button" aria-expanded="false"><span class="faq-number">02</span><strong>Where do I download the loader?</strong><span class="faq-plus">+</span></button><div class="faq-answer"><div class="faq-answer-inner">Open the Downloads section inside your portal. The correct loader and setup guide appear against the product associated with your order.</div></div></article>
+          <article class="faq-item"><button class="faq-button" type="button" aria-expanded="false"><span class="faq-number">03</span><strong>How do I check product status?</strong><span class="faq-plus">+</span></button><div class="faq-answer"><div class="faq-answer-inner">Use the live Status page before launching. It shows the current availability of supported products and keeps maintenance information in one place.</div></div></article>
+          <article class="faq-item"><button class="faq-button" type="button" aria-expanded="false"><span class="faq-number">04</span><strong>What if I need setup help?</strong><span class="faq-plus">+</span></button><div class="faq-answer"><div class="faq-answer-inner">Follow the linked setup guide first. If you still need help, create a support ticket through the portal or join the Creed Discord community.</div></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="social-proof" id="proof">
+      <div class="quote shell reveal">
+        <div class="stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
+        <blockquote>“Setup was clean, support answered fast, and everything I needed was already in the portal.”</blockquote>
+        <cite>Verified Creed customer · Community vouch</cite>
+      </div>
+    </section>
+
+    <section class="final-cta shell">
+      <div class="cta-card reveal">
+        <span class="eyebrow">Your next match starts here</span>
+        <h2>READY TO CHANGE THE OUTCOME?</h2>
+        <p>Choose your game. Pick your access. Let Creed handle the rest.</p>
+        <a class="primary-btn" href="/products">Enter the arsenal <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner shell">
+      <span>© 2026 Creed. All rights reserved.</span>
+      <span class="concept-badge">ASCENSION / PRIVATE HOMEPAGE CONCEPT</span>
+      <span>Designed for speed, motion &amp; conversion.</span>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+  <script>
+    const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const menuButton = document.querySelector(".menu-btn");
+    const mobileMenu = document.querySelector(".mobile-menu");
+
+    menuButton.addEventListener("click", () => {
+      const open = mobileMenu.classList.toggle("open");
+      menuButton.setAttribute("aria-expanded", String(open));
+    });
+    mobileMenu.querySelectorAll("a").forEach(link => link.addEventListener("click", () => {
+      mobileMenu.classList.remove("open");
+      menuButton.setAttribute("aria-expanded", "false");
+    }));
+
+    const gameTabs = [...document.querySelectorAll(".game-tab")];
+    const gameSlides = [...document.querySelectorAll(".showcase-slide")];
+    const gameProgress = document.querySelector(".showcase-progress");
+    gameTabs.forEach((tab, index) => tab.addEventListener("click", () => {
+      gameTabs.forEach(item => { item.classList.remove("active"); item.setAttribute("aria-selected", "false"); });
+      gameSlides.forEach(item => item.classList.remove("active"));
+      tab.classList.add("active");
+      tab.setAttribute("aria-selected", "true");
+      gameSlides[index].classList.add("active");
+      gameProgress.querySelector("span").textContent = `0${index + 1} / 04`;
+      gameProgress.style.setProperty("--game-progress", String((index + 1) / gameTabs.length));
+    }));
+
+    document.querySelectorAll(".portal-tab").forEach(tab => tab.addEventListener("click", () => {
+      document.querySelectorAll(".portal-tab").forEach(item => { item.classList.remove("active"); item.setAttribute("aria-selected", "false"); });
+      document.querySelectorAll(".portal-screen").forEach(item => item.classList.remove("active"));
+      tab.classList.add("active");
+      tab.setAttribute("aria-selected", "true");
+      document.querySelector(`[data-screen="${tab.dataset.portal}"]`).classList.add("active");
+    }));
+
+    const compareFrame = document.querySelector(".compare-frame");
+    const compareAfter = compareFrame.querySelector(".compare-layer.after");
+    const compareImage = compareAfter.querySelector("img");
+    const compareHandle = compareFrame.querySelector(".compare-handle");
+    let comparing = false;
+    function setComparison(clientX) {
+      const rect = compareFrame.getBoundingClientRect();
+      const value = Math.max(5, Math.min(95, ((clientX - rect.left) / rect.width) * 100));
+      compareAfter.style.width = value + "%";
+      compareImage.style.width = rect.width + "px";
+      compareHandle.style.left = value + "%";
+      compareFrame.setAttribute("aria-valuenow", String(Math.round(value)));
+    }
+    compareFrame.addEventListener("pointerdown", event => { comparing = true; compareFrame.setPointerCapture(event.pointerId); setComparison(event.clientX); });
+    compareFrame.addEventListener("pointermove", event => { if (comparing) setComparison(event.clientX); });
+    compareFrame.addEventListener("pointerup", () => { comparing = false; });
+    compareFrame.addEventListener("keydown", event => {
+      if (!["ArrowLeft", "ArrowRight"].includes(event.key)) return;
+      event.preventDefault();
+      const direction = event.key === "ArrowRight" ? 5 : -5;
+      const current = Number(compareFrame.getAttribute("aria-valuenow"));
+      const rect = compareFrame.getBoundingClientRect();
+      setComparison(rect.left + rect.width * Math.max(0, Math.min(1, (current + direction) / 100)));
+    });
+    addEventListener("resize", () => { compareImage.style.width = compareFrame.getBoundingClientRect().width + "px"; }, { passive: true });
+    compareImage.style.width = compareFrame.getBoundingClientRect().width + "px";
+
+    document.querySelectorAll(".faq-item").forEach((item, index) => {
+      const button = item.querySelector(".faq-button");
+      const answer = item.querySelector(".faq-answer");
+      if (index === 0) answer.style.height = answer.scrollHeight + "px";
+      button.addEventListener("click", () => {
+        const opening = !item.classList.contains("open");
+        document.querySelectorAll(".faq-item").forEach(other => {
+          other.classList.remove("open");
+          other.querySelector(".faq-button").setAttribute("aria-expanded", "false");
+          other.querySelector(".faq-answer").style.height = "0px";
+        });
+        if (opening) {
+          item.classList.add("open");
+          button.setAttribute("aria-expanded", "true");
+          answer.style.height = answer.scrollHeight + "px";
+        }
+      });
+    });
+
+    const vouchRows = [...document.querySelectorAll(".vouch-row")];
+    vouchRows.forEach(row => {
+      row.insertAdjacentHTML("beforeend", row.innerHTML);
+      const gap = Number.parseFloat(getComputedStyle(row).gap) || 0;
+      row.dataset.loopDistance = String(row.scrollWidth / 2 + gap / 2);
+    });
+
+    if (!reduceMotion) {
+      const progressRail = document.querySelector(".progress-rail");
+      const cursorCore = document.querySelector(".cursor-core");
+      const cursorRing = document.querySelector(".cursor-ring");
+      let ringX = innerWidth / 2, ringY = innerHeight / 2;
+      let pointerX = ringX, pointerY = ringY;
+
+      document.addEventListener("pointermove", event => {
+        document.documentElement.style.setProperty("--mx", event.clientX + "px");
+        document.documentElement.style.setProperty("--my", event.clientY + "px");
+        pointerX = event.clientX;
+        pointerY = event.clientY;
+        cursorCore.style.transform = `translate(${pointerX}px, ${pointerY}px) translate(-50%, -50%)`;
+      }, { passive: true });
+
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.ticker.add(() => {
+        ringX += (pointerX - ringX) * .16;
+        ringY += (pointerY - ringY) * .16;
+        cursorRing.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%)`;
+      });
+      document.querySelectorAll("a, button, .product-card").forEach(target => {
+        target.addEventListener("pointerenter", () => document.body.classList.add("cursor-active"));
+        target.addEventListener("pointerleave", () => document.body.classList.remove("cursor-active"));
+      });
+      ScrollTrigger.create({
+        start: 0,
+        end: "max",
+        onUpdate: self => gsap.set(progressRail, { scaleX: self.progress })
+      });
+      gsap.from(".hero-reveal", {
+        y: 30, opacity: 0, duration: .85, stagger: .1, delay: .25, ease: "power3.out"
+      });
+      gsap.to(".spline-stage", {
+        yPercent: 12, scale: .94, opacity: .55, ease: "none",
+        scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: 1 }
+      });
+      gsap.utils.toArray(".reveal").forEach((element) => {
+        gsap.to(element, {
+          y: 0, opacity: 1, duration: .8, ease: "power3.out",
+          scrollTrigger: { trigger: element, start: "top 88%", once: true }
+        });
+      });
+      gsap.to(".velocity-row:first-child", {
+        xPercent: -18, ease: "none",
+        scrollTrigger: { trigger: ".velocity-band", start: "top bottom", end: "bottom top", scrub: 1 }
+      });
+      gsap.to(".velocity-row:nth-child(2)", {
+        xPercent: 18, ease: "none",
+        scrollTrigger: { trigger: ".velocity-band", start: "top bottom", end: "bottom top", scrub: 1 }
+      });
+      gsap.to(".network-node:not(.active)", {
+        opacity: .45, duration: 1.1, stagger: .28, repeat: -1, yoyo: true, ease: "sine.inOut"
+      });
+      gsap.fromTo(vouchRows[0],
+        { x: 0 },
+        { x: -Number(vouchRows[0].dataset.loopDistance), duration: 44, repeat: -1, ease: "none" }
+      );
+      gsap.fromTo(vouchRows[1],
+        { x: -Number(vouchRows[1].dataset.loopDistance) },
+        { x: 0, duration: 48, repeat: -1, ease: "none" }
+      );
+      gsap.from(".journey-step", {
+        y: 28, opacity: 0, stagger: .09, duration: .62, clearProps: "all", ease: "power3.out",
+        scrollTrigger: { trigger: ".journey-track", start: "top 84%", once: true }
+      });
+      gsap.utils.toArray(".chat-message").forEach((message, index) => {
+        ScrollTrigger.create({
+          trigger: ".discord-terminal", start: "top 72%", once: true,
+          onEnter: () => setTimeout(() => message.classList.add("visible"), index * 240)
+        });
+      });
+
+      document.querySelectorAll(".product-card").forEach(card => {
+        card.addEventListener("pointermove", event => {
+          const rect = card.getBoundingClientRect();
+          const x = event.clientX - rect.left;
+          const y = event.clientY - rect.top;
+          card.style.setProperty("--spot-x", x + "px");
+          card.style.setProperty("--spot-y", y + "px");
+          const rx = ((y / rect.height) - .5) * -3;
+          const ry = ((x / rect.width) - .5) * 3;
+          card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-3px)`;
+        });
+        card.addEventListener("pointerleave", () => {
+          card.style.transform = "";
+        });
+      });
+
+      document.querySelectorAll(".magnetic, .primary-btn, .secondary-btn, .nav-cta").forEach(button => {
+        button.addEventListener("pointermove", event => {
+          const rect = button.getBoundingClientRect();
+          const x = (event.clientX - rect.left - rect.width / 2) * .12;
+          const y = (event.clientY - rect.top - rect.height / 2) * .16;
+          gsap.to(button, { x, y, duration: .25, ease: "power2.out" });
+        });
+        button.addEventListener("pointerleave", () => gsap.to(button, { x: 0, y: 0, duration: .45, ease: "elastic.out(1,.45)" }));
+      });
+
+      const canvas = document.querySelector("#field");
+      const ctx = canvas.getContext("2d", { alpha: true });
+      const particles = [];
+      function resizeField() {
+        const ratio = Math.min(devicePixelRatio || 1, 1.5);
+        canvas.width = innerWidth * ratio;
+        canvas.height = innerHeight * ratio;
+        canvas.style.width = innerWidth + "px";
+        canvas.style.height = innerHeight + "px";
+        ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+        particles.length = 0;
+        const count = Math.min(72, Math.floor(innerWidth / 18));
+        for (let i = 0; i < count; i++) particles.push({
+          x: Math.random() * innerWidth, y: Math.random() * innerHeight,
+          vx: (Math.random() - .5) * .16, vy: (Math.random() - .5) * .16,
+          r: Math.random() * 1.2 + .35
+        });
+      }
+      function drawField() {
+        ctx.clearRect(0, 0, innerWidth, innerHeight);
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          p.x += p.vx; p.y += p.vy;
+          if (p.x < -10) p.x = innerWidth + 10; if (p.x > innerWidth + 10) p.x = -10;
+          if (p.y < -10) p.y = innerHeight + 10; if (p.y > innerHeight + 10) p.y = -10;
+          ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = "rgba(255,210,74,.34)"; ctx.fill();
+          for (let j = i + 1; j < particles.length; j++) {
+            const q = particles[j], dx = p.x - q.x, dy = p.y - q.y, d = Math.hypot(dx, dy);
+            if (d < 125) {
+              ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y);
+              ctx.strokeStyle = `rgba(255,205,54,${(1 - d / 125) * .07})`; ctx.stroke();
+            }
+          }
+        }
+        requestAnimationFrame(drawField);
+      }
+      resizeField();
+      addEventListener("resize", resizeField, { passive: true });
+      drawField();
+    } else {
+      document.querySelectorAll(".reveal").forEach(element => {
+        element.style.opacity = "1";
+        element.style.transform = "none";
+      });
+    }
+  </script>
+</body>
+</html>

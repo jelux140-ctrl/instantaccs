@@ -1,0 +1,11 @@
+---
+description: Restore Creed products page to the original layout when the user asks to revert
+alwaysApply: true
+---
+
+If the user asks to revert products, restore the original state, or go back to the old products page, copy these backups over the live files:
+
+- `backups/products-original.html` → `products.html`
+- `backups/styles-original.css` → `styles.css`
+
+That restores the pre-Division-card products page (old cards + yellow featured tiles). Do not keep the Division portrait-card trial after that restore.

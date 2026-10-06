@@ -1,0 +1,207 @@
+# =============================================================================
+# CREED — Netlify configuration (migrated from vercel.json)
+# =============================================================================
+
+[build]
+  publish = "."
+  functions = "netlify/functions"
+  edge_functions = "netlify/edge-functions"
+  # Static site — no build command needed.
+
+[functions]
+  node_bundler = "esbuild"
+  # Bundle the original /api handler sources (imported by the dispatcher) and
+  # any assets they read.
+  included_files = ["api/**"]
+
+# ------------------------------------------------------------------ Redirects
+# NOTE: order matters — first match wins. The /api/* dispatcher and the
+# /* edge maintenance gate are wired via [build].functions / edge_functions,
+# not here.
+
+# --- Permanent (301) redirects ---------------------------------------------
+[[redirects]]
+  from = "/reviews"
+  to = "/vouches"
+  status = 301
+
+[[redirects]]
+  from = "/reviews/"
+  to = "/vouches"
+  status = 301
+
+[[redirects]]
+  from = "/portal"
+  to = "https://portal.creedv2.com/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/portal/"
+  to = "https://portal.creedv2.com/"
+  status = 301
+  force = true
+
+# --- Rewrites (200) : friendly URLs that map to functions ------------------
+[[redirects]]
+  from = "/sitemap.xml"
+  to = "/api/sitemap-blogs"
+  status = 200
+
+[[redirects]]
+  from = "/feed"
+  to = "/api/rss"
+  status = 200
+
+[[redirects]]
+  from = "/rss"
+  to = "/api/rss"
+  status = 200
+
+[[redirects]]
+  from = "/blog/:slug"
+  to = "/api/blog-ssr?slug=:slug"
+  status = 200
+
+# --- Rewrites (200) : clean URLs -> static .html ---------------------------
+[[redirects]]
+  from = "/products"
+  to = "/products.html"
+  status = 200
+
+[[redirects]]
+  from = "/status"
+  to = "/status.html"
+  status = 200
+
+[[redirects]]
+  from = "/auth-callback"
+  to = "/auth-callback.html"
+  status = 200
+
+[[redirects]]
+  from = "/vouches"
+  to = "/vouches.html"
+  status = 200
+
+[[redirects]]
+  from = "/support"
+  to = "/support.html"
+  status = 200
+
+[[redirects]]
+  from = "/product/fortnite"
+  to = "/product-fortnite-public.html"
+  status = 200
+
+[[redirects]]
+  from = "/product/ai-aimbot"
+  to = "/product/fortnite"
+  status = 301
+
+[[redirects]]
+  from = "/product/fortnite-public"
+  to = "/product/fortnite"
+  status = 301
+
+[[redirects]]
+  from = "/product/fortnite-private"
+  to = "/product/fortnite"
+  status = 301
+
+[[redirects]]
+  from = "/product/temp-spoofer"
+  to = "/product-temp-spoofer.html"
+  status = 200
+
+[[redirects]]
+  from = "/product/perm-spoofer"
+  to = "/product-perm-spoofer.html"
+  status = 200
+
+[[redirects]]
+  from = "/product/rust"
+  to = "/product-rust.html"
+  status = 200
+
+[[redirects]]
+  from = "/product/cod-black-ops-7"
+  to = "/product-cod-black-ops-7.html"
+  status = 200
+
+[[redirects]]
+  from = "/product/arc-raiders"
+  to = "/product-arc-raiders.html"
+  status = 200
+
+[[redirects]]
+  from = "/product/apex-legends"
+  to = "/product-apex-legends.html"
+  status = 200
+
+[[redirects]]
+  from = "/product/escape-from-tarkov"
+  to = "/product-escape-from-tarkov.html"
+  status = 200
+
+[[redirects]]
+  from = "/product/valorant"
+  to = "/product-valorant.html"
+  status = 200
+
+[[redirects]]
+  from = "/product/rainbowsiege"
+  to = "/product-rainbowsiege.html"
+  status = 200
+
+[[redirects]]
+  from = "/blog"
+  to = "/blog.html"
+  status = 200
+
+[[redirects]]
+  from = "/blog-admin"
+  to = "/blog-admin.html"
+  status = 200
+
+[[redirects]]
+  from = "/admin"
+  to = "/admin.html"
+  status = 200
+
+[[redirects]]
+  from = "/maintenance"
+  to = "/maintenance.html"
+  status = 200
+
+[[redirects]]
+  from = "/payment-success"
+  to = "/payment-success.html"
+  status = 200
+
+[[redirects]]
+  from = "/payment-failed"
+  to = "/payment-failed.html"
+  status = 200
+
+# --- Hide raw source of the Netlify glue from static serving ---------------
+[[redirects]]
+  from = "/netlify/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+# ------------------------------------------------------------------- Headers
+[[headers]]
+  for = "/sitemap.xml"
+  [headers.values]
+    Content-Type = "application/xml"
+    Cache-Control = "public, max-age=86400"
+
+[[headers]]
+  for = "/robots.txt"
+  [headers.values]
+    Content-Type = "text/plain"
+
+# CORS for /api/* is applied inside the compatibility adapter (netlify/adapter.js)
+# so it matches per-function overrides without duplicating headers.

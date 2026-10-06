@@ -1,0 +1,24 @@
+{
+  "name": "creed",
+  "version": "1.0.0",
+  "description": "Creed - Gaming Products Store",
+  "type": "module",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0",
+    "@vercel/edge": "^1.2.2",
+    "stripe": "^14.21.0"
+  },
+  "devDependencies": {
+    "vercel": "^38.0.0"
+  },
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod",
+    "prod": "vercel --prod",
+    "netlify:dev": "netlify dev",
+    "netlify:deploy": "netlify deploy --prod",
+    "vercel": "vercel",
+    "vercel:deploy": "vercel --prod",
+    "vercel:dev": "vercel dev"
+  }
+}

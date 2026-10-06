@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Stavlux</title>
+  <meta name="description" content="Stavlux builds and owns companies." />
+  <link rel="icon" href="/stavlux.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      background: #000;
+      color: #fff;
+      font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+    }
+    a { color: inherit; text-decoration: none; }
+    body { min-height: 100vh; }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 40px;
+    }
+    header img { height: 18px; width: auto; }
+    header nav { display: flex; gap: 28px; }
+    header a {
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.62);
+    }
+    header a:hover { color: #fff; }
+
+    .hero {
+      min-height: calc(100vh - 76px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 24px 80px;
+    }
+    .hero img {
+      width: min(560px, 86vw);
+      height: auto;
+    }
+    .hero p {
+      margin-top: 36px;
+      max-width: 28rem;
+      font-size: 16px;
+      line-height: 1.6;
+      letter-spacing: 0.02em;
+      color: rgba(255,255,255,0.55);
+    }
+
+    #companies {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding: 88px 40px 120px;
+      max-width: 880px;
+      margin: 0 auto;
+    }
+    #companies h2 {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 36px;
+    }
+    .company {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 28px 0;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .company:last-child { border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .company h3 {
+      font-size: 28px;
+      font-weight: 500;
+      letter-spacing: -0.03em;
+    }
+    .company span {
+      font-size: 14px;
+      color: rgba(255,255,255,0.45);
+    }
+    .company:hover h3 { color: #fff; }
+    .company:hover span { color: rgba(255,255,255,0.7); }
+
+    @media (max-width: 640px) {
+      header { padding: 22px 20px; }
+      #companies { padding: 64px 20px 96px; }
+      .company { flex-direction: column; gap: 8px; }
+      .company h3 { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/"><img src="/stavlux.png" alt="Stavlux" /></a>
+    <nav>
+      <a href="#companies">Companies</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <img src="/stavlux.png" alt="Stavlux" />
+      <p>A company that builds and owns businesses.</p>
+    </section>
+
+    <section id="companies">
+      <h2>Companies</h2>
+      <a class="company" href="https://www.creedv2.com" target="_blank" rel="noopener">
+        <h3>Creed</h3>
+        <span>creedv2.com</span>
+      </a>
+    </section>
+  </main>
+</body>
+</html>

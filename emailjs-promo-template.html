@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EJDCSEKBRW"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-EJDCSEKBRW');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Promo Signup</title>
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background-color: #f4f4f4;">
+    <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff;">
+        <!-- Header -->
+        <div style="background: linear-gradient(135deg, #FFB800 0%, #FFD700 100%); padding: 30px; text-align: center; border-radius: 8px 8px 0 0;">
+            <h1 style="color: #000; margin: 0; font-size: 28px; font-weight: bold;">🎁 New Promo Signup!</h1>
+        </div>
+        
+        <!-- Content -->
+        <div style="padding: 30px; background-color: #f9f9f9;">
+            <div style="background: white; padding: 25px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                <h2 style="margin-top: 0; color: #FFB800; font-size: 24px; border-bottom: 2px solid #FFB800; padding-bottom: 10px;">Promo Signup Details</h2>
+                
+                <table style="width: 100%; margin: 20px 0;">
+                    <tr>
+                        <td style="padding: 8px 0; font-weight: bold; color: #666; width: 140px;">Email:</td>
+                        <td style="padding: 8px 0; color: #333;">{{promo_email}}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px 0; font-weight: bold; color: #666;">Date:</td>
+                        <td style="padding: 8px 0; color: #333;">{{promo_date}}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px 0; font-weight: bold; color: #666;">Source:</td>
+                        <td style="padding: 8px 0; color: #333;">Promo Popup (5% OFF Discount)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px 0; font-weight: bold; color: #666;">Discount Code:</td>
+                        <td style="padding: 8px 0; color: #FFB800; font-weight: bold; font-size: 18px; font-family: monospace;">{{discount_code}}</td>
+                    </tr>
+                </table>
+                
+                <div style="margin-top: 25px; padding: 20px; background: linear-gradient(135deg, rgba(255, 184, 0, 0.1) 0%, rgba(255, 215, 0, 0.1) 100%); border-left: 4px solid #FFB800; border-radius: 4px;">
+                    <p style="margin: 0; color: #333; font-size: 14px;">
+                        <strong>User Information:</strong><br>
+                        Name: {{user_name}}<br>
+                        Email: {{user_email}}
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Message Section -->
+            <div style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                <h3 style="margin-top: 0; color: #333; font-size: 18px;">Message:</h3>
+                <p style="color: #666; white-space: pre-wrap; margin: 0;">{{email_message}}</p>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div style="text-align: center; padding: 20px; background-color: #f9f9f9; border-top: 1px solid #eee; border-radius: 0 0 8px 8px;">
+            <p style="color: #666; font-size: 12px; margin: 0;">Creed Gaming Store - Promo Signup Notification</p>
+        </div>
+    </div>
+</body>
+</html>

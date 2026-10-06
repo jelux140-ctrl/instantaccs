@@ -1,0 +1,11 @@
+---
+description: Deploy with Vercel only; skip git unless the user asks
+alwaysApply: true
+---
+
+# Creed deployment preference
+
+- Do **not** run `git` commands (init, add, commit, push) unless the user explicitly asks for a commit or version control.
+- After code changes, ship by deploying with the Vercel CLI (user is logged in locally):
+  - **Portal** (`portal.creedv2.com`): from `portal-site/` run `vercel deploy --prod --yes`
+  - **Main site** (`www.creedv2.com`): from the repo root run `vercel deploy --prod --yes`

@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>/*creed-start-at-top*/(function(){try{var n=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||null;var t=n&&n.type?n.type:'navigate';if(t==='navigate'&&!location.hash&&'scrollRestoration' in history){history.scrollRestoration='manual';window.scrollTo(0,0);}}catch(e){}})();</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'">
+    <title>Blog Manager - Creed Admin</title>
+    <link rel="icon" type="image/png" href="/assets/creedlogo-black.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #050505;
+            color: #fff;
+            min-height: 100vh;
+            cursor: default !important;
+        }
+
+        * { cursor: default !important; }
+        input, button, a, select, textarea { cursor: pointer !important; }
+        input[type="text"], input[type="password"], textarea { cursor: text !important; }
+
+        .app-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 260px;
+            background: #0a0a0a;
+            border-right: 1px solid rgba(255, 184, 0, 0.15);
+            padding: 24px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 24px 24px;
+            border-bottom: 1px solid rgba(255, 184, 0, 0.1);
+            margin-bottom: 16px;
+        }
+
+        .sidebar-brand img {
+            width: 36px;
+            height: 36px;
+        }
+
+        .sidebar-brand h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            color: #FFB800;
+        }
+
+        .sidebar-brand span {
+            font-size: 11px;
+            color: #666;
+            display: block;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            padding: 0 12px;
+        }
+
+        .sidebar-nav li a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: #888;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+            margin-bottom: 4px;
+        }
+
+        .sidebar-nav li a:hover, .sidebar-nav li a.active {
+            color: #FFB800;
+            background: rgba(255, 184, 0, 0.08);
+        }
+
+        .sidebar-nav li a .material-symbols-outlined { font-size: 20px; }
+
+        .sidebar-divider {
+            height: 1px;
+            background: rgba(255, 184, 0, 0.1);
+            margin: 16px 24px;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            padding: 32px 40px;
+            min-height: 100vh;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .page-header h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 28px;
+            color: #fff;
+        }
+
+        .page-header h1 span { color: #FFB800; }
+
+        /* Stats Row */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 184, 0, 0.12);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .stat-card .stat-label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .stat-card .stat-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: #FFB800;
+        }
+
+        /* Generate Section */
+        .generate-card {
+            background: linear-gradient(135deg, rgba(255, 184, 0, 0.08) 0%, rgba(255, 215, 0, 0.03) 100%);
+            border: 1px solid rgba(255, 184, 0, 0.25);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 32px;
+        }
+
+        .generate-card h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 22px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .generate-card h2 .material-symbols-outlined {
+            color: #FFB800;
+            font-size: 26px;
+        }
+
+        .generate-card .subtitle {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        .generate-form {
+            display: grid;
+            grid-template-columns: 1fr 200px 180px;
+            gap: 16px;
+            align-items: end;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 184, 0, 0.2);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #FFB800;
+        }
+
+        .form-group input::placeholder, .form-group textarea::placeholder {
+            color: #555;
+        }
+
+        .form-group select option {
+            background: #111;
+            color: #fff;
+        }
+
+        .btn-generate {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #FFB800, #FFD700);
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            font-family: inherit;
+            transition: all 0.2s;
+            white-space: nowrap;
+            height: 46px;
+        }
+
+        .btn-generate:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(255, 184, 0, 0.3); }
+        .btn-generate:disabled { opacity: 0.5; transform: none; box-shadow: none; }
+
+        .btn-generate .material-symbols-outlined { font-size: 18px; }
+
+        .generate-options {
+            display: flex;
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .option-chip {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            font-size: 13px;
+            color: #aaa;
+        }
+
+        .option-chip input[type="checkbox"] {
+            accent-color: #FFB800;
+        }
+
+        /* Topic Templates */
+        .templates-section {
+            margin-top: 24px;
+            border-top: 1px solid rgba(255, 184, 0, 0.1);
+            padding-top: 20px;
+        }
+
+        .templates-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+        }
+
+        .templates-header h4 {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #888;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .templates-header h4 .material-symbols-outlined {
+            font-size: 16px;
+            color: #FFB800;
+        }
+
+        .template-tabs {
+            display: flex;
+            gap: 4px;
+        }
+
+        .template-tab {
+            padding: 4px 12px;
+            border-radius: 14px;
+            font-size: 11px;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: transparent;
+            color: #555;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .template-tab:hover, .template-tab.active {
+            color: #FFB800;
+            border-color: rgba(255, 184, 0, 0.25);
+            background: rgba(255, 184, 0, 0.06);
+        }
+
+        .template-group {
+            display: none;
+        }
+
+        .template-group.active {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .template-chip {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            color: #aaa;
+            font-size: 13px;
+            font-family: inherit;
+            transition: all 0.2s;
+            text-align: left;
+            line-height: 1.3;
+        }
+
+        .template-chip:hover {
+            background: rgba(255, 184, 0, 0.08);
+            border-color: rgba(255, 184, 0, 0.3);
+            color: #FFB800;
+            transform: translateY(-1px);
+        }
+
+        .template-chip .chip-icon {
+            margin-right: 6px;
+            font-size: 14px;
+        }
+
+        /* Generation Progress */
+        .generation-progress {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(255, 184, 0, 0.05);
+            border: 1px solid rgba(255, 184, 0, 0.15);
+            border-radius: 10px;
+        }
+
+        .progress-bar-wrap {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #FFB800, #FFD700);
+            border-radius: 2px;
+            width: 0%;
+            transition: width 0.3s;
+            animation: progressPulse 2s infinite;
+        }
+
+        @keyframes progressPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .progress-text {
+            font-size: 13px;
+            color: #FFB800;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .progress-text .material-symbols-outlined {
+            font-size: 16px;
+            animation: spin 1.5s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* SEO Score Card */
+        .seo-result {
+            display: none;
+            margin-top: 20px;
+            padding: 24px;
+            background: rgba(0, 255, 0, 0.03);
+            border: 1px solid rgba(0, 255, 0, 0.15);
+            border-radius: 10px;
+        }
+
+        .seo-result.error {
+            background: rgba(255, 0, 0, 0.05);
+            border-color: rgba(255, 0, 0, 0.2);
+        }
+
+        .seo-score-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            border-radius: 24px;
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 16px;
+        }
+
+        .seo-score-badge.good { background: rgba(0, 255, 0, 0.15); color: #0f0; }
+        .seo-score-badge.ok { background: rgba(255, 184, 0, 0.15); color: #FFB800; }
+        .seo-score-badge.bad { background: rgba(255, 0, 0, 0.15); color: #ff6b6b; }
+
+        .seo-checks {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 8px;
+        }
+
+        .seo-check {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: #aaa;
+        }
+
+        .seo-check .material-symbols-outlined { font-size: 16px; }
+        .seo-check.pass .material-symbols-outlined { color: #0f0; }
+        .seo-check.warn .material-symbols-outlined { color: #FFB800; }
+        .seo-check.fail .material-symbols-outlined { color: #ff6b6b; }
+
+        /* Posts Table */
+        .posts-section {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 184, 0, 0.1);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .posts-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            border-bottom: 1px solid rgba(255, 184, 0, 0.1);
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .posts-toolbar h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 18px;
+        }
+
+        .toolbar-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .filter-select {
+            padding: 8px 14px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 184, 0, 0.2);
+            border-radius: 6px;
+            color: #fff;
+            font-size: 13px;
+            font-family: inherit;
+        }
+
+        .filter-select option { background: #111; }
+
+        .search-input {
+            padding: 8px 14px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 184, 0, 0.2);
+            border-radius: 6px;
+            color: #fff;
+            font-size: 13px;
+            font-family: inherit;
+            width: 200px;
+        }
+
+        .search-input::placeholder { color: #555; }
+        .search-input:focus { outline: none; border-color: #FFB800; }
+
+        /* Post Rows */
+        .post-row {
+            display: grid;
+            grid-template-columns: 2.5fr 1fr 0.8fr 0.8fr 0.8fr 1.2fr;
+            gap: 16px;
+            padding: 16px 24px;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            transition: background 0.2s;
+        }
+
+        .post-row:hover { background: rgba(255, 184, 0, 0.03); }
+
+        .post-row-header {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            background: rgba(255, 184, 0, 0.05);
+        }
+
+        .post-row-header:hover { background: rgba(255, 184, 0, 0.05); }
+
+        .post-title-cell {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .post-title-cell .title {
+            font-weight: 600;
+            font-size: 14px;
+            color: #fff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .post-title-cell .slug {
+            font-size: 12px;
+            color: #555;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            width: fit-content;
+        }
+
+        .status-badge.published { background: rgba(0, 255, 0, 0.12); color: #0f0; }
+        .status-badge.draft { background: rgba(255, 184, 0, 0.12); color: #FFB800; }
+        .status-badge.archived { background: rgba(128, 128, 128, 0.15); color: #888; }
+
+        .post-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-action {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: transparent;
+            color: #888;
+            transition: all 0.2s;
+        }
+
+        .btn-action:hover { border-color: #FFB800; color: #FFB800; }
+        .btn-action.danger:hover { border-color: #ff6b6b; color: #ff6b6b; }
+        .btn-action .material-symbols-outlined { font-size: 16px; }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #555;
+        }
+
+        .empty-state .material-symbols-outlined {
+            font-size: 48px;
+            color: #333;
+            margin-bottom: 16px;
+        }
+
+        .loading-spinner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            color: #FFB800;
+            font-size: 14px;
+            gap: 10px;
+        }
+
+        .loading-spinner .material-symbols-outlined {
+            animation: spin 1.5s linear infinite;
+        }
+
+        /* Login */
+        .login-screen {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .login-card {
+            max-width: 400px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 184, 0, 0.2);
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .login-card img { width: 48px; margin-bottom: 16px; }
+        .login-card h2 { font-family: 'Space Grotesk', sans-serif; color: #FFB800; margin-bottom: 8px; }
+        .login-card p { color: #666; font-size: 14px; margin-bottom: 24px; }
+
+        .login-card .form-group { text-align: left; margin-bottom: 20px; }
+
+        .btn-login {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #FFB800, #FFD700);
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            font-family: inherit;
+            transition: transform 0.2s;
+        }
+
+        .btn-login:hover { transform: translateY(-2px); }
+
+        .login-error {
+            color: #ff6b6b;
+            font-size: 13px;
+            margin-top: 12px;
+            display: none;
+        }
+
+        /* Edit Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active { display: flex; }
+
+        .modal {
+            background: #111;
+            border: 1px solid rgba(255, 184, 0, 0.2);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 32px;
+        }
+
+        .modal h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal .form-group { margin-bottom: 20px; }
+
+        .modal textarea {
+            min-height: 300px;
+            resize: vertical;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .btn-modal {
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: inherit;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        .btn-modal.primary {
+            background: linear-gradient(135deg, #FFB800, #FFD700);
+            color: #000;
+        }
+
+        .btn-modal.secondary {
+            background: rgba(255, 255, 255, 0.06);
+            color: #aaa;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-modal:hover { transform: translateY(-1px); }
+
+        /* Notification Toast */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            padding: 14px 24px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            z-index: 9999;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s;
+        }
+
+        .toast.show { transform: translateY(0); opacity: 1; }
+        .toast.success { background: rgba(0, 255, 0, 0.15); border: 1px solid rgba(0, 255, 0, 0.3); color: #0f0; }
+        .toast.error { background: rgba(255, 0, 0, 0.15); border: 1px solid rgba(255, 0, 0, 0.3); color: #ff6b6b; }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .stats-row { grid-template-columns: repeat(2, 1fr); }
+            .generate-form { grid-template-columns: 1fr; }
+            .post-row { grid-template-columns: 1fr; gap: 8px; }
+            .post-row-header { display: none; }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .main-content { margin-left: 0; padding: 20px; }
+            .stats-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="login-screen" class="login-screen">
+        <div class="login-card">
+            <img src="assets/creedlogo.png" alt="Creed">
+            <h2>Blog Manager</h2>
+            <p>Enter your admin token to access the blog dashboard</p>
+            <div class="form-group">
+                <label>Admin Token</label>
+                <input type="password" id="login-token" placeholder="Enter admin token" onkeypress="if(event.key==='Enter')attemptLogin()">
+            </div>
+            <button class="btn-login" onclick="attemptLogin()">Login</button>
+            <div id="login-error" class="login-error"></div>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" style="display: none;">
+        <div class="app-layout">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="sidebar-brand">
+                    <img src="assets/creedlogo.png" alt="Creed">
+                    <div>
+                        <h2>CREED</h2>
+                        <span>Blog Manager</span>
+                    </div>
+                </div>
+                <ul class="sidebar-nav">
+                    <li><a href="/blog-admin" class="active">
+                        <span class="material-symbols-outlined">dashboard</span> Dashboard
+                    </a></li>
+                    <li><a href="/blog" target="_blank">
+                        <span class="material-symbols-outlined">visibility</span> View Blog
+                    </a></li>
+                    <li><a href="/admin">
+                        <span class="material-symbols-outlined">receipt_long</span> Orders
+                    </a></li>
+                </ul>
+                <div class="sidebar-divider"></div>
+                <ul class="sidebar-nav">
+                    <li><a href="/" target="_blank">
+                        <span class="material-symbols-outlined">home</span> Main Site
+                    </a></li>
+                    <li><a href="#" onclick="logout()">
+                        <span class="material-symbols-outlined">logout</span> Logout
+                    </a></li>
+                </ul>
+            </aside>
+
+            <!-- Main -->
+            <main class="main-content">
+                <div class="page-header">
+                    <h1><span>AI</span> Blog Generator</h1>
+                </div>
+
+                <!-- Stats -->
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <div class="stat-label">Total Posts</div>
+                        <div class="stat-value" id="stat-total">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Published</div>
+                        <div class="stat-value" id="stat-published">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Drafts</div>
+                        <div class="stat-value" id="stat-drafts">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Total Views</div>
+                        <div class="stat-value" id="stat-views">0</div>
+                    </div>
+                </div>
+
+                <!-- AI Generator -->
+                <div class="generate-card">
+                    <h2>
+                        <span class="material-symbols-outlined">auto_awesome</span>
+                        Generate Blog Post
+                    </h2>
+                    <p class="subtitle">Powered by Google Gemini 3.1 Pro &mdash; One-click SEO-optimized content generation</p>
+
+                    <div class="generate-form">
+                        <div class="form-group">
+                            <label>Topic / Title Idea</label>
+                            <input type="text" id="blog-topic" placeholder="e.g. Best Fortnite Settings for Competitive Play in 2026">
+                        </div>
+                        <div class="form-group">
+                            <label>Category</label>
+                            <select id="blog-category">
+                                <option value="gaming">Gaming</option>
+                                <option value="guides">Guides</option>
+                                <option value="news">News</option>
+                                <option value="tips">Tips & Tricks</option>
+                                <option value="reviews">Reviews</option>
+                                <option value="esports">Esports</option>
+                                <option value="hardware">Hardware</option>
+                                <option value="community">Community</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="display:flex;align-items:flex-end;">
+                            <button class="btn-generate" id="btn-generate" onclick="generateBlog()">
+                                <span class="material-symbols-outlined">bolt</span>
+                                Generate
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="generate-options">
+                        <label class="option-chip">
+                            <input type="checkbox" id="auto-publish"> Auto-publish
+                        </label>
+                        <label class="option-chip">
+                            <input type="checkbox" id="tone-casual"> Casual tone
+                        </label>
+                    </div>
+
+                    <!-- Topic Templates -->
+                    <div class="templates-section">
+                        <div class="templates-header">
+                            <h4><span class="material-symbols-outlined">library_books</span> Quick Templates</h4>
+                            <div class="template-tabs">
+                                <button class="template-tab active" onclick="switchTemplateTab(this, 'fortnite')">Fortnite</button>
+                                <button class="template-tab" onclick="switchTemplateTab(this, 'valorant')">Valorant</button>
+                                <button class="template-tab" onclick="switchTemplateTab(this, 'rust')">Rust</button>
+                                <button class="template-tab" onclick="switchTemplateTab(this, 'cod')">COD</button>
+                                <button class="template-tab" onclick="switchTemplateTab(this, 'apex')">Apex</button>
+                                
+                                <button class="template-tab" onclick="switchTemplateTab(this, 'spoofer')">Spoofers</button>
+                                <button class="template-tab" onclick="switchTemplateTab(this, 'r6')">R6 Siege</button>
+                                <button class="template-tab" onclick="switchTemplateTab(this, 'arc')">ARC Raiders</button>
+                                <button class="template-tab" onclick="switchTemplateTab(this, 'general')">General</button>
+                            </div>
+                        </div>
+
+                        <div id="tmpl-fortnite" class="template-group active">
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">🎯</span>Best Fortnite Aimbot Settings for Zero Recoil in 2026</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">👁️</span>How ESP Walls Give You an Edge in Fortnite Ranked</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">🛡️</span>How to Stay Undetected in Fortnite: Anti-Cheat Bypass Guide</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">🏆</span>Top Fortnite Competitive Settings & Keybinds for 2026</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">📊</span>Fortnite Chapter 6 Meta: Best Weapons & Loadouts</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">🔧</span>Private vs Public Fortnite Cheats: Which One Is Worth It?</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">💡</span>How to Win Every Build Fight in Fortnite with Smart Tools</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">⚡</span>Best FPS Boost Settings for Fortnite on Low-End PCs</button>
+                        </div>
+
+                        <div id="tmpl-valorant" class="template-group">
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">🎯</span>Valorant Aimbot: How to Climb Ranked Without Getting Caught</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">👁️</span>ESP & Wallhack Advantages in Valorant Competitive Play</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">🛡️</span>Bypassing Vanguard Anti-Cheat: What You Need to Know</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">📈</span>How to Reach Immortal in Valorant: Tips & Tricks 2026</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">🔥</span>Best Valorant Agents for Ranked Domination in 2026</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">🖥️</span>Optimal Valorant Settings for Maximum FPS and Visibility</button>
+                        </div>
+
+                        <div id="tmpl-rust" class="template-group">
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">👁️</span>Rust ESP Guide: See Every Player, Loot & Base on the Map</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">🎯</span>Rust Aimbot: Dominate PvP Fights and Raid Defenses</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">🏠</span>Best Rust Base Designs That Are Impossible to Raid in 2026</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">⚔️</span>How to Win Every Rust PvP Encounter: Complete Strategy Guide</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">🛡️</span>Staying Undetected on Rust: Anti-Cheat Evasion Tips</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">💰</span>Fastest Way to Farm Scrap and Sulfur in Rust 2026</button>
+                        </div>
+
+                        <div id="tmpl-cod" class="template-group">
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">🎯</span>Best COD Warzone Aimbot Settings for Precision Kills</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">👁️</span>Warzone ESP & Wallhack: See Through Walls Like a Pro</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">🔫</span>Call of Duty Black Ops: Best Loadouts & Meta Weapons 2026</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">🏆</span>How to Get a Nuke in Warzone: Step-by-Step Strategy</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">🛡️</span>RICOCHET Anti-Cheat: How Modern Cheats Stay Undetected</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">📊</span>COD Ranked Play Tips: Climb to Iridescent in 2026</button>
+                        </div>
+
+                        <div id="tmpl-apex" class="template-group">
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">🎯</span>Apex Legends Aimbot: Hit Every Shot Like a Predator</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">👁️</span>Apex ESP: Track Every Squad and Loot Drop in Real Time</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">📈</span>Bronze to Predator in Apex Legends: The Ultimate Guide</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">🔥</span>Best Apex Legends Characters & Abilities Tier List 2026</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">💡</span>Apex Legends Movement Guide: Tap-Strafe, Superglide & More</button>
+                        </div>
+
+                        <div id="tmpl-spoofer" class="template-group">
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">🔄</span>What Is an HWID Spoofer and Why Every Gamer Needs One</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">🛡️</span>Permanent vs Temporary HWID Spoofer: Complete Comparison</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">🔧</span>How to Set Up an HWID Spoofer: Step-by-Step Beginner Guide</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">⚠️</span>How Hardware Bans Work and How to Bypass Them Safely</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">💻</span>Best HWID Spoofer for Fortnite, Valorant & Warzone in 2026</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">🔐</span>Clean Your PC After a Hardware Ban: Full Recovery Guide</button>
+                        </div>
+
+                        <div id="tmpl-r6" class="template-group">
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">🎯</span>Rainbow Six Siege Aimbot: Destroy Every Operator in Ranked</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">👁️</span>R6 Siege ESP & Wallhack: See Through Every Wall and Gadget</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">🛡️</span>Bypassing BattlEye in Rainbow Six Siege: What Cheats Do in 2026</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">📈</span>How to Reach Diamond in R6 Siege: Strategy & Operator Guide</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">🔥</span>Best Rainbow Six Siege Operators Tier List for 2026</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">💡</span>R6 Siege Recoil Control Guide: Mastering Every Weapon Pattern</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">🏆</span>Rainbow Six Siege Ranked Tips: Winning Rounds Without Getting Noticed</button>
+                        </div>
+
+                        <div id="tmpl-arc" class="template-group">
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">🎯</span>ARC Raiders Aimbot: Dominate Every Extraction Run in 2026</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">👁️</span>ARC Raiders ESP Guide: Track Players, Loot & Extraction Points</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">🛡️</span>ARC Raiders Anti-Cheat: How Undetected Cheats Work at Launch</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">💰</span>Best Loot Routes in ARC Raiders: Survive and Extract Every Time</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">🔧</span>ARC Raiders Beginner Guide: Weapons, Gear & Squad Tactics</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">⚔️</span>ARC Raiders PvP Tips: How to Win Every Player Encounter</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">📊</span>ARC Raiders Loadout Guide: Best Gear for Clean Extraction Runs</button>
+                        </div>
+
+                        <div id="tmpl-general" class="template-group">
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">🛡️</span>How Anti-Cheat Software Works: EAC, BattlEye, Vanguard Explained</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">🎮</span>Is Using Game Cheats Worth It? Pros, Cons & What to Know</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">🔒</span>How to Stay Safe While Using Game Enhancements in 2026</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">💡</span>Top 10 Gaming Tips That Will Instantly Improve Your K/D Ratio</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">🖥️</span>Best Gaming PC Build for Competitive FPS Games in 2026</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">📊</span>Gaming Mouse vs Controller: What Gives You the Real Advantage?</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">🎯</span>What Is Aimbot? How AI-Powered Aim Assist Is Changing Gaming</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">👁️</span>What Is ESP in Gaming? A Complete Guide to Wallhacks & Visuals</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">⚡</span>How to Reduce Input Lag and Get 0 Ping in Any Game</button>
+                            <button class="template-chip" onclick="useTopic(this)"><span class="chip-icon">🏆</span>Top 5 Games With the Weakest Anti-Cheat in 2026</button>
+                        </div>
+                    </div>
+
+                    <!-- Progress -->
+                    <div id="generation-progress" class="generation-progress">
+                        <div class="progress-bar-wrap">
+                            <div id="progress-bar" class="progress-bar"></div>
+                        </div>
+                        <div class="progress-text">
+                            <span class="material-symbols-outlined">sync</span>
+                            <span id="progress-text">Generating blog content with AI...</span>
+                        </div>
+                    </div>
+
+                    <!-- SEO Result -->
+                    <div id="seo-result" class="seo-result"></div>
+                </div>
+
+                <!-- Posts List -->
+                <div class="posts-section">
+                    <div class="posts-toolbar">
+                        <h3>All Posts</h3>
+                        <div class="toolbar-actions">
+                            <input type="text" class="search-input" id="post-search" placeholder="Search posts..." onkeypress="if(event.key==='Enter')loadPosts()">
+                            <select class="filter-select" id="post-filter" onchange="loadPosts()">
+                                <option value="all">All Status</option>
+                                <option value="published">Published</option>
+                                <option value="draft">Draft</option>
+                                <option value="archived">Archived</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="post-row post-row-header">
+                        <div>Title</div>
+                        <div>Category</div>
+                        <div>Status</div>
+                        <div>Views</div>
+                        <div>Date</div>
+                        <div>Actions</div>
+                    </div>
+
+                    <div id="posts-list">
+                        <div class="loading-spinner">
+                            <span class="material-symbols-outlined">sync</span>
+                            Loading posts...
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="edit-modal" class="modal-overlay">
+        <div class="modal">
+            <h2>
+                <span class="material-symbols-outlined" style="color: #FFB800;">edit_note</span>
+                Edit Post
+            </h2>
+            <input type="hidden" id="edit-id">
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" id="edit-title">
+            </div>
+            <div class="form-group">
+                <label>Slug</label>
+                <input type="text" id="edit-slug">
+            </div>
+            <div class="form-group">
+                <label>Meta Description</label>
+                <input type="text" id="edit-meta" maxlength="160">
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+                <div class="form-group">
+                    <label>Category</label>
+                    <select id="edit-category">
+                        <option value="gaming">Gaming</option>
+                        <option value="guides">Guides</option>
+                        <option value="news">News</option>
+                        <option value="tips">Tips & Tricks</option>
+                        <option value="reviews">Reviews</option>
+                        <option value="esports">Esports</option>
+                        <option value="hardware">Hardware</option>
+                        <option value="community">Community</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <select id="edit-status">
+                        <option value="draft">Draft</option>
+                        <option value="published">Published</option>
+                        <option value="archived">Archived</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Excerpt</label>
+                <textarea id="edit-excerpt" style="min-height:80px;"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Content (HTML)</label>
+                <textarea id="edit-content"></textarea>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-modal secondary" onclick="closeEditModal()">Cancel</button>
+                <button class="btn-modal primary" onclick="saveEdit()">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast"></div>
+
+    <script>
+        const API_BASE = '';
+        let adminToken = '';
+
+        // Auth
+        function attemptLogin() {
+            const token = document.getElementById('login-token').value;
+            if (!token) {
+                showLoginError('Please enter admin token');
+                return;
+            }
+            fetch(`${API_BASE}/api/save-blog`, { headers: { Authorization: `Bearer ${token}` } })
+                .then(r => {
+                    if (r.status === 401) {
+                        showLoginError('Invalid token');
+                        return;
+                    }
+                    adminToken = token;
+                    sessionStorage.setItem('blog_admin_token', token);
+                    document.getElementById('login-screen').style.display = 'none';
+                    document.getElementById('dashboard').style.display = 'block';
+                    loadPosts();
+                })
+                .catch(() => showLoginError('Connection error'));
+        }
+
+        function showLoginError(msg) {
+            const el = document.getElementById('login-error');
+            el.textContent = msg;
+            el.style.display = 'block';
+        }
+
+        function logout() {
+            sessionStorage.removeItem('blog_admin_token');
+            location.reload();
+        }
+
+        // Init
+        const saved = sessionStorage.getItem('blog_admin_token');
+        if (saved) {
+            adminToken = saved;
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            loadPosts();
+        }
+
+        // Load Posts
+        async function loadPosts() {
+            const status = document.getElementById('post-filter').value;
+            const search = document.getElementById('post-search').value;
+            const list = document.getElementById('posts-list');
+
+            list.innerHTML = '<div class="loading-spinner"><span class="material-symbols-outlined">sync</span> Loading...</div>';
+
+            try {
+                const params = new URLSearchParams();
+                if (status !== 'all') params.set('status', status);
+                if (search) params.set('search', search);
+
+                const res = await fetch(`${API_BASE}/api/save-blog?${params}`, { headers: { Authorization: `Bearer ${adminToken}` } });
+                if (res.status === 401) { logout(); return; }
+                const data = await res.json();
+
+                const posts = data.posts || [];
+                updateStats(posts);
+
+                if (posts.length === 0) {
+                    list.innerHTML = `
+                        <div class="empty-state">
+                            <span class="material-symbols-outlined">article</span>
+                            <p>No posts found. Generate your first blog post above!</p>
+                        </div>`;
+                    return;
+                }
+
+                list.innerHTML = posts.map(post => `
+                    <div class="post-row">
+                        <div class="post-title-cell">
+                            <div class="title">${escHtml(post.title)}</div>
+                            <div class="slug">/blog/${escHtml(post.slug)}</div>
+                        </div>
+                        <div><span class="status-badge draft" style="background:rgba(255,184,0,0.08);color:#aaa;font-weight:500;text-transform:capitalize;">${escHtml(post.category || 'general')}</span></div>
+                        <div><span class="status-badge ${post.status}">${post.status}</span></div>
+                        <div style="color:#888;font-size:14px;">${(post.views || 0).toLocaleString()}</div>
+                        <div style="color:#666;font-size:13px;">${formatDate(post.published_at || post.created_at)}</div>
+                        <div class="post-actions">
+                            ${post.status === 'published' ? `<a href="/blog/${post.slug}" target="_blank" class="btn-action" title="View"><span class="material-symbols-outlined">visibility</span></a>` : ''}
+                            ${post.status === 'draft' ? `<button class="btn-action" title="Publish" onclick="publishPost('${post.id}')"><span class="material-symbols-outlined">publish</span></button>` : ''}
+                            <button class="btn-action" title="Edit" onclick="openEdit('${post.id}')"><span class="material-symbols-outlined">edit</span></button>
+                            <button class="btn-action danger" title="Delete" onclick="deletePost('${post.id}', '${escHtml(post.title).replace(/'/g, "\\'")}')"><span class="material-symbols-outlined">delete</span></button>
+                        </div>
+                    </div>
+                `).join('');
+
+            } catch (err) {
+                list.innerHTML = `<div class="empty-state"><p style="color:#ff6b6b;">Error loading posts: ${err.message}</p></div>`;
+            }
+        }
+
+        function updateStats(posts) {
+            document.getElementById('stat-total').textContent = posts.length;
+            document.getElementById('stat-published').textContent = posts.filter(p => p.status === 'published').length;
+            document.getElementById('stat-drafts').textContent = posts.filter(p => p.status === 'draft').length;
+            document.getElementById('stat-views').textContent = posts.reduce((s, p) => s + (p.views || 0), 0).toLocaleString();
+        }
+
+        // Generate Blog
+        async function generateBlog() {
+            const topic = document.getElementById('blog-topic').value.trim();
+            if (!topic) { showToast('Please enter a topic', 'error'); return; }
+
+            const category = document.getElementById('blog-category').value;
+            const autoPublish = document.getElementById('auto-publish').checked;
+            const tone = document.getElementById('tone-casual').checked ? 'casual and engaging' : 'professional';
+
+            const btn = document.getElementById('btn-generate');
+            const progress = document.getElementById('generation-progress');
+            const progressBar = document.getElementById('progress-bar');
+            const progressText = document.getElementById('progress-text');
+            const seoResult = document.getElementById('seo-result');
+
+            btn.disabled = true;
+            progress.style.display = 'block';
+            seoResult.style.display = 'none';
+
+            let pct = 0;
+            const progressInterval = setInterval(() => {
+                pct = Math.min(pct + Math.random() * 8, 90);
+                progressBar.style.width = pct + '%';
+            }, 500);
+
+            const steps = [
+                'Analyzing topic and keywords...',
+                'Researching SEO opportunities...',
+                'Generating article structure...',
+                'Writing comprehensive content...',
+                'Optimizing for search engines...',
+                'Adding internal links...',
+                'Finalizing and saving...'
+            ];
+
+            let stepIdx = 0;
+            const stepInterval = setInterval(() => {
+                if (stepIdx < steps.length) {
+                    progressText.textContent = steps[stepIdx++];
+                }
+            }, 3000);
+
+            try {
+                const res = await fetch(`${API_BASE}/api/generate-blog`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${adminToken}` },
+                    body: JSON.stringify({ topic, category, tone, autoPublish })
+                });
+
+                clearInterval(progressInterval);
+                clearInterval(stepInterval);
+                progressBar.style.width = '100%';
+
+                const data = await res.json();
+
+                if (!res.ok || data.error) {
+                    const detail = data.message || data.hint || data.details || '';
+                    const stage = data.stage ? ` [stage: ${data.stage}]` : '';
+                    throw new Error((data.error || 'Generation failed') + (detail ? ` — ${detail}` : '') + stage);
+                }
+
+                progressText.textContent = 'Blog generated successfully!';
+
+                // Show SEO score
+                const seo = data.seoScore;
+                const scoreClass = seo.score >= 70 ? 'good' : seo.score >= 45 ? 'ok' : 'bad';
+                seoResult.className = 'seo-result';
+                seoResult.style.display = 'block';
+                seoResult.innerHTML = `
+                    ${data.publicationBlocked ? `
+                        <div style="margin-bottom:12px;padding:12px;border:1px solid #b45309;background:rgba(180,83,9,.12);color:#fbbf24;border-radius:8px;">
+                            <strong>Auto-publish blocked:</strong> this article was saved as a draft because it did not pass the quality gate.
+                            <ul style="margin:8px 0 0 20px;">${(data.qualityIssues || []).map(issue => `<li>${escHtml(issue)}</li>`).join('')}</ul>
+                        </div>` : ''}
+                    <div class="seo-score-badge ${scoreClass}">
+                        <span class="material-symbols-outlined">speed</span>
+                        SEO Score: ${seo.score}/${seo.maxScore}
+                    </div>
+                    <div style="margin-bottom:12px;color:#ccc;font-size:14px;">
+                        <strong>"${escHtml(data.post.title)}"</strong> has been saved as a ${data.post.status}.
+                    </div>
+                    <div class="seo-checks">
+                        ${seo.checks.map(c => `
+                            <div class="seo-check ${c.status}">
+                                <span class="material-symbols-outlined">${c.status === 'pass' ? 'check_circle' : c.status === 'warn' ? 'warning' : 'cancel'}</span>
+                                ${c.item}${c.note ? ` <span style="color:#555;">(${c.note})</span>` : ''}
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+
+                showToast(data.publicationBlocked ? 'Saved as draft — review quality warnings' : 'Blog post generated successfully!', data.publicationBlocked ? 'error' : 'success');
+                document.getElementById('blog-topic').value = '';
+                loadPosts();
+
+            } catch (err) {
+                clearInterval(progressInterval);
+                clearInterval(stepInterval);
+                seoResult.className = 'seo-result error';
+                seoResult.style.display = 'block';
+                seoResult.innerHTML = `<p style="color:#ff6b6b;">Generation failed: ${err.message}</p>`;
+                showToast('Generation failed', 'error');
+            } finally {
+                btn.disabled = false;
+                setTimeout(() => { progress.style.display = 'none'; }, 3000);
+            }
+        }
+
+        // Publish
+        async function publishPost(id) {
+            if (!confirm('Publish this post? It will be visible on the blog.')) return;
+            try {
+                const res = await fetch(`${API_BASE}/api/save-blog`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${adminToken}` },
+                    body: JSON.stringify({ id, status: 'published' })
+                });
+                if (!res.ok) throw new Error('Failed to publish');
+                showToast('Post published!', 'success');
+                loadPosts();
+            } catch (err) {
+                showToast(err.message, 'error');
+            }
+        }
+
+        // Delete
+        async function deletePost(id, title) {
+            if (!confirm(`Delete "${title}"? This cannot be undone.`)) return;
+            try {
+                const res = await fetch(`${API_BASE}/api/save-blog?id=${encodeURIComponent(id)}`, { method: 'DELETE', headers: { Authorization: `Bearer ${adminToken}` } });
+                if (!res.ok) throw new Error('Failed to delete');
+                showToast('Post deleted', 'success');
+                loadPosts();
+            } catch (err) {
+                showToast(err.message, 'error');
+            }
+        }
+
+        // Edit Modal
+        async function openEdit(id) {
+            const res = await fetch(`${API_BASE}/api/save-blog`, { headers: { Authorization: `Bearer ${adminToken}` } });
+            const data = await res.json();
+            const post = (data.posts || []).find(p => p.id === id);
+            if (!post) { showToast('Post not found', 'error'); return; }
+
+            document.getElementById('edit-id').value = post.id;
+            document.getElementById('edit-title').value = post.title;
+            document.getElementById('edit-slug').value = post.slug;
+            document.getElementById('edit-meta').value = post.meta_description || '';
+            document.getElementById('edit-category').value = post.category || 'gaming';
+            document.getElementById('edit-status').value = post.status;
+            document.getElementById('edit-excerpt').value = post.excerpt || '';
+            document.getElementById('edit-content').value = post.content || '';
+            document.getElementById('edit-modal').classList.add('active');
+        }
+
+        function closeEditModal() {
+            document.getElementById('edit-modal').classList.remove('active');
+        }
+
+        async function saveEdit() {
+            const id = document.getElementById('edit-id').value;
+            const updates = {
+                id,
+                title: document.getElementById('edit-title').value,
+                slug: document.getElementById('edit-slug').value,
+                meta_description: document.getElementById('edit-meta').value,
+                category: document.getElementById('edit-category').value,
+                status: document.getElementById('edit-status').value,
+                excerpt: document.getElementById('edit-excerpt').value,
+                content: document.getElementById('edit-content').value,
+            };
+
+            try {
+                const res = await fetch(`${API_BASE}/api/save-blog`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${adminToken}` },
+                    body: JSON.stringify(updates)
+                });
+                if (!res.ok) throw new Error('Failed to save');
+                showToast('Post updated!', 'success');
+                closeEditModal();
+                loadPosts();
+            } catch (err) {
+                showToast(err.message, 'error');
+            }
+        }
+
+        // Helpers
+        function escHtml(s) {
+            const d = document.createElement('div');
+            d.textContent = s || '';
+            return d.innerHTML;
+        }
+
+        function formatDate(d) {
+            if (!d) return 'N/A';
+            return new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        }
+
+        function showToast(msg, type) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.className = `toast ${type} show`;
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // Topic Templates
+        function switchTemplateTab(btn, group) {
+            document.querySelectorAll('.template-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.template-group').forEach(g => g.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('tmpl-' + group).classList.add('active');
+        }
+
+        function useTopic(btn) {
+            const raw = btn.textContent.trim();
+            const topic = raw.replace(/^[\u{1F300}-\u{1FAD6}\u{2600}-\u{27BF}]\s*/u, '').trim();
+            document.getElementById('blog-topic').value = topic;
+            document.getElementById('blog-topic').focus();
+
+            const cat = btn.closest('.template-group')?.id?.replace('tmpl-', '') || 'gaming';
+            const catMap = {
+                fortnite: 'gaming', valorant: 'gaming', rust: 'gaming',
+                cod: 'gaming', apex: 'gaming', r6: 'gaming',
+                spoofer: 'guides', general: 'tips'
+            };
+            document.getElementById('blog-category').value = catMap[cat] || 'gaming';
+
+            showToast('Topic loaded — hit Generate!', 'success');
+        }
+    </script>
+</body>
+</html>

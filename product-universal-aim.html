@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script>/*creed-start-at-top*/(function(){try{var n=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||null;var t=n&&n.type?n.type:'navigate';if(t==='navigate'&&!location.hash&&'scrollRestoration' in history){history.scrollRestoration='manual';window.scrollTo(0,0);}}catch(e){}})();</script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EJDCSEKBRW"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-EJDCSEKBRW');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universal Aimbot 2026 - Works On Any Game | Creed</title>
+    <meta name="description" content="AI aimbot that reads the screen, not game memory - works on virtually any title. Aimbot, triggerbot, RCS, ESP, Arduino and MAKCU support. From $5.99.">
+    <meta name="keywords" content="AI aimbot, universal aimbot, AI aim assist, vision based aimbot, screen capture aimbot, works on any game aimbot, external aimbot, undetected AI aim, colour free AI aim 2026">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://creedv2.com/product/universal-aim">
+    <link rel="icon" type="image/png" href="/assets/creedlogo-black.png">
+
+    <meta property="og:type" content="product">
+    <meta property="og:url" content="https://creedv2.com/product/universal-aim">
+    <meta property="og:title" content="Universal Aimbot 2026 - Works On Any Game | Creed">
+    <meta property="og:description" content="Universal external aim assist that runs on any supported title. Configurable FOV, smoothing and triggerbot. Undetected. From $5.99.">
+    <meta property="og:image" content="https://creedv2.com/assets/universalaim-product.png">
+    <meta property="og:site_name" content="Creed Cheats">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Universal Aimbot 2026 - Works On Any Game | Creed">
+    <meta name="twitter:description" content="Universal external aim assist that runs on any supported title. Configurable FOV, smoothing and triggerbot. Undetected. From $5.99.">
+    <meta name="twitter:image" content="https://creedv2.com/assets/universalaim-product.png">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "Universal Aim",
+      "description": "AI-powered aim assist with triggerbot, recoil control and ESP. Vision based, so it runs across supported titles without a per-game build.",
+      "image": "https://creedv2.com/assets/universalaim-product.png",
+      "brand": {"@type": "Brand", "name": "Creed"},
+      "offers": {
+        "@type": "Offer",
+        "price": "5.99",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock",
+        "url": "https://creedv2.com/product/universal-aim"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "reviewCount": "356",
+        "bestRating": "5"
+      }
+    }
+    </script>
+
+    <link rel="stylesheet" href="/styles.css?v=cursor3">
+
+    <!-- Icons -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <canvas id="bg-canvas"></canvas>
+    <div id="cursor"></div>
+    <div id="cursor-blur"></div>
+
+    <!-- Navigation -->
+    <header class="fade-in visible">
+        <nav class="navbar glass-panel">
+            <div class="logo">
+                <img src="/assets/navlogo.png" alt="Creed Logo" class="logo-image">
+            </div>
+
+            <div class="nav-links">
+                <a href="/"><i class="fas fa-home"></i> Home</a>
+                <a href="/products"><i class="fas fa-box"></i> Products</a>
+                <a href="/free-trial"><i class="fas fa-gamepad"></i> Free Trial</a>
+                <a href="/faq"><i class="fas fa-circle-question"></i> FAQ</a>
+                <a href="/status"><i class="fas fa-server"></i> Status</a>
+                <a href="/vouches"><i class="fas fa-star"></i> Reviews</a>
+                <a href="/support"><i class="fas fa-headset"></i> Support</a>
+            </div>
+
+            <div class="nav-icons">
+                <a href="https://discord.gg/creedgg" target="_blank" class="icon-btn">
+                    <i class="fab fa-discord" style="font-size: 20px;"></i>
+                </a>
+                <div class="icon-btn" id="cart-icon" style="position: relative; cursor: pointer;">
+                    <span class="material-symbols-outlined" style="font-size: 20px;">local_mall</span>
+                    <span class="cart-badge" id="cart-badge" style="display: none;">0</span>
+                </div>
+                <button class="hamburger-menu icon-btn" id="hamburger-menu" aria-label="Menu">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobile-menu">
+            <div class="mobile-menu-content">
+                <a href="/" class="mobile-menu-link"><i class="fas fa-home"></i> Home</a>
+                <a href="/products" class="mobile-menu-link"><i class="fas fa-box"></i> Products</a>
+                <a href="/free-trial" class="mobile-menu-link"><i class="fas fa-gamepad"></i> Free Trial</a>
+                <a href="/faq" class="mobile-menu-link"><i class="fas fa-circle-question"></i> FAQ</a>
+                <a href="/status" class="mobile-menu-link"><i class="fas fa-server"></i> Status</a>
+                <a href="/vouches" class="mobile-menu-link"><i class="fas fa-star"></i> Reviews</a>
+                <a href="/support" class="mobile-menu-link"><i class="fas fa-headset"></i> Support</a>
+                <a href="https://discord.gg/creedgg" target="_blank" class="mobile-menu-link mobile-menu-discord">
+                    <i class="fab fa-discord"></i>
+                    <span>Discord Server</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Product Detail Page -->
+    <section class="product-detail-page">
+        <div class="container">
+            <div class="product-detail-container">
+                <!-- Left: Product Image -->
+                <div class="product-detail-image-section">
+                    <div class="product-image-main">
+                        <img src="/assets/universalaim-product.png" alt="Universal Aim" id="main-product-image" class="product-main-image">
+                        <button class="image-nav-btn image-nav-prev" aria-label="Previous image">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="image-nav-btn image-nav-next" aria-label="Next image">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right: Product Info -->
+                <div class="product-detail-info-section">
+                    <div class="product-detail-header">
+                        <h1 class="product-detail-title">Universal Aim</h1>
+                        <p class="product-detail-slogan">Precision targeting powered by an AI vision model &mdash; it reads the screen instead of game memory, so it runs on virtually any title. Aimbot, triggerbot, RCS and ESP, fully configurable.</p>
+                        
+                        <!-- Compatibility Info -->
+                        <div class="product-compatibility">
+                            <div class="compatibility-item">
+                                <i class="fas fa-rocket"></i>
+                                <span>Windows 10 &amp; 11 Supported</span>
+                            </div>
+                            <div class="compatibility-item">
+                                <i class="fas fa-lock"></i>
+                                <span>Works alongside most anti-cheats</span>
+                            </div>
+                            <div class="compatibility-item">
+                                <i class="fas fa-star"></i>
+                                <span>Configurable FOV and smoothing</span>
+                            </div>
+                        </div>
+
+                        <div class="product-rating-large">
+                            <div class="stars-rating">
+                                <span class="star filled">&#9733;</span>
+                                <span class="star filled">&#9733;</span>
+                                <span class="star filled">&#9733;</span>
+                                <span class="star filled">&#9733;</span>
+                                <span class="star half">&#9733;</span>
+                            </div>
+                            <span class="rating-text-large">4.8 (356 reviews)</span>
+                        </div>
+                    </div>
+
+                    <div class="product-price-section">
+                        <div class="price-display">
+                            <span class="price-label">Base Price:</span>
+                            <span class="price-main-large" id="base-price">$5.99</span>
+                        </div>
+                        <div class="quantity-selector">
+                            <label for="quantity">Quantity:</label>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn" id="quantity-decrease">-</button>
+                                <input type="number" id="quantity" value="1" min="1" max="10" readonly>
+                                <button class="quantity-btn" id="quantity-increase">+</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-variants-section">
+                        <h3 class="variants-title">Variants:</h3>
+                        <div class="variants-grid">
+                            <div class="variant-card active" data-price="5.99" data-duration="Day">
+                                <div class="variant-content">
+                                    <span class="variant-name">Day</span>
+                                    <span class="variant-desc">[1 Day Access to Universal Aim]</span>
+                                    <span class="variant-price">$5.99</span>
+                                </div>
+                            </div>
+                            <div class="variant-card" data-price="22.99" data-duration="Week">
+                                <div class="variant-content">
+                                    <span class="variant-name">Week</span>
+                                    <span class="variant-desc">[Week Access to Universal Aim]</span>
+                                    <span class="variant-price">$22.99</span>
+                                </div>
+                            </div>
+                            <div class="variant-card" data-price="44.99" data-duration="Month">
+                                <div class="variant-content">
+                                    <span class="variant-name">Month</span>
+                                    <span class="variant-desc">[Month Access to Universal Aim]</span>
+                                    <span class="variant-price">$44.99</span>
+                                </div>
+                            </div>
+                            <div class="variant-card" data-price="129.99" data-duration="Lifetime">
+                                <div class="variant-content">
+                                    <span class="variant-name">Lifetime</span>
+                                    <span class="variant-desc">[Lifetime Access to Universal Aim]</span>
+                                    <span class="variant-price">$129.99</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-total-section">
+                        <div class="total-display">
+                            <span class="total-label">Total:</span>
+                            <span class="total-price" id="total-price">$5.99</span>
+                        </div>
+                        <button id="add-to-cart-btn" class="btn btn-primary btn-purchase-large">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span>Add to Cart</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Description Section -->
+            <div class="product-description-section">
+                <div class="description-content">
+                    <h2>About Universal Aim</h2>
+                    <p class="description-text">
+                        Universal Aim is an AI-driven aim assist. Instead of reading game memory, it watches the screen in real time and uses a trained vision model to find targets &ndash; which is why it runs on virtually any title without a game-specific build. Tune the FOV, smoothing and confidence to taste, and it behaves the same whether you are playing a shooter it has seen before or one it has not.
+                    </p>
+                </div>
+
+                
+
+                <div class="product-features-detailed ua-wrap">
+                    <div class="ua-badges">
+                        <span class="ua-badge"><i class="fab fa-windows"></i> Windows 10 / 11</span>
+                        <span class="ua-badge"><i class="fas fa-microchip"></i> NVIDIA / Intel / AMD</span>
+                        <span class="ua-badge"><i class="fas fa-check-circle"></i> Simple setup</span>
+                    </div>
+                    <div class="ua-features">
+                    <div class="ua-card">
+                        <div class="ua-card-head">
+                            <span class="ua-ico"><i class="fas fa-crosshairs"></i></span>
+                            <h3>AI Aimbot<span>Precision targeting with AI intelligence</span></h3>
+                        </div>
+                        <p class="ua-intro">Enhance your AI aimbot with these key features for superior performance:</p>
+                        <ul class="ua-list">
+                            <li><i class="fas fa-check"></i><span><b>Target Specific Body Parts</b><small>Head, neck, chest, or body targeting</small></span></li>
+                            <li><i class="fas fa-check"></i><span><b>Aimbot Mode</b><small>Auto Aim or Right Click (hold to aim) options</small></span></li>
+                            <li><i class="fas fa-check"></i><span><b>Adjustable Aim Speed</b><small>Legit or Blatant modes</small></span></li>
+                            <li><i class="fas fa-check"></i><span><b>Confidence Settings</b><small>Define AI detection thresholds</small></span></li>
+                            <li><i class="fas fa-check"></i><span><b>Humanization</b><small>Human-like aim movement using Bezier or Windmouse</small></span></li>
+                            <li><i class="fas fa-check"></i><span><b>Advanced Target Tracking</b><small>Anti-snap algorithm for stable, smooth target locking</small></span></li>
+                            <li><i class="fas fa-check"></i><span><b>Multi-Resolution Model Support</b><small>Run models at 128&times;128 up to 640&times;640 without restarting</small></span></li>
+                            <li><i class="fas fa-check"></i><span><b>FOV Settings</b><small>Adjustable field of view for target acquisition</small></span></li>
+                            <li><i class="fas fa-check"></i><span><b>Dedicated Aim Key</b><small>Assign a key for precision control</small></span></li>
+                            <li><i class="fas fa-check"></i><span><b>Hold-to-Aim Mode</b><small>Hold a configurable key to activate aim assistance</small></span></li>
+                            <li><i class="fas fa-check"></i><span><b>Aim Strength</b><small>Separated lock power from aim speed for finer control</small></span></li>
+                        </ul>
+                    </div>
+                    <div class="ua-card">
+                        <div class="ua-card-head">
+                            <span class="ua-ico"><i class="fas fa-bolt"></i></span>
+                            <h3>Triggerbot &amp; RCS<span>Automatic fire and recoil control</span></h3>
+                        </div>
+                        <p class="ua-intro">Advanced triggerbot modes and recoil control for precise, natural shooting:</p>
+                        <ul class="ua-list">
+                            </ul>
+                            <p class="ua-sub">Triggerbot</p>
+                            <ul class="ua-list">
+                            <li><i class="fas fa-check"></i><span><b>Enable &amp; Toggle Keybind</b><small>Turn Triggerbot on or off with a customizable toggle key</small></span></li>
+                            <li><i class="fas fa-check"></i><span><b>Activation Mode</b><small>Hold a key to activate or enable Always On for continuous fire</small></span></li>
+                            <li><i class="fas fa-check"></i><span><b>Trigger Mode</b><small>Mode 1 (Distance) or Mode 2 (Range) detection</small></span></li>
+                            <li><i class="fas fa-check"></i><span><b>Trigger Radius</b><small>Adjust the detection radius for firing</small></span></li>
+                            <li><i class="fas fa-check"></i><span><b>Delay &amp; Cooldown</b><small>Set fire delay and cooldown between shots for natural timing</small></span></li>
+                            </ul>
+                            <p class="ua-sub">Recoil Control (RCS)</p>
+                            <ul class="ua-list">
+                            <li><i class="fas fa-check"></i><span><b>Enable RCS &amp; Toggle Keybind</b><small>Turn recoil control on or off with your own key</small></span></li>
+                            <li><i class="fas fa-check"></i><span><b>Use with Aimbot</b><small>RCS works alongside the aimbot simultaneously</small></span></li>
+                            <li><i class="fas fa-check"></i><span><b>RCS Mode</b><small>Simple or game specific recoil compensation mode</small></span></li>
+                            <li><i class="fas fa-check"></i><span><b>Pull Strength &amp; Delay</b><small>Control how aggressively and how fast recoil is corrected</small></span></li>
+                            <li><i class="fas fa-check"></i><span><b>Horizontal Jitter</b><small>Adds slight horizontal variance to simulate natural recoil</small></span></li>
+                        </ul>
+                    </div>
+                    <div class="ua-card">
+                        <div class="ua-card-head">
+                            <span class="ua-ico"><i class="fas fa-eye"></i></span>
+                            <h3>Visuals &ndash; ESP<span>Enhanced visibility and tracking</span></h3>
+                        </div>
+                        <p class="ua-intro">Customize visuals with ESP, tracers, and crosshairs for better tracking:</p>
+                        <ul class="ua-list">
+                            <li><i class="fas fa-check"></i><span><b>Player ESP</b><small>Enable/disable player box drawing</small></span></li>
+                            <li><i class="fas fa-check"></i><span><b>Tracers / Snaplines</b><small>Highlight player aim bone</small></span></li>
+                            <li><i class="fas fa-check"></i><span><b>Custom Crosshairs</b><small>Multiple in-game crosshair options</small></span></li>
+                            <li><i class="fas fa-check"></i><span><b>Custom Colors</b><small>Adjust all visual element colors</small></span></li>
+                            <li><i class="fas fa-check"></i><span><b>ESP Types</b><small>Normal, Cornered and Filled styles</small></span></li>
+                        </ul>
+                    </div>
+                    <div class="ua-card">
+                        <div class="ua-card-head">
+                            <span class="ua-ico"><i class="fas fa-cog"></i></span>
+                            <h3>Settings<span>Complete customization options</span></h3>
+                        </div>
+                        <p class="ua-intro">Controller support, hardware integration and full customization:</p>
+                        <ul class="ua-list">
+                            <li><i class="fas fa-check"></i><span><b>Bezier Curve</b><small>Advanced smoothing algorithm</small></span></li>
+                            <li><i class="fas fa-check"></i><span><b>Game Presets</b><small>Universal, FN, APX, CS2 FaceIt models included</small></span></li>
+                            <li><i class="fas fa-check"></i><span><b>Arduino &amp; MAKCU Support</b><small>Undetectable hardware mouse movements</small></span></li>
+                            <li><i class="fas fa-check"></i><span><b>Mouse Methods</b><small>Default, GHUB, Razer, Arduino, RP2040, RP2350, MAKCU, Driver, Stealth</small></span></li>
+                            <li><i class="fas fa-check"></i><span><b>Hardware Bezier</b><small>MAKCU hardware-accelerated Bezier curves</small></span></li>
+                            <li><i class="fas fa-check"></i><span><b>Keybind System</b><small>60+ assignable keys with full keyboard coverage</small></span></li>
+                            <li><i class="fas fa-check"></i><span><b>Config Profiles</b><small>Save and switch complete setups per game</small></span></li>
+                        </ul>
+                    </div>
+                    </div>
+                </div>
+
+                <div class="product-info-grid">
+                    <!-- Why Creed Column -->
+                    <div class="info-column">
+                        <h3 class="info-column-title">
+                            <i class="fas fa-shield-alt"></i>
+                            Why Creed?
+                        </h3>
+                        <ul class="info-list">
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>Undetected & Reliable</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>Frequent Updates</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>Trusted & Secure</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- Page CTA -->
+    <section class="page-cta">
+        <div class="page-cta-glow" aria-hidden="true"></div>
+        <div class="page-cta-inner">
+            <h2>Questions before you <span>buy?</span></h2>
+            <p>Ask before you commit — we'd rather you buy the right thing.</p>
+            <div class="page-cta-grid">
+                    <a class="page-cta-card" href="#" onclick="openCreedLivechat(); return false;">
+                        <span class="page-cta-ico"><i class="fas fa-robot"></i></span>
+                        <strong>Ask Creed AI</strong>
+                        <em>Instant answers, any time of day</em>
+                    </a>
+                    <a class="page-cta-card" href="/free-trial">
+                        <span class="page-cta-ico"><i class="fas fa-gamepad"></i></span>
+                        <strong>Try it free</strong>
+                        <em>Play the test range before you buy</em>
+                    </a>
+                    <a class="page-cta-card" href="/support">
+                        <span class="page-cta-ico"><i class="fas fa-headset"></i></span>
+                        <strong>Support center</strong>
+                        <em>All contact options in one place</em>
+                    </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <!-- Brand Column -->
+                <div class="footer-column footer-column-brand">
+                    <div class="footer-brand">
+                        <img src="/assets/creedlogo.png" alt="Creed Logo" class="footer-logo">
+                        <h3>CREED</h3>
+                    </div>
+                    <p class="footer-description">Creed is a trusted provider of premium gaming software and enhancement tools, built for players who demand performance, reliability and consistency. Every release is maintained with stability, security and long-term compatibility in mind.</p>
+                    <p class="footer-description">Instant access after purchase, frequent updates to match the latest game patches, and responsive 24/7 support — so you spend your time playing, not troubleshooting.</p>
+                    <div class="footer-trust">
+                        <span class="footer-trust-chip"><i class="fas fa-shield-halved"></i> Secure</span>
+                        <span class="footer-trust-chip"><i class="fas fa-eye-slash"></i> Undetected</span>
+                        <span class="footer-trust-chip"><i class="fas fa-headset"></i> 24/7 Support</span>
+                    </div>
+                </div>
+
+                <!-- Quick Links Column -->
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="/"><i class="fas fa-house"></i>Home</a></li>
+                        <li><a href="/products"><i class="fas fa-box"></i>Products</a></li>
+                        <li><a href="/free-trial"><i class="fas fa-gamepad"></i>Free Trial</a></li>
+                        <li><a href="/faq"><i class="fas fa-circle-question"></i>FAQ</a></li>
+                        <li><a href="/blog"><i class="fas fa-newspaper"></i>Blog</a></li>
+                        <li><a href="/status"><i class="fas fa-server"></i>Status</a></li>
+                        <li><a href="/vouches"><i class="fas fa-star"></i>Reviews</a></li>
+                        <li><a href="/support"><i class="fas fa-headset"></i>Support</a></li>
+                    </ul>
+                </div>
+
+                <!-- Products Column -->
+                <div class="footer-column">
+                    <h4>Products</h4>
+                    <ul class="footer-links">
+                        <li><a href="/product/fortnite"><i class="fas fa-gamepad"></i>Fortnite</a></li>
+                        <li><a href="/product/valorant"><i class="fas fa-crosshairs"></i>Valorant</a></li>
+                        <li><a href="/product/rust"><i class="fas fa-hammer"></i>Rust</a></li>
+                        <li><a href="/product/apex-legends"><i class="fas fa-bolt"></i>Apex Legends</a></li>
+                        <li><a href="/product/rainbowsiege"><i class="fas fa-shield-halved"></i>Rainbow Six Siege</a></li>
+                        <li><a href="/product/cod-black-ops-7"><i class="fas fa-burst"></i>Call of Duty Black Ops</a></li>
+                        <li><a href="/product/arc-raiders"><i class="fas fa-meteor"></i>ARC Raiders</a></li>
+                        <li><a href="/product/temp-spoofer"><i class="fas fa-microchip"></i>HWID Spoofer</a></li>
+                        <li><a href="/product/universal-aim"><i class="fas fa-crosshairs"></i>Universal Aim</a></li>
+                        <li><a href="/products?filter=accounts"><i class="fas fa-user-shield"></i>Game Accounts</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support Column -->
+                <div class="footer-column">
+                    <h4>Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" onclick="openCreedLivechat(); return false;"><i class="fas fa-robot"></i>Live Chat</a></li>
+                        <li><a href="https://discord.gg/creedgg" target="_blank" rel="noopener noreferrer"><i class="fab fa-discord"></i>Discord Server</a></li>
+                        <li><a href="/portal"><i class="fas fa-user-shield"></i>Customer Portal</a></li>
+                        <li><a href="/support"><i class="fas fa-headset"></i>Contact Support</a></li>
+                        <li><a href="/status"><i class="fas fa-server"></i>System Status</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Newsletter -->
+            <div class="footer-newsletter">
+                <div class="footer-newsletter-copy">
+                    <h4>Get <span>5%</span> off your first order</h4>
+                    <p>Subscribe for updates, new releases and an instant welcome coupon.</p>
+                </div>
+                <form class="footer-newsletter-form" id="footer-newsletter" novalidate>
+                    <input type="email" name="email" placeholder="Enter your email" aria-label="Email address" required>
+                    <button type="submit" class="btn btn-primary">Subscribe</button>
+                </form>
+                <p class="footer-newsletter-msg" id="footer-newsletter-msg" role="status" hidden></p>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2026 Creed. All rights reserved. | Number 1 Cheat Provider</p>
+                    <div class="footer-bottom-right">
+                        <a href="/faq">FAQ</a>
+                        <a href="/support">Support</a>
+                        <span class="footer-status"><span class="footer-status-dot"></span> All Systems Online</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Modal -->
+    <div id="cart-modal" class="cart-modal">
+        <div id="cart-overlay" class="cart-overlay"></div>
+        <div class="cart-content-wrapper">
+            <div class="cart-header">
+                <h2>Shopping Cart</h2>
+                <button id="close-cart" class="cart-close-btn">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div id="cart-empty" class="cart-empty" style="display: none;">
+                <span class="material-symbols-outlined">shopping_bag</span>
+                <p>Your cart is empty</p>
+                <a href="/products" class="btn btn-primary">Browse Products</a>
+            </div>
+            <div id="cart-content" class="cart-content">
+                <div id="cart-items" class="cart-items"></div>
+                <div class="cart-footer">
+                    <div class="cart-coupon-section">
+                        <div class="coupon-input-group">
+                            <input type="text" id="coupon-code-input" class="coupon-input" placeholder="Enter coupon code" maxlength="10">
+                            <button id="apply-coupon-btn" class="btn btn-secondary btn-coupon">Apply</button>
+                        </div>
+                        <div id="coupon-message" class="coupon-message"></div>
+                    </div>
+                    <div class="cart-total-section">
+                        <div id="cart-subtotal" class="cart-subtotal" style="display: none;">
+                            <span class="cart-total-label">Subtotal:</span>
+                            <span id="cart-subtotal-amount" class="cart-total-amount">$0.00</span>
+                        </div>
+                        <div id="cart-discount" class="cart-discount" style="display: none;">
+                            <span class="cart-total-label">Discount:</span>
+                            <span id="cart-discount-amount" class="cart-discount-amount">-$0.00</span>
+                        </div>
+                        <div class="cart-total-row">
+                            <span class="cart-total-label">Total:</span>
+                            <span id="cart-total" class="cart-total-amount">$0.00</span>
+                        </div>
+                    </div>
+                    <button id="cart-checkout" class="btn btn-primary btn-checkout">Proceed to Checkout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Discount Reopen Button -->
+    <button id="discount-reopen-btn" class="discount-reopen-btn" title="Get Discount Code">
+        DISCOUNT
+    </button>
+
+    <!-- Promo Popup -->
+    <div id="promo-popup" class="promo-popup">
+        <div class="promo-popup-overlay"></div>
+        <div class="promo-popup-content">
+            <button class="promo-popup-close" id="promo-popup-close">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+            <div class="promo-popup-wrapper">
+                <div class="promo-popup-banner">
+                    <img src="/assets/PopUp.png" alt="Creed Promo" class="promo-banner-image">
+                </div>
+                <div class="promo-popup-body">
+                <h2 class="promo-popup-headline">
+                    <span class="promo-text-line">YOU HAVE AN</span>
+                    <span class="promo-text-exclusive">EXCLUSIVE</span>
+                    <span class="promo-text-line">DISCOUNT !</span>
+                </h2>
+                <p class="promo-popup-subtext">Enter your email to receive your 5% OFF instantly</p>
+                <form id="promo-popup-form" class="promo-popup-form">
+                    <input 
+                        type="email" 
+                        id="promo-email-input" 
+                        class="promo-email-input" 
+                        placeholder="Email" 
+                        required
+                        autocomplete="email">
+                    <button type="submit" class="promo-unlock-btn">
+                        UNLOCK OFFER
+                    </button>
+                </form>
+                <button class="promo-dismiss" id="promo-dismiss">No, thanks</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.1"></script>
+    <script src="/wallet-nav.js"></script>
+    <script src="/cart.js"></script>
+    <script src="/payment-badges.js"></script>
+    <script src="/script.js?v=yt1"></script>
+    <script src="/promo-popup.js"></script>
+    <script src="/livechat-config.js"></script>
+    <script src="/livechat-embed.js"></script>
+    <script src="/chatbot.js"></script>
+    <script>
+        // Product page functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const variants = document.querySelectorAll('.variant-card');
+            const quantityInput = document.getElementById('quantity');
+            const quantityDecrease = document.getElementById('quantity-decrease');
+            const quantityIncrease = document.getElementById('quantity-increase');
+            const basePriceEl = document.getElementById('base-price');
+            const totalPriceEl = document.getElementById('total-price');
+            const addToCartBtn = document.getElementById('add-to-cart-btn');
+
+            let selectedVariant = variants[0];
+            let quantity = 1;
+
+            // Variant selection
+            variants.forEach(variant => {
+                variant.addEventListener('click', () => {
+                    variants.forEach(v => v.classList.remove('active'));
+                    variant.classList.add('active');
+                    selectedVariant = variant;
+                    updatePrice();
+                });
+            });
+
+            // Quantity controls
+            quantityDecrease.addEventListener('click', () => {
+                if (quantity > 1) {
+                    quantity--;
+                    quantityInput.value = quantity;
+                    updatePrice();
+                }
+            });
+
+            quantityIncrease.addEventListener('click', () => {
+                if (quantity < 10) {
+                    quantity++;
+                    quantityInput.value = quantity;
+                    updatePrice();
+                }
+            });
+
+            quantityInput.addEventListener('change', () => {
+                const val = parseInt(quantityInput.value) || 1;
+                quantity = Math.max(1, Math.min(10, val));
+                quantityInput.value = quantity;
+                updatePrice();
+            });
+
+            function updatePrice() {
+                const price = parseFloat(selectedVariant.dataset.price);
+                const total = (price * quantity).toFixed(2);
+                basePriceEl.textContent = `$${price.toFixed(2)}`;
+                totalPriceEl.textContent = `$${total}`;
+            }
+
+            // Add to Cart functionality
+            addToCartBtn.addEventListener('click', () => {
+                if (!window.cart) {
+                    alert('Cart system not loaded. Please refresh the page.');
+                    return;
+                }
+
+                const productData = {
+                    id: 'universal-aim',
+                    name: 'Universal Aim',
+                    variant: selectedVariant.dataset.duration,
+                    price: selectedVariant.dataset.price,
+                    quantity: quantity,
+                    image: 'universalaim-product.png',
+                    slug: 'product-universal-aim.html'
+                };
+
+                window.cart.addItem(productData);
+                window.cart.toggleCart();
+            });
+
+            // Image navigation (placeholder for future gallery)
+            const imageNavPrev = document.querySelector('.image-nav-prev');
+            const imageNavNext = document.querySelector('.image-nav-next');
+            
+            imageNavPrev?.addEventListener('click', () => {
+                // Future: Navigate to previous image
+            });
+
+            imageNavNext?.addEventListener('click', () => {
+                // Future: Navigate to next image
+            });
+        });
+    </script>
+</body>
+
+</html>
+
+
